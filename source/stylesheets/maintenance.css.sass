@@ -29,23 +29,23 @@
       border: $border !important
       width: 100%
 
-#maintenance header
-  +flexbox
-  +align-items(center)
-  height: 218px
-  position: relative
-  top: 0
-  width: 100%
+  header
+    +flexbox
+    +align-items(center)
+    height: 218px
+    position: relative
+    top: 0
+    width: 100%
 
-  @media screen and (max-width: $break-small)
-    height: 118px
+    @media screen and (max-width: $break-small)
+      height: 118px
 
-  a
-    margin: 0 auto
+    a
+      margin: 0 auto
 
-#maintenance .maintenance-message
-  padding-top: 0
-  width: 100%
+  .maintenance-message
+    padding-top: 0
+    width: 100%
 
   .message-content
     border: $border
@@ -56,7 +56,29 @@
     width: 100%
 
     @media screen and (max-width: $break-small)
-      padding: 150px 25px 25px
+      padding: 150px 15px 25px
 
-    p
-      font-size: 1.5em
+  .maintenance-message-text
+    font-size: 1.25em
+    line-height: 1.4
+
+    @media (max-width: $break-small)
+      font-size: 1.2em
+
+  .social-links
+    +flexbox
+    +align-items(center)
+    +justify-content(center)
+    margin-top: 30px
+
+    li
+      margin: 0 8px
+
+      a
+        display: block
+        padding: 4px
+
+        svg
+          display: block
+          height: 24px
+          width: 24px
