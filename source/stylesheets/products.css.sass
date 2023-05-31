@@ -58,6 +58,7 @@
         position: absolute
         width: 100%
         opacity: 0
+        transition: opacity .2s ease-in-out
 
         *
           color: $background-color
@@ -67,7 +68,6 @@
           opacity: 1
 
         img
-          +all-transitions
           opacity: .8
 
   @media screen and (max-width: $break-large)
@@ -96,6 +96,7 @@
   cursor: pointer
   display: block
   width: 100%
+  transition: opacity .2s ease-in-out
 
 .product-list-item-info
   border: $border
@@ -129,8 +130,7 @@
 .product-list-item-name
   padding-right: 20px
   position: relative
-  text-transform: uppercase
-  overflow-wrap: break-word
+  overflow-wrap: anywhere
 
   @media screen and (max-width: $break-medium)
     padding-right: 0

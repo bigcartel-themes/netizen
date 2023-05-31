@@ -1,6 +1,6 @@
 {
   "name": "Netizen",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "images": [
     {
       "variable": "logo",
@@ -295,7 +295,6 @@
     "title_position": "center",
     "title_font_size": "28px",
     "title_font_weight": "normal",
-    "title_text_transform": "uppercase",
     "title_color": "{{ text_color }}",
     "secondary_font": "{{ text_font }}",
     "secondary_font_size": "16px",
@@ -350,7 +349,6 @@
     "button_font": "{{ text_font }}",
     "button_font_size": "14px",
     "button_font_weight": "normal",
-    "button_text_transform": "uppercase",
     "button_background_color": "{{ accent_color }}",
     "button_color": "{{ text_color }}",
     "button_hover_color": "{{ alt_background_color }}",
@@ -359,7 +357,6 @@
     "step_inactive_header_color": "opacify({{ text_color }}, .25)",
     "step_border_color": "{{ border_color }}",
     "step_border_width": "1px",
-    "step_header_text_transform": "uppercase",
     "step_background_color": "{{ background_color }}",
     "step_inactive_border_color": "opacify({{ border_color }}, .25)",
     "step_primary_font_weight": "normal",
