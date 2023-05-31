@@ -3,7 +3,6 @@
 *
   box-sizing: border-box
 
-
 html, body
   height: 100%
   margin: 0
@@ -86,8 +85,7 @@ textarea
     font-family: $text-font
     font-size: 16px
     height: 100%
-    letter-spacing: 1px
-    line-height: 57px
+    line-height: normal
     padding: 0 66px 0 15px
     position: relative
     width: 100%
@@ -722,14 +720,28 @@ footer
               fill: $accent-color
 
       .bigcartel-credit
-        white-space: nowrap
+        color: $background-color
+        line-height: 1em
+        font-size: 14px
+        display: flex
+        align-items: center
+        gap: 8px
+        outline-offset: 4px
+        padding: 2px 0
+        text-decoration: none
 
-        a
-          color: $background-color
-          font-size: 12px
+        &:hover, &:focus
+          text-decoration: none
 
-          &:hover
-            color: $accent-color
+        &__text
+          white-space: nowrap
+          position: relative
+
+        &__lockup
+          display: block
+          fill: currentColor
+          padding-top: 1px
+          width: 86px
 
       ul + .bigcartel-credit
         margin-top: 10px
@@ -797,17 +809,6 @@ footer
   svg
     height: 20px
     width: 20px
-
-.pointer-device.show-cursor
-  cursor: none !important
-
-  *
-    cursor: none !important
-
-  .cursor
-    opacity: 1
-    pointer-events: none
-    visibility: visible
 
 .sticky-mobile-header
   display: none
