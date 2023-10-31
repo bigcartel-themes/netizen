@@ -1,3 +1,11 @@
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.remove("preloader");
+  let contactFields = document.querySelectorAll(".contact-form-group input, .contact-form-group textarea");
+  contactFields.forEach(function (contactField) {
+    contactField.removeAttribute("tabindex");
+  });
+});
+
 var isGreaterThanZero = function(currentValue) {
   return currentValue > 0;
 }
