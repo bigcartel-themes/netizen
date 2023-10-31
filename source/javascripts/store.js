@@ -1,6 +1,3 @@
-
-var inPreview = (/http(s?):\/\/draft-+\w+\.bigcartel\.(test|biz|com)/.test(window.origin)||(/\/admin\/design/.test(top.location.pathname)));
-
 var isGreaterThanZero = function(currentValue) {
   return currentValue > 0;
 }
@@ -359,13 +356,6 @@ window.addEventListener("orientationchange", function() {
   setupFeaturedCategories();
   $('.mini-cart-container').height(window.innerHeight+'px');
 }, false);
-
-if (this.inPreview) {
-  setTimeout(function () {
-    setSidebarPosition();
-    setupFeaturedCategories();
-  }, 100);
-}
 
 function setupFeaturedCategories() {
   if ($('.featured').length) {
