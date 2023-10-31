@@ -342,12 +342,16 @@ function toggleMiniCart(hideOrShow) {
       $('body').removeClass('no-scroll');
     }
     $('.mini-cart-container').removeClass('opened');
+    $('.open-mini-cart').attr("aria-expanded","false");
+    $('.mini-cart-container').attr("aria-hidden","true");
   }
   if (hideOrShow == 'show') {
     if (window_width <= 1024) {
       $('body').addClass('no-scroll');
     }
     $('.mini-cart-container').addClass('opened');
+    $('.open-mini-cart').attr("aria-expanded","true");
+    $('.mini-cart-container').attr("aria-hidden","false");
   }
 }
 
