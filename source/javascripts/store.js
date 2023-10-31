@@ -287,6 +287,12 @@ $(document).ready(function(){
 
 $('.category-nav-title').click(function() {
   $('.category-nav-items').slideToggle('fast');
+  $(this).attr('aria-expanded', function (i, attr) {
+    return attr == 'true' ? 'false' : 'true'
+  });
+  $('.category-nav-items').attr('aria-hidden', function (i, attr) {
+    return attr == 'true' ? 'false' : 'true'
+  });
 })
 
 $('.open-menu').click(function() {
