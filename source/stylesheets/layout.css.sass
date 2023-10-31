@@ -21,6 +21,21 @@ body
     overflow: hidden
     -webkit-overflow-scrolling: touch
 
+a.skip-link
+  transition: top .2s ease
+  background: $background-color
+  border: 1px solid $text-color
+  color: $text-color
+  left: 25px
+  padding: 15px 20px
+  position: absolute
+  text-decoration: underline
+  top: -150px
+  z-index: 1000
+
+  &:focus
+    top: 20px
+
 a
   text-decoration: none
   color: $text-color

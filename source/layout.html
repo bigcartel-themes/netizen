@@ -8,7 +8,7 @@
     {{ head_content }}
   </head>
   <body id="{{ page.permalink }}" class="{% if errors != blank %}has-header-message{% endif %} {{ page.category }} {% if page.permalink == 'home' and theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank %}has-welcome{% endif %}">
-
+    <a class="skip-link" href="#main">Skip to main content</a>
     <div class="wrap">
       {% if errors != blank %}
         <div class="header-message">
@@ -200,7 +200,7 @@
             </nav>
           </div>
         </div>
-        <div class="content" role="main">
+        <main class="content" id="main">
           {% if page.category == 'custom' %}
             <div class="custom-page">
               <h1 class="page-title">{{ page.name }}</h1>
@@ -221,7 +221,7 @@
           {% else %}
             {{ page_content }}
           {% endif %}
-        </div>
+        </main>
       </div>
       {% if page.full_url contains '/product/' %}
         {% if theme.show_similar_products %}
