@@ -21,6 +21,21 @@ body
     overflow: hidden
     -webkit-overflow-scrolling: touch
 
+a.skip-link
+  transition: top .2s ease
+  background: $background-color
+  border: 1px solid $text-color
+  color: $text-color
+  left: 25px
+  padding: 15px 20px
+  position: absolute
+  text-decoration: underline
+  top: -150px
+  z-index: 1000
+
+  &:focus
+    top: 20px
+
 a
   text-decoration: none
   color: $text-color
@@ -698,26 +713,13 @@ footer
       color: $background-color
       border: none
       text-align: center
+      gap: 20px
 
-      ul
-        +flexbox
+      .social_icons
+        max-width: 300px
 
-        li
-          margin: 0 5px
-
-          @media screen and (max-width: $break-medium)
-            margin: 0 8px
-
-          a
-            display: block
-
-            svg
-              fill: $background-color
-              height: 24px
-              width: 24px
-
-            &:hover svg
-              fill: $accent-color
+        @media screen and (max-width: $break-medium)
+          max-width: none
 
       .bigcartel-credit
         color: $background-color
@@ -743,13 +745,36 @@ footer
           padding-top: 1px
           width: 86px
 
-      ul + .bigcartel-credit
-        margin-top: 10px
-
     @media screen and (max-width: $break-medium)
       border-bottom: $border
       border-right: none
       width: 100% !important
+
+.social_icons
+  +flexbox
+  gap: 8px
+  list-style: none
+  margin: 0
+  padding: 0
+  flex-wrap: wrap
+  justify-content: center
+
+  a
+    color: $background-color
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-shrink: 0
+    width: 36px
+    height: 36px
+
+    svg
+      fill: currentColor
+      height: 22px
+      width: 22px
+
+      &.tumblr-icon
+        width: 14px
 
 .custom-page-content, .product-description
   word-break: break-word

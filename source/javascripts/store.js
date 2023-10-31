@@ -1,5 +1,10 @@
-
-var inPreview = (/http(s?):\/\/draft-+\w+\.bigcartel\.(test|biz|com)/.test(window.origin)||(/\/admin\/design/.test(top.location.pathname)));
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.remove("preloader");
+  let contactFields = document.querySelectorAll(".contact-form-group input, .contact-form-group textarea");
+  contactFields.forEach(function (contactField) {
+    contactField.removeAttribute("tabindex");
+  });
+});
 
 var isGreaterThanZero = function(currentValue) {
   return currentValue > 0;
@@ -282,6 +287,12 @@ $(document).ready(function(){
 
 $('.category-nav-title').click(function() {
   $('.category-nav-items').slideToggle('fast');
+  $(this).attr('aria-expanded', function (i, attr) {
+    return attr == 'true' ? 'false' : 'true'
+  });
+  $('.category-nav-items').attr('aria-hidden', function (i, attr) {
+    return attr == 'true' ? 'false' : 'true'
+  });
 })
 
 $('.open-menu').click(function() {
@@ -337,12 +348,17 @@ function toggleMiniCart(hideOrShow) {
       $('body').removeClass('no-scroll');
     }
     $('.mini-cart-container').removeClass('opened');
+    $('.open-mini-cart').attr("aria-expanded","false");
+    $('.mini-cart-container').attr("aria-hidden","true");
   }
   if (hideOrShow == 'show') {
     if (window_width <= 1024) {
       $('body').addClass('no-scroll');
     }
     $('.mini-cart-container').addClass('opened');
+    $('.open-mini-cart').attr("aria-expanded","true");
+    $('.mini-cart-container').attr("aria-hidden","false");
+    $('.cart-close').focus();
   }
 }
 
@@ -359,13 +375,6 @@ window.addEventListener("orientationchange", function() {
   setupFeaturedCategories();
   $('.mini-cart-container').height(window.innerHeight+'px');
 }, false);
-
-if (this.inPreview) {
-  setTimeout(function () {
-    setSidebarPosition();
-    setupFeaturedCategories();
-  }, 100);
-}
 
 function setupFeaturedCategories() {
   if ($('.featured').length) {
