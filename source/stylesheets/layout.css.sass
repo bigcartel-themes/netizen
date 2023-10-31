@@ -698,27 +698,13 @@ footer
       color: $background-color
       border: none
       text-align: center
+      gap: 20px
 
-      ul
-        +flexbox
+      .social_icons
+        max-width: 300px
 
-        li
-          margin: 0 5px
-
-          @media screen and (max-width: $break-medium)
-            margin: 0 8px
-
-          a
-            display: block
-            padding: 4px
-
-            svg
-              fill: $background-color
-              height: 20px
-              width: 20px
-
-            &:hover svg
-              fill: $accent-color
+        @media screen and (max-width: $break-medium)
+          max-width: none
 
       .bigcartel-credit
         color: $background-color
@@ -744,13 +730,36 @@ footer
           padding-top: 1px
           width: 86px
 
-      ul + .bigcartel-credit
-        margin-top: 16px
-
     @media screen and (max-width: $break-medium)
       border-bottom: $border
       border-right: none
       width: 100% !important
+
+.social_icons
+  +flexbox
+  gap: 8px
+  list-style: none
+  margin: 0
+  padding: 0
+  flex-wrap: wrap
+  justify-content: center
+
+  a
+    color: $background-color
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-shrink: 0
+    width: 36px
+    height: 36px
+
+    svg
+      fill: currentColor
+      height: 22px
+      width: 22px
+
+      &.tumblr-icon
+        width: 14px
 
 .custom-page-content, .product-description
   word-break: break-word
