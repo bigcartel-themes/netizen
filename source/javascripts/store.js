@@ -358,6 +358,7 @@ function toggleMiniCart(hideOrShow) {
     $('.mini-cart-container').addClass('opened');
     $('.open-mini-cart').attr("aria-expanded","true");
     $('.mini-cart-container').attr("aria-hidden","false");
+    $('.cart-close').focus();
   }
 }
 
