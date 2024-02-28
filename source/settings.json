@@ -1,6 +1,6 @@
 {
   "name": "Netizen",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "images": [
     {
       "variable": "logo",
@@ -21,6 +21,126 @@
       "description": "Adds a gallery to the specified Lookbook page"
     }
   ],
+  "preset_styles": {
+    "preview": {
+      "title_font": "header_font",
+      "body_font": "text_font",
+      "text_color": "text_color",
+      "background_color": "background_color"
+    },
+    "presets": [
+      {
+        "group_name": "Playful",
+        "styles": [
+          {
+            "style_name": "Playful #1",
+            "fonts": {
+              "header_font": "Lexend Exa",
+              "text_font": "Lexend Exa"
+            },
+            "colors": {
+              "background_color": "#F8F8F9",
+              "text_color": "#000000",
+              "welcome_text_color": "#FFFFFF",
+              "button_background_color": "#EEFF8A",
+              "secondary_background_color": "#FFFFFF",
+              "accent_background_color": "#FBFFE2",
+              "pattern_color": "#000000",
+              "left_gradient_color": "#D1FBFF",
+              "right_gradient_color": "#FFA5E8",
+              "border_color": "#000000",
+              "error_background_color": "#FEA9A9"
+            }
+          },
+          {
+            "style_name": "Playful #2",
+            "fonts": {
+              "header_font": "Concert One",
+              "text_font": "Delius"
+            },
+            "colors": {
+              "background_color": "#FFFFFF",
+              "text_color": "#000000",
+              "welcome_text_color": "#000000",
+              "button_background_color": "#22FFF8",
+              "secondary_background_color": "#FFFFFF",
+              "accent_background_color": "#F6FF20",
+              "pattern_color": "#000000",
+              "left_gradient_color": "#F6FF20",
+              "right_gradient_color": "#FF68B6",
+              "border_color": "#000000",
+              "error_background_color": "#FDB7D3"
+            }
+          },
+          {
+            "style_name": "Playful #3",
+            "fonts": {
+              "header_font": "Syne",
+              "text_font": "Syne"
+            },
+            "colors": {
+              "background_color": "#CEFF66",
+              "text_color": "#000000",
+              "welcome_text_color": "#000000",
+              "button_background_color": "#FDFF65",
+              "secondary_background_color": "#FFFFFF",
+              "accent_background_color": "#FDFF65",
+              "pattern_color": "#000000",
+              "left_gradient_color": "#FDFF65",
+              "right_gradient_color": "#FCFF14",
+              "border_color": "#000000",
+              "error_background_color": "#FDB7D3"
+            }
+          }
+        ]
+      },
+      {
+        "group_name": "Classic",
+        "styles": [
+          {
+            "style_name": "Classic #1",
+            "fonts": {
+              "header_font": "Cabin",
+              "text_font": "Cabin"
+            },
+            "colors": {
+              "background_color": "#FFFFFF",
+              "text_color": "#111111",
+              "welcome_text_color": "#111111",
+              "button_background_color": "#F3F3F5",
+              "secondary_background_color": "#FFFFFF",
+              "accent_background_color": "#F3F3F5",
+              "pattern_color": "#111111",
+              "left_gradient_color": "#FBFBFB",
+              "right_gradient_color": "#F3F3F5",
+              "border_color": "#111111",
+              "error_background_color": "#FDB7D3"
+            }
+          },
+          {
+            "style_name": "Classic #2",
+            "fonts": {
+              "header_font": "DM Sans",
+              "text_font": "DM Sans"
+            },
+            "colors": {
+              "background_color": "#141415",
+              "text_color": "#FFFFFF",
+              "welcome_text_color": "#FFFFFF",
+              "button_background_color": "#666666",
+              "secondary_background_color": "#333333",
+              "accent_background_color": "#333333",
+              "pattern_color": "#141415",
+              "left_gradient_color": "#666666",
+              "right_gradient_color": "#333333",
+              "border_color": "#141415",
+              "error_background_color": "#920000"
+            }
+          }
+        ]
+      }
+    ]
+  },
   "fonts": [
     {
       "variable": "header_font",
@@ -50,17 +170,17 @@
       "default": "#FFFFFF"
     },
     {
-      "variable": "accent_color",
+      "variable": "button_background_color",
       "label": "Button background",
       "default": "#EEFF8A"
     },
     {
-      "variable": "alt_background_color",
+      "variable": "secondary_background_color",
       "label": "Secondary Background",
-      "default": "#ffffff"
+      "default": "#FFFFFF"
     },
         {
-      "variable": "alt_accent_color",
+      "variable": "accent_background_color",
       "label": "Accent background",
       "default": "#FBFFE2"
     },
@@ -70,14 +190,14 @@
       "default": "#000000"
     },
     {
-      "variable": "primary_gradient_color",
+      "variable": "left_gradient_color",
       "label": "Left gradient",
-      "default": "#d1fbff"
+      "default": "#D1FBFF"
     },
     {
-      "variable": "secondary_gradient_color",
+      "variable": "right_gradient_color",
       "label": "Right gradient",
-      "default": "#ffa5e8"
+      "default": "#FFA5E8"
     },
     {
       "variable": "border_color",
@@ -373,9 +493,9 @@
     "button_font": "{{ text_font }}",
     "button_font_size": "14px",
     "button_font_weight": "normal",
-    "button_background_color": "{{ accent_color }}",
+    "button_background_color": "{{ button_background_color }}",
     "button_color": "{{ text_color }}",
-    "button_hover_color": "{{ alt_background_color }}",
+    "button_hover_color": "{{ secondary_background_color }}",
     "button_position": "center",
     "button_hover_background_color": "{{ text_color }}",
     "step_inactive_header_color": "opacify({{ text_color }}, .25)",

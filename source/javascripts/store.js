@@ -186,9 +186,9 @@ $(document).ready(function() {
   $.fn.drawGradient = function() {
     this.filter( ".gradient" ).each(function() {
       var element = $(this);
-      var primaryGradient = themeOptions.primaryGradientColor;
-      var secondaryGradient = themeOptions.secondaryGradientColor;
-      var gradientStyle = "linear-gradient(140deg,"+primaryGradient+" 20%, "+secondaryGradient+" 70%)";
+      var leftGradient = themeOptions.leftGradientColor;
+      var rightGradient = themeOptions.rightGradientColor;
+      var gradientStyle = "linear-gradient(140deg,"+leftGradient+" 20%, "+rightGradient+" 70%)";
       element.css("background",gradientStyle);
     });
     return this;

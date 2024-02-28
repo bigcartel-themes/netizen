@@ -79,14 +79,14 @@
         </div>
       </section>
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ 'api' | theme_js_url }}"></script>
     <script>
       var themeOptions = {
         pageCategory: '{{ page.category }}',
         pagePermalink: '{{ page.permalink }}',
-        primaryGradientColor: '{{ theme.primary_gradient_color }}',
-        secondaryGradientColor: '{{ theme.secondary_gradient_color }}'
+        leftGradientColor: '{{ theme.left_gradient_color }}',
+        rightGradientColor: '{{ theme.right_gradient_color }}'
       };
     </script>
     <script src="{{ theme | theme_js_url }}"></script>

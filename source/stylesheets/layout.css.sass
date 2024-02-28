@@ -58,7 +58,7 @@ h1
 
 input, textarea
   +appearance(none)
-  background-color: $alt-background-color
+  background-color: $secondary-background-color
   border-radius: 0
   border: $border
   color: $text-color
@@ -69,7 +69,7 @@ input, textarea
   width: 100%
 
   &:hover, &:focus
-    background-color: $alt-accent-color
+    background-color: $accent-background-color
     outline: none
 
 textarea
@@ -77,7 +77,7 @@ textarea
 
 .select
   +all-transitions
-  background: $alt-background-color
+  background: $secondary-background-color
   border: $border
   color: $text-color
   font-family: $text-font
@@ -88,7 +88,7 @@ textarea
   width: 100%
 
   &:hover, &:active, &:focus, &:focus-within
-    background: $alt-accent-color
+    background: $accent-background-color
 
   select
     +all-transitions
@@ -158,7 +158,7 @@ textarea
     border-top: $border
 
 .gradient
-  background: $primary-gradient-color
+  background: $left-gradient-color
 
 .errors
   background-color: $error-background
@@ -175,7 +175,7 @@ textarea
   +flexbox
   +align-items(center)
   +justify-content(center)
-  background-color: $alt-accent-color
+  background-color: $accent-background-color
   border: $border
   color: $text-color
   left: 0
@@ -211,7 +211,7 @@ textarea
 
 button, .button
   +all-transitions
-  background-color: $accent-color
+  background-color: $button-background-color
   border-radius: 0
   border: $border
   color: $text-color
@@ -245,11 +245,11 @@ button, .button
 
   &:not(:disabled):hover, &:not(:disabled):active, &:not(:disabled):focus
     background-color: $text-color
-    color: $alt-background-color
+    color: $secondary-background-color
     text-decoration: none
 
     svg
-      fill: $alt-background-color
+      fill: $secondary-background-color
 
 ol.unstyled, ul.unstyled
   list-style: none
@@ -307,7 +307,7 @@ _:-ms-fullscreen, :root .main
   margin-top: 0
 
 .header-store
-  background: $alt-background-color
+  background: $secondary-background-color
   color: $text-color
   left: 74px
   position: absolute
@@ -325,7 +325,7 @@ _:-ms-fullscreen, :root .main
     +flexbox
     +justify-content(center)
     +align-items(center)
-    background: $alt-background-color
+    background: $secondary-background-color
     border: $border
     font-family: $header-font
     height: 196px
@@ -399,7 +399,7 @@ _:-ms-fullscreen, :root .main
     margin-top: 40px
 
 .category-nav-title
-  background: $accent-color
+  background: $button-background-color
   border: $border
   cursor: pointer
   line-height: normal
@@ -426,12 +426,12 @@ _:-ms-fullscreen, :root .main
     border-bottom: $border
 
     a
-      background: $alt-accent-color
+      background: $accent-background-color
       display: block
       padding: 12px
 
       &:hover, &:focus
-        background: $accent-color
+        background: $button-background-color
         text-decoration: none
 
     &:last-child
@@ -475,12 +475,12 @@ _:-ms-fullscreen, :root .main
   .search-input
     +appearance(none)
     border: $border
-    background: $alt-background-color
+    background: $secondary-background-color
     line-height: normal
     padding-left: 40px
 
     &:hover, &:focus
-      background: $alt-accent-color
+      background: $accent-background-color
 
 .page-nav-items
   margin-bottom: $marginSize/2
@@ -527,7 +527,7 @@ _:-ms-fullscreen, :root .main
 
       .header-cart-count
         background-color: $text-color
-        color: $alt-background-color
+        color: $secondary-background-color
 
     @media screen and (max-width: $break-medium)
       display: none
@@ -535,7 +535,7 @@ _:-ms-fullscreen, :root .main
 
   .header-cart-count
     +all-transitions
-    background: $accent-color
+    background: $button-background-color
     border: $border
     display: block
     line-height: 51px
@@ -543,7 +543,7 @@ _:-ms-fullscreen, :root .main
 
     &:hover, &:focus
       background-color: $text-color
-      color: $alt-background-color
+      color: $secondary-background-color
       text-decoration: none
 
   .header-cart-total
@@ -665,7 +665,7 @@ footer
     +flexbox
     +align-items(center)
     +justify-content(center)
-    background-color: $alt-accent-color
+    background-color: $accent-background-color
     border-right: $border
     padding: 50px
 
@@ -816,7 +816,7 @@ footer
     width: 20px
 
     &.is-selected
-      background: $accent-color
+      background: $button-background-color
 
 .cursor
   +flexbox
