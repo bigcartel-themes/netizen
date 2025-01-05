@@ -1,6 +1,6 @@
 {
   "name": "Netizen",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "images": [
     {
       "variable": "logo",
@@ -91,6 +91,46 @@
               "border_color": "#000000",
               "error_background_color": "#FDB7D3"
             }
+          },
+          {
+            "style_name": "Playful #4",
+            "fonts": {
+              "header_font": "Chewy",
+              "text_font": "Overlock"
+            },
+            "colors": {
+              "background_color": "#FFF4F4",
+              "text_color": "#FF007F",
+              "welcome_text_color": "#FF007F",
+              "button_background_color": "#FFE600",
+              "secondary_background_color": "#FFFFFF",
+              "accent_background_color": "#FFE600",
+              "pattern_color": "#FF007F",
+              "left_gradient_color": "#FFE600",
+              "right_gradient_color": "#FF6FAE",
+              "border_color": "#FF007F",
+              "error_background_color": "#FF007F"
+            }
+          },
+          {
+            "style_name": "Playful #5",
+            "fonts": {
+              "header_font": "Fredoka One",
+              "text_font": "Raleway"
+            },
+            "colors": {
+              "background_color": "#FFFFFF",
+              "text_color": "#2D2D2D",
+              "welcome_text_color": "#2D2D2D",
+              "button_background_color": "#FFD54F",
+              "secondary_background_color": "#FFFDE7",
+              "accent_background_color": "#FFD54F",
+              "pattern_color": "#2D2D2D",
+              "left_gradient_color": "#FFD54F",
+              "right_gradient_color": "#FFC107",
+              "border_color": "#2D2D2D",
+              "error_background_color": "#FF5722"
+            }
           }
         ]
       },
@@ -135,6 +175,26 @@
               "right_gradient_color": "#333333",
               "border_color": "#141415",
               "error_background_color": "#920000"
+            }
+          },
+          {
+            "style_name": "Classic #3",
+            "fonts": {
+              "header_font": "Merriweather",
+              "text_font": "Open Sans"
+            },
+            "colors": {
+              "background_color": "#FAFAFA",
+              "text_color": "#2E2E2E",
+              "welcome_text_color": "#2E2E2E",
+              "button_background_color": "#E0E0E0",
+              "secondary_background_color": "#FFFFFF",
+              "accent_background_color": "#F5F5F5",
+              "pattern_color": "#2E2E2E",
+              "left_gradient_color": "#FFFFFF",
+              "right_gradient_color": "#FAFAFA",
+              "border_color": "#2E2E2E",
+              "error_background_color": "#FF6961"
             }
           }
         ]
