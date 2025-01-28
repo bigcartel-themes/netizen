@@ -1,6 +1,6 @@
 {
   "name": "Netizen",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "images": [
     {
       "variable": "logo",
@@ -480,6 +480,24 @@
       "label": "YouTube URL",
       "type": "text",
       "description": "Ex: https://youtube.com/@BigCartelDotCom"
+    },
+    {
+      "variable": "spotify_url",
+      "label": "Spotify URL",
+      "type": "text",
+      "description": "Ex: https://open.spotify.com/artist/0gxy..."
+    },
+    {
+      "variable": "linkedin_url",
+      "label": "LinkedIn URL",
+      "type": "text",
+      "description": "Ex: https://linkedin.com/in/bigcartel"
+    },
+    {
+      "variable": "twitch_url",
+      "label": "Twitch URL",
+      "type": "text",
+      "description": "Ex: https://twitch.tv/username"
     },
     {
       "variable": "tumblr_url",
