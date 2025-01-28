@@ -188,14 +188,13 @@
 
             <nav class="side-nav-section pages-nav">
               <ul class="unstyled page-nav-items">
-              <li class="hide-mobile"><a href="/cart">Cart</a></li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/products">{{ pages.products.name }}</a></li>
+              <li><a href="/cart">{{ pages.cart.name }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
               {% for page in pages.all %}
                 <li>{{ page | link_to }}</li>
               {% endfor %}
-              <li><a href="/contact">Contact</a></li>
-              {% if store.website != blank %}
-                <li><a href="{{ store.website }}">Back to Site</a></li>
-              {% endif %}
+              <li><a href="/contact">{{ pages.contact.name }}</a></li>
               </ul>
             </nav>
           </div>
@@ -277,15 +276,12 @@
       <div class="footer-section footer-nav">
         <ul class="unstyled footer-links">
           <li><a href="/">Home</a></li>
-          <li><a href="/products">Products</a></li>
-          <li class="hide-mobile"><a href="/cart">Cart</a></li>
+          <li><a href="/products">{{ pages.products.name }}</a></li>
+          <li><a href="/cart">{{ pages.cart.name }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
+          <li><a href="/contact">{{ pages.contact.name }}</a></li>
           {% for page in pages.all %}
             <li>{{ page | link_to }}</li>
           {% endfor %}
-          <li><a href="/contact">Contact</a></li>
-          {% if store.website != blank %}
-            <li><a href="{{ store.website }}">Back to Site</a></li>
-          {% endif %}
         </ul>
       </div>
       <div class="footer-section footer-social">
