@@ -158,24 +158,16 @@ button.reset-selection-button
 
 .similar-products
   border: $border
-  border-bottom: 0
   margin-bottom: 0
-  padding: 0 80px 10px * 6
+  padding: 0 80px 60px
   position: relative
   z-index: 199
   max-width: 1400px
   margin: 0 auto
   width: 100%
 
-  @media screen and (max-width: $break-medium)
-    padding-bottom: 10px
-
-.similar-products
-  border: $border
-  border-bottom: 0
-  margin-bottom: 0
-  padding: 0 80px 60px
-  position: relative
+  &.no-bottom-border
+    border-bottom: 0
 
   @media screen and (max-width: $break-medium)
     padding: 25px
