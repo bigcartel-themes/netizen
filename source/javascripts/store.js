@@ -161,6 +161,20 @@ $('.announcement-message-close').click(function(e) {
   });
 })
 
+$(document).ready(function() {
+  if ($('.all-similar-products').length) {
+    var elements = $('.all-similar-products').children();
+    var num_to_display = 3;
+    for (var i=0; i<num_to_display && i<elements.length; i++) {
+      $('.similar-product-list').append(elements.eq(i));
+      $('.similar-product-list .similar-product-list-image').each(function() {
+        $(this).attr("src",$(this).data("src"));
+      })
+    }
+    $('.all-similar-products').remove();
+  }
+});
+
 /* Gradients */
 
 (function( $ ) {
