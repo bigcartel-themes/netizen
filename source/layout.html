@@ -273,6 +273,10 @@
         End - Related Products
       ===========================*/
       {% endcomment %}
+    
+    {% if theme.footer_text != blank %}
+      <div class="footer-custom-content">{{ theme.footer_text }} </div>
+    {% endif %}
     <footer data-bc-hook="footer">
       <div class="footer-section footer-store-name">
         {{ store.name }}

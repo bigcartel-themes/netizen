@@ -456,6 +456,13 @@
       "requires": ["inventory"]
     },
     {
+      "variable": "footer_text",
+      "label": "Footer text",
+      "type": "text",
+      "max_length": 2048,
+      "description": "Show a custom message above your shop's footer"
+    },
+    {
       "variable": "money_format",
       "label": "Price display",
       "type": "select",
