@@ -1,29 +1,40 @@
 {% if theme.featured_categories > 0 %}
-  {% for category in categories.active limit:theme.featured_categories %}
-    <div class="featured gradient featured-item-{{ forloop.index }}">
-      <div class="featured-details">
-        <div class="tag">Featured</div>
-        <div class="feature-text">
-          <h2 class="subheader">{{ category.name }}</h2>
-          <a href="{{ category.url }}" title="View {{ category.name | escape }}" class="button">Shop now</a>
+  {% capture featured_categories %}
+    <h1 class="featured-title">{{ theme.featured_categories_header }}</h1>
+    <div class="featured-categories">
+    {% for category in categories.active limit:theme.featured_categories %}
+      <div class="featured gradient featured-item-{{ forloop.index }}">
+        <div class="featured-details">
+          <div class="feature-text">
+            <h2 class="subheader">{{ category.name }}</h2>
+            <a href="{{ category.url }}" title="View {{ category.name | escape }}" class="button">{{ theme.featured_category_button_text }}</a>
+          </div>
+        </div>
+        <div class="featured-image-container">
+          <div class="featured-images">
+            {% for i in (0..2) %}
+              <div class="featured-image gradient">
+                {% if category.products[i] != blank %}
+                  <img alt="Image of {{ category.products[i].name | escape }}" class="featured-category-product-image" src="{{ category.products[i].image | product_image_url | constrain: 400 }}">
+                {% else %}
+                  <img alt="Blank image" class="featured-category-product-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
         </div>
       </div>
-      <div class="featured-image-container">
-        <div class="featured-images">
-          {% for i in (0..2) %}
-            <div class="featured-image gradient">
-              {% if category.products[i] != blank %}
-                <img alt="Image of {{ category.products[i].name | escape }}" class="featured-category-product-image" src="{{ category.products[i].image | product_image_url | constrain: 400 }}">
-              {% endif %}
-            </div>
-          {% endfor %}
-        </div>
-      </div>
+    {% endfor %}
     </div>
-  {% endfor %}
+  {% endcapture %}
+{% endif %}
+
+{% if theme.featured_categories_position == 'top' %}
+  {{ featured_categories }}
 {% endif %}
 
 {% if theme.featured_products > 0 %}
+  <h1 class="featured-title">{{ theme.featured_header }}</h1>
   {% paginate products from products.all by theme.featured_products order:theme.featured_order %}
     {% if products != blank %}
       <div class="product-list {{ theme.product_list_layout }}" data-per-row="{{ theme.max_products_per_row }}" data-per-row-mobile="{{ theme.max_products_per_row_mobile }}">
@@ -53,6 +64,9 @@
           </a>
         {% endfor %}
       </div>
+      {% if theme.featured_categories_position == 'bottom' %}
+        {{ featured_categories }}
+      {% endif %}
       {% if paginate.pages > 1 %}
         {% if theme.all_products_button_text != blank %}<a class="button all-products-button" href="/products">{{ theme.all_products_button_text }}</a>{% endif %}
       {% endif %}

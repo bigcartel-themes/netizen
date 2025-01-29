@@ -1,5 +1,10 @@
-
-<h1 class="page-title">{{ page.name }}</h1>
+<h1 class="page-title">
+  {% if page.full_url contains '/products' and page.category != 'category' %}
+    {{ pages.products.name }}
+  {% else %}
+    {{ page.name }}
+  {% endif %}
+</h1>
 {% paginate products from products.current by theme.products_per_page %}
   {% if products != blank %}
     <div class="product-list {{ theme.product_list_layout }}" data-per-row="{{ theme.max_products_per_row }}" data-per-row-mobile="{{ theme.max_products_per_row_mobile }}">

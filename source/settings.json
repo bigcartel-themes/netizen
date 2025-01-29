@@ -354,12 +354,11 @@
       "description": "The maximum number of products displayed per row on small screens"
     },
     {
-      "variable": "featured_categories",
-      "label": "Featured categories",
-      "type": "select",
-      "options": "0..2",
-      "default": 1,
-      "description": "The number of categories featured on the Home page"
+      "variable": "featured_header",
+      "label": "Featured products header",
+      "type": "text",
+      "description": "Displays above featured products on the Home page",
+      "default": "Featured Products"
     },
     {
       "variable": "featured_products",
@@ -391,6 +390,46 @@
       "options": "1..100",
       "default": 36,
       "description": "The number of products shown per page"
+    },
+    {
+      "variable": "featured_categories",
+      "label": "Featured categories on Home page",
+      "type": "select",
+      "options": "0..20",
+      "default": 3,
+      "description": "The number of categories featured on the Home page"
+    },
+    {
+      "variable": "featured_category_header",
+      "label": "Featured categories header",
+      "type": "text",
+      "default": "Featured Categories",
+      "requires": [
+        "featured_categories gt 0"
+      ]
+    },
+    {
+      "variable": "featured_categories_position",
+      "label": "Featured categories position",
+      "type": "select",
+      "options": [
+        ["Top", "top"],
+        ["Bottom", "bottom"]
+      ],
+      "default": "bottom",
+      "description": "Position of featured categories on the Home page",
+      "requires": [
+        "featured_categories gt 0"
+      ]
+    },
+    {
+      "variable": "featured_category_button_text",
+      "label": "Button text featured categories on Home page",
+      "type": "text",
+      "default": "Shop",
+      "requires": [
+        "featured_categories gt 0"
+      ]
     },
     {
       "variable": "show_overlay",
