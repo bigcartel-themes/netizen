@@ -404,6 +404,7 @@
       "label": "Featured categories header",
       "type": "text",
       "default": "Featured Categories",
+      "description": "Displays above featured categories on the Home page",
       "requires": [
         "featured_categories gt 0"
       ]
@@ -427,6 +428,7 @@
       "label": "Button text featured categories on Home page",
       "type": "text",
       "default": "Shop",
+      "description": "Button text for featured categories on the Home page",
       "requires": [
         "featured_categories gt 0"
       ]
