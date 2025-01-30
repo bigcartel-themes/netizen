@@ -233,7 +233,7 @@
       {% endcomment %}
       {% if page.full_url contains '/product/' %}
         {% assign related_products_collection = product.related_products %}
-        {% if theme.show_similar_products %}
+        {% if theme.show_similar_products and related_products_collection.size > 0 %}
           {% capture product_divs %}
             {% for related_product in related_products_collection %}
               {% assign product_status = '' %}
