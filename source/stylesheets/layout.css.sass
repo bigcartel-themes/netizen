@@ -71,6 +71,9 @@ input, textarea
   &:hover, &:focus
     background-color: $accent-background-color
     outline: none
+  
+  &::placeholder
+    color: $text-color
 
 textarea
   min-height: $marginSize*3
@@ -214,7 +217,7 @@ button, .button
   background-color: $button-background-color
   border-radius: 0
   border: $border
-  color: $text-color
+  color: $button-text-color
   cursor: pointer
   display: block
   font-size: 16px
@@ -244,7 +247,7 @@ button, .button
     border: none
 
   &:not(:disabled):hover, &:not(:disabled):active, &:not(:disabled):focus
-    background-color: $text-color
+    background-color: $button-text-color
     color: $secondary-background-color
     text-decoration: none
 
@@ -326,6 +329,7 @@ _:-ms-fullscreen, :root .main
     +justify-content(center)
     +align-items(center)
     background: $secondary-background-color
+    color: $button-text-color
     border: $border
     font-family: $header-font
     height: 196px
@@ -400,6 +404,7 @@ _:-ms-fullscreen, :root .main
 
 .category-nav-title
   background: $button-background-color
+  color: $button-text-color
   border: $border
   cursor: pointer
   line-height: normal
@@ -456,6 +461,7 @@ _:-ms-fullscreen, :root .main
     position: absolute
     top: 2px
     width: 40px
+    color: $text-color
 
     &:hover, &:active, &:focus
       background: none
@@ -475,12 +481,12 @@ _:-ms-fullscreen, :root .main
   .search-input
     +appearance(none)
     border: $border
-    background: $secondary-background-color
+    background: $background-color
     line-height: normal
     padding-left: 40px
 
     &:hover, &:focus
-      background: $accent-background-color
+      background: $background-color
 
 .page-nav-items
   margin-bottom: $marginSize/2
@@ -507,7 +513,7 @@ _:-ms-fullscreen, :root .main
   .header-cart-info
     background: none
     border: none
-    color: $text-color
+    color: $button-text-color
     display: block
     font-size: 22px
     height: 150px
@@ -527,7 +533,7 @@ _:-ms-fullscreen, :root .main
 
       .header-cart-count
         background-color: $text-color
-        color: $secondary-background-color
+        color: $secondary_background_color
 
     @media screen and (max-width: $break-medium)
       display: none
@@ -556,6 +562,7 @@ _:-ms-fullscreen, :root .main
     margin-top: 150px
     font-size: .950em
     width: 300px
+    color: $text-color
 
     @media screen and (max-width: $break-medium)
       display: none
