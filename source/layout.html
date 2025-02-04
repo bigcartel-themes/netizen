@@ -146,9 +146,19 @@
         {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank %}
           <section class="home-welcome welcome gradient">
             <div class="welcome-messaging">
-              {% if theme.welcome_subheader != blank  %}<p class="subheader">{{ theme.welcome_subheader }}</p>{% endif %}
-              {% if theme.welcome_header != blank  %}<h2 class="headline">{{ theme.welcome_header }}</h2>{% endif %}
-              {% if theme.welcome_button_text != blank %}<a href="/products" class="button">{{ theme.welcome_button_text }}</a>{% endif %}
+              {% if theme.welcome_header != blank %}
+                <div class="welcome-header-group">
+                  <h2 class="headline">{{ theme.welcome_header }}</h2>
+                  
+                  {% if theme.welcome_subheader != blank %}
+                    <p class="subheader">{{ theme.welcome_subheader }}</p>
+                  {% endif %}
+                </div>
+                
+                {% if theme.welcome_button_text != blank %}
+                  <a href="/products" class="button">{{ theme.welcome_button_text }}</a>
+                {% endif %}
+              {% endif %}
             </div>
             <div class="pattern {{ theme.welcome_overlay }}"></div>
             {% if theme.welcome_image != blank %}
@@ -188,14 +198,13 @@
 
             <nav class="side-nav-section pages-nav">
               <ul class="unstyled page-nav-items">
-              <li class="hide-mobile"><a href="/cart">Cart</a></li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/products">{{ pages.products.name }}</a></li>
+              <li><a href="/cart">{{ pages.cart.name }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
               {% for page in pages.all %}
                 <li>{{ page | link_to }}</li>
               {% endfor %}
-              <li><a href="/contact">Contact</a></li>
-              {% if store.website != blank %}
-                <li><a href="{{ store.website }}">Back to Site</a></li>
-              {% endif %}
+              <li><a href="/contact">{{ pages.contact.name }}</a></li>
               </ul>
             </nav>
           </div>
@@ -224,52 +233,63 @@
           {% endif %}
         </main>
       </div>
+      {% comment %}
+      /*=====================================================
+        Module: Related Products
+        - Shows similar products on product detail pages
+        - Controlled by theme.show_similar_products setting
+          through ProductDrop.related_products
+      =======================================================*/
+      {% endcomment %}
       {% if page.full_url contains '/product/' %}
-        {% if theme.show_similar_products %}
-          {% if product.categories != blank %}
-            {% for category in product.categories %}
-              {% capture product_divs %}
-                {% for category_product in category.products %}
-                  {% assign product_status = '' %}
-                  {% case category_product.status %}
-                    {% when 'active' %}
-                      {% if category_product.on_sale %}{% assign product_status = 'On sale' %}{% endif %}
-                    {% when 'sold-out' %}
-                      {% assign product_status = 'Sold out' %}
-                    {% when 'coming-soon' %}
-                      {% assign product_status = 'Coming soon' %}
-                  {% endcase %}
-                  {% if product.id != category_product.id %}
-                    <a class="product-list-item {{ theme.show_overlay }}" href="{{ category_product.url }}" title="View {{ category_product.name | escape }}">
-                      <div class="product-list-item-container">
-                        <figure class="product-list-image-container">
-                          <img alt="Image of {{ category_product.name | escape }}" class="product-list-image" src="{{ category_product.image | product_image_url | constrain: 1000, 1000 }}">
-                          {% if product_status != blank %}<div class="product-list-item-status">{{ product_status }}</div>{% endif %}
-                        </figure>
-                        <div class="product-list-item-info">
-                          <div class="product-list-item-info-headers">
-                            <div class="product-list-item-name">{{ category_product.name }}</div>
-                            <div class="product-list-item-price">{{ category_product.default_price | money: theme.money_format }}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  {% endif %}
-                {% endfor %}
-              {% endcapture %}
+        {% assign related_products_collection = product.related_products %}
+        {% if theme.show_similar_products and related_products_collection.size > 0 %}
+          {% capture product_divs %}
+            {% for related_product in related_products_collection %}
+              {% assign product_status = '' %}
+              {% case related_product.status %}
+                {% when 'active' %}
+                  {% if related_product.on_sale %}{% assign product_status = 'On sale' %}{% endif %}
+                {% when 'sold-out' %}
+                  {% assign product_status = 'Sold out' %}
+                {% when 'coming-soon' %}
+                  {% assign product_status = 'Coming soon' %}
+              {% endcase %}
+              <a class="product-list-item {{ theme.show_overlay }}" href="{{ related_product.url }}" title="View {{ related_product.name | escape }}">
+                <div class="product-list-item-container">
+                  <figure class="product-list-image-container">
+                    <img alt="Image of {{ related_product.name | escape }}" class="product-list-image" src="{{ related_product.image | product_image_url | constrain: 1000, 1000 }}">
+                    {% if product_status != blank %}<div class="product-list-item-status">{{ product_status }}</div>{% endif %}
+                  </figure>
+                  <div class="product-list-item-info">
+                    <div class="product-list-item-info-headers">
+                      <div class="product-list-item-name">{{ related_product.name }}</div>
+                      <div class="product-list-item-price">{{ related_product.default_price | money: theme.money_format }}</div>
+                    </div>
+                  </div>
+                </div>
+              </a>
             {% endfor %}
-          {% endif %}
+          {% endcapture %}
         {% endif %}
       {% endif %}
       {% if product_divs != blank %}
         <div class="all-similar-products">{{ product_divs }}</div>
-        <div class="similar-products gradient">
+        <div class="similar-products gradient{% if theme.footer_text == blank %} no-bottom-border{% endif %}">
           <div class="similar-products-header">
-            <div class="similar-products-title">Related products</div>
+            <div class="similar-products-title">{{ theme.related_products_header | default: 'You might also like' }}</div>
           </div>
           <div class="product-list similar-product-list"></div>
         </div>
       {% endif %}
+      {% comment %}
+      /*=========================
+        End - Related Products
+      ===========================*/
+      {% endcomment %}    
+    {% if theme.footer_text != blank %}
+      <div class="footer-custom-content">{{ theme.footer_text }} </div>
+    {% endif %}
     <footer data-bc-hook="footer">
       <div class="footer-section footer-store-name">
         {{ store.name }}
@@ -277,15 +297,12 @@
       <div class="footer-section footer-nav">
         <ul class="unstyled footer-links">
           <li><a href="/">Home</a></li>
-          <li><a href="/products">Products</a></li>
-          <li class="hide-mobile"><a href="/cart">Cart</a></li>
+          <li><a href="/products">{{ pages.products.name }}</a></li>
+          <li><a href="/cart">{{ pages.cart.name }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
+          <li><a href="/contact">{{ pages.contact.name }}</a></li>
           {% for page in pages.all %}
             <li>{{ page | link_to }}</li>
           {% endfor %}
-          <li><a href="/contact">Contact</a></li>
-          {% if store.website != blank %}
-            <li><a href="{{ store.website }}">Back to Site</a></li>
-          {% endif %}
         </ul>
       </div>
       <div class="footer-section footer-social">
@@ -298,6 +315,9 @@
           or theme.facebook_url != blank
           or theme.pinterest_url != blank
           or theme.youtube_url != blank
+          or theme.spotify_url != blank
+          or theme.linkedin_url != blank
+          or theme.twitch_url != blank
           or theme.tumblr_url != blank
           or theme.bandcamp_url != blank %}
           <nav aria-label="Social links">
@@ -338,6 +358,18 @@
                 <li><a href="{{ theme.youtube_url }}" title="YouTube"><svg class="youtube-icon" height="36" width="36" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M550 124c-7-24-25-42-49-49-42-11-213-11-213-11S117 64 75 76c-24 6-42 24-49 48-11 43-11 132-11 132s0 90 11 133c7 23 25 41 49 47 42 12 213 12 213 12s171 0 213-11c24-7 42-25 49-48 11-43 11-133 11-133s0-89-11-132zM232 338V175l143 81-143 82z"/></svg></a></li>
               {% endif %}
 
+              {% if theme.spotify_url != blank %}
+                <li><a href="{{ theme.spotify_url }}" title="Spotify"><svg class="spotify-icon" height="36" width="36" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm100.7 364.9c-4.2 0-6.8-1.3-10.7-3.6-62.4-37.6-135-39.2-206.7-24.5-3.9 1-9 2.6-11.9 2.6-9.7 0-15.8-7.7-15.8-15.8 0-10.3 6.1-15.2 13.6-16.8 81.9-18.1 165.6-16.5 237 26.2 6.1 3.9 9.7 7.4 9.7 16.5s-7.1 15.4-15.2 15.4zm26.9-65.6c-5.2 0-8.7-2.3-12.3-4.2-62.5-37-155.7-51.9-238.6-29.4-4.8 1.3-7.4 2.6-11.9 2.6-10.7 0-19.4-8.7-19.4-19.4s5.2-17.8 15.5-20.7c27.8-7.8 56.2-13.6 97.8-13.6 64.9 0 127.6 16.1 177 45.5 8.1 4.8 11.3 11 11.3 19.7-.1 10.8-8.5 19.5-19.4 19.5zm31-76.2c-5.2 0-8.4-1.3-12.9-3.9-71.2-42.5-198.5-52.7-280.9-29.7-3.6 1-8.1 2.6-12.9 2.6-13.2 0-23.3-10.3-23.3-23.6 0-13.6 8.4-21.3 17.4-23.9 35.2-10.3 74.6-15.2 117.5-15.2 73 0 149.5 15.2 205.4 47.8 7.8 4.5 12.9 10.7 12.9 22.6 0 13.6-11 23.3-23.2 23.3z"/></svg></a></li>
+              {% endif %}
+
+              {% if theme.linkedin_url != blank %}
+                <li><a href="{{ theme.linkedin_url }}" title="LinkedIn"><svg class="linkedin-icon" height="36" width="36" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a></li>
+              {% endif %}
+
+              {% if theme.twitch_url != blank %}
+                <li><a href="{{ theme.twitch_url }}" title="Twitch"><svg class="twitch-icon" height="36" width="36" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M391.2 103.5H352.5v109.7h38.6zM285 103H246.4V212.8H285zM120.8 0 24.3 91.4V420.6H140.1V512l96.5-91.4h77.3L487.7 256V0zM449.1 237.8l-77.2 73.1H294.6l-67.6 64v-64H140.1V36.6H449.1z"/></svg></a></li>
+              {% endif %}
+
               {% if theme.tumblr_url != blank %}
                 <li><a href="{{ theme.tumblr_url }}" title="Tumblr"><svg class="tumblr-icon" height="36" width="36" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310 480c-14 15-50 32-98 32-120 0-147-89-147-141V227H18c-6 0-10-4-10-10v-68c0-7 4-13 11-16 62-21 82-76 85-117 0-11 6-16 16-16h71c5 0 10 4 10 10v115h83c5 0 10 5 10 10v82c0 5-5 10-10 10h-84v133c0 34 24 54 68 36 5-2 9-3 13-2 3 1 6 3 7 8l22 64c2 5 3 10 0 14z"/></svg></a></li>
               {% endif %}
@@ -362,7 +394,8 @@
         pageCategory: '{{ page.category }}',
         pagePermalink: '{{ page.permalink }}',
         leftGradientColor: '{{ theme.left_gradient_color }}',
-        rightGradientColor: '{{ theme.right_gradient_color }}'
+        rightGradientColor: '{{ theme.right_gradient_color }}',
+        welcomeButtonBehavior: "{{ theme.welcome_button_behavior }}",
       };
     </script>
     <script src="{{ theme | theme_js_url }}"></script>

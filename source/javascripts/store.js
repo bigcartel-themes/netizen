@@ -163,13 +163,10 @@ $('.announcement-message-close').click(function(e) {
 
 $(document).ready(function() {
   if ($('.all-similar-products').length) {
-    var num_products = $('.all-similar-products > a').length;
-    var elements = $('.all-similar-products').children().toArray();
+    var elements = $('.all-similar-products').children();
     var num_to_display = 3;
-    for (var i=1; i<=num_to_display; i++) {
-      var randomIndex = getRandomIndex(elements);
-      $('.similar-product-list').append($('.all-similar-products').children().eq(randomIndex));
-      elements.splice(randomIndex, 1);
+    for (var i=0; i<num_to_display && i<elements.length; i++) {
+      $('.similar-product-list').append(elements.eq(i));
       $('.similar-product-list .similar-product-list-image').each(function() {
         $(this).attr("src",$(this).data("src"));
       })
@@ -177,8 +174,6 @@ $(document).ready(function() {
     $('.all-similar-products').remove();
   }
 });
-
-
 
 /* Gradients */
 
@@ -362,68 +357,15 @@ function toggleMiniCart(hideOrShow) {
   }
 }
 
-setupFeaturedCategories();
-
 $(window).on('load resize', function() {
   setSidebarPosition();
-  setupFeaturedCategories();
   $('.mini-cart-container').height(window.innerHeight+'px');
 });
 
 window.addEventListener("orientationchange", function() {
   setSidebarPosition();
-  setupFeaturedCategories();
   $('.mini-cart-container').height(window.innerHeight+'px');
 }, false);
-
-function setupFeaturedCategories() {
-  if ($('.featured').length) {
-    var featured_image_height = $('.featured-image').height();
-    var featured_images_width = $('.featured-images').width();
-    var featured_image_container_width = $('.featured-image-container').width();
-
-    if ($(window).width() <= 768) {
-      $('.featured-image').css('height',featured_images_width+'px');
-      $('.featured-image').css('width',featured_images_width+'px');
-      $('.featured-image-container').css('height',featured_image_container_width -40+'px');
-      $('.feature-text').css('margin-top',featured_image_container_width+20+'px')
-    }
-    else {
-      $('.featured-image').css('height','calc(100% + 4px)');
-      $('.featured-image').css('width',featured_image_height+'px');
-      $('.featured-image-container').css('height','auto');
-      $('.feature-text').css('margin-top','0')
-    }
-
-    if ($('.featured-item-2').length && $('.product-list').length) {
-      featured_element = $('.featured-item-2');
-      num_insert_after = 0;
-      if ($(window).width() > 1024) {
-        num_products_per_row = $('.product-list').attr("data-per-row");
-        if (num_products_per_row == 1) { num_insert_after = 1; }
-        if (num_products_per_row == 2) { num_insert_after = 4; }
-        if (num_products_per_row == 3) { num_insert_after = 9; }
-      }
-      else {
-        num_products_per_row = $('.product-list').attr("data-per-row-mobile")
-        if (num_products_per_row == 1) { num_insert_after = 2; }
-        if (num_products_per_row == 2) { num_insert_after = 4; }
-      }
-      if (num_insert_after > 0 && $('.product-list-item-'+num_insert_after).length) {
-        insert_after_element = $('.product-list-item-'+num_insert_after)
-        featured_element.insertAfter(insert_after_element)
-      }
-      else {
-        featured_element.insertAfter('.product-list');
-      }
-
-      if ($('.product-list').hasClass('masonry')) {
-        $grid.masonry('reloadItems')
-      }
-    }
-
-  }
-}
 
 function setSidebarPosition() {
   var offset = $('.mobile-header').position().top + $('.mobile-header').outerHeight(true);
@@ -609,3 +551,38 @@ function disableSelectOption(select_option, type) {
     }
   }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const welcomeButton = document.querySelector(".welcome-messaging .button");
+  if (welcomeButton) {
+    welcomeButton.addEventListener("click", function (event) {
+      console.log(themeOptions.welcomeButtonBehavior);
+      if (themeOptions.welcomeButtonBehavior === "scroll") {
+        event.preventDefault();
+        const targetElement = document.querySelector("#main");
+        if (targetElement) {
+          smoothScroll(targetElement, 1000, 175);
+        }
+      }
+    });
+  }
+  function smoothScroll(target, duration, offset = 0) {
+    const targetPosition = target.getBoundingClientRect().top + window.scrollY - offset;
+    const startPosition = window.scrollY;
+    let startTime = null;
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const run = ease(timeElapsed, startPosition, targetPosition, duration);
+      window.scrollTo(0, run);
+      if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+    function ease(t, b, c, d) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t + b;
+      t--;
+      return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+    requestAnimationFrame(animation);
+  }
+});

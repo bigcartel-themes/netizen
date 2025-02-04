@@ -3,6 +3,9 @@
 #home .content
   padding-top: 0
 
+#home .product-list
+  margin-top: 10px
+
 .has-announcement-message .welcome
   border-top: 0
 
@@ -52,28 +55,30 @@
     z-index: 2
     width: 75%
 
-    p.subheader
-      font-size: 22px
-      line-height: 30px
-      margin: 0 0 $marginSize/2 0
+    .welcome-header-group
+      margin-bottom: 55px
 
-      @media screen and (max-width: $break-small)
-        font-size: 16px
-        line-height: 22px
+      p.subheader
+        font-size: 22px
+        line-height: 30px
+        margin: 0 0 $marginSize/2 0
 
-    h2.headline
-      font-size: 48px
-      line-height: 60px
-      margin: 0 0 55px 0
+        @media screen and (max-width: $break-small)
+          font-size: 16px
+          line-height: 22px
 
-      @media screen and (max-width: $break-small)
-        font-size: 32px
-        line-height: 40px
+      h2.headline
+        font-size: 48px
+        line-height: 60px
+        margin: 0 0 10px 0
+
+        @media screen and (max-width: $break-small)
+          font-size: 32px
+          line-height: 40px
 
     .button
       font-size: 16px
       height: 55px
-      line-height: 55px
       margin: 0 auto
       width: 255px
 
@@ -101,13 +106,16 @@
       background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='#{"{{ theme.pattern_color | replace: '#', '%23' }}"}' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E")
 
 h1.featured-title
-  margin-bottom: 55px
+  margin: 70px 0 40px 0
+
+.featured-categories
+  margin-bottom: 80px
 
 .featured
   +flexbox
   +flex-direction(row)
   border: $border
-  margin: 50px 0 0
+  margin: 25px 0 0
   position: relative
 
   @media screen and (max-width: $break-small)
@@ -180,18 +188,32 @@ h1.featured-title
 
     .featured-images
       +transform(translateY(-50%) translateX(-50%))
-      height: 100%
+      height: 75%
       left: 50%
       position: absolute
       top: calc(50% - 2px)
-      width: 75%
+      width: 50%
+
+      @media screen and (max-width: $break-medium)
+        left: 60%
 
       @media screen and (max-width: $break-small)
+        left: 50%
+        transform: translateX(-50%)
         width: calc(100% - 100px)
+        height: auto 
+
+      @media screen and (max-width: $break-extra-small)
+        width: 30%
+        min-width: 200px
 
   .featured-image
     height: calc(100% + 4px)
     width: 100%
+
+    @media screen and (max-width: $break-small)
+      height: 175px
+      width: auto
 
     img
       display: block
@@ -232,3 +254,13 @@ h1.featured-title
       @media screen and (max-width: $break-medium)
         left: 24px
         top: 24px
+
+.all-products-button
+  margin-top: 40px
+  max-width: 40%
+  min-width: 300px
+  margin: 40px auto 
+  background-color: transparent
+
+  @media screen and (max-width: $break-small)
+    margin-top: 0
