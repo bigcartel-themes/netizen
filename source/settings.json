@@ -462,23 +462,29 @@
       "description": "Displays an announcement message on the top of every page"
     },
     {
-      "variable": "welcome_subheader",
-      "label": "Welcome subheader",
-      "type": "text",
-      "description": "Welcome subheader for Home page"
-    },
-    {
       "variable": "welcome_header",
       "label": "Welcome header",
       "type": "text",
       "description": "Welcome header for Home page"
     },
     {
+      "variable": "welcome_subheader",
+      "label": "Welcome subheader",
+      "type": "text",
+      "description": "Welcome subheader for Home page",
+      "requires": [
+        "welcome_header present"
+      ]
+    },
+    {
       "variable": "welcome_button_text",
       "label": "Welcome button",
       "type": "text",
       "description": "Welcome button text on Home page that links to the Products page",
-      "default": "Shop now"
+      "default": "Shop now",
+      "requires": [
+        "welcome_header present"
+      ]
     },
     {
       "variable": "welcome_button_behavior",

@@ -146,9 +146,19 @@
         {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank %}
           <section class="home-welcome welcome gradient">
             <div class="welcome-messaging">
-              {% if theme.welcome_subheader != blank  %}<p class="subheader">{{ theme.welcome_subheader }}</p>{% endif %}
-              {% if theme.welcome_header != blank  %}<h2 class="headline">{{ theme.welcome_header }}</h2>{% endif %}
-              {% if theme.welcome_button_text != blank %}<a href="/products" class="button">{{ theme.welcome_button_text }}</a>{% endif %}
+              {% if theme.welcome_header != blank %}
+                <div class="welcome-header-group">
+                  <h2 class="headline">{{ theme.welcome_header }}</h2>
+                  
+                  {% if theme.welcome_subheader != blank %}
+                    <p class="subheader">{{ theme.welcome_subheader }}</p>
+                  {% endif %}
+                </div>
+                
+                {% if theme.welcome_button_text != blank %}
+                  <a href="/products" class="button">{{ theme.welcome_button_text }}</a>
+                {% endif %}
+              {% endif %}
             </div>
             <div class="pattern {{ theme.welcome_overlay }}"></div>
             {% if theme.welcome_image != blank %}
