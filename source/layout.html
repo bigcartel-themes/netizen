@@ -143,21 +143,21 @@
         </div>
       {% endif %}
       {% if page.permalink == 'home' %}
-        {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank %}
+        {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
           <section class="home-welcome welcome gradient">
             <div class="welcome-messaging">
-              {% if theme.welcome_header != blank %}
-                <div class="welcome-header-group">
+              <div class="welcome-header-group">
+                {% if theme.welcome_header != blank %}
                   <h2 class="headline">{{ theme.welcome_header }}</h2>
-                  
-                  {% if theme.welcome_subheader != blank %}
-                    <p class="subheader">{{ theme.welcome_subheader }}</p>
-                  {% endif %}
-                </div>
-                
-                {% if theme.welcome_button_text != blank %}
-                  <a href="/products" class="button">{{ theme.welcome_button_text }}</a>
                 {% endif %}
+
+                {% if theme.welcome_subheader != blank %}
+                  <p class="subheader">{{ theme.welcome_subheader }}</p>
+                {% endif %}
+              </div>
+              
+              {% if theme.welcome_button_text != blank %}
+                <a href="/products" class="button">{{ theme.welcome_button_text }}</a>
               {% endif %}
             </div>
             <div class="pattern {{ theme.welcome_overlay }}"></div>
@@ -198,7 +198,7 @@
 
             <nav class="side-nav-section pages-nav">
               <ul class="unstyled page-nav-items">
-              <li><a href="/">Home</a></li>
+              <li><a href="/">{{ pages.home.name }}</a></li>
               <li><a href="/products">{{ pages.products.name }}</a></li>
               <li><a href="/cart">{{ pages.cart.name }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
               {% for page in pages.all %}
@@ -296,7 +296,7 @@
       </div>
       <div class="footer-section footer-nav">
         <ul class="unstyled footer-links">
-          <li><a href="/">Home</a></li>
+          <li><a href="/">{{ pages.home.name }}</a></li>
           <li><a href="/products">{{ pages.products.name }}</a></li>
           <li><a href="/cart">{{ pages.cart.name }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
           <li><a href="/contact">{{ pages.contact.name }}</a></li>
