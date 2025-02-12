@@ -1,6 +1,6 @@
 {
   "name": "Netizen",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "images": [
     {
       "variable": "logo",
@@ -497,8 +497,7 @@
       "variable": "welcome_button_text",
       "label": "Welcome button",
       "type": "text",
-      "description": "Welcome button text on Home page that links to the Products page",
-      "default": "Shop now"
+      "description": "Welcome button text on Home page that links to the Products page (e.g. 'Shop now')"
     },
     {
       "variable": "welcome_button_behavior",
