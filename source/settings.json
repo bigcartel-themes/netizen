@@ -471,20 +471,14 @@
       "variable": "welcome_subheader",
       "label": "Welcome subheader",
       "type": "text",
-      "description": "Welcome subheader for Home page",
-      "requires": [
-        "welcome_header present"
-      ]
+      "description": "Welcome subheader for Home page"
     },
     {
       "variable": "welcome_button_text",
       "label": "Welcome button",
       "type": "text",
       "description": "Welcome button text on Home page that links to the Products page",
-      "default": "Shop now",
-      "requires": [
-        "welcome_header present"
-      ]
+      "default": "Shop now"
     },
     {
       "variable": "welcome_button_behavior",
@@ -497,8 +491,7 @@
       "default": "scroll",
       "description": "Controls the behavior of the welcome button on the Home page",
       "requires": [
-        "welcome_button_text present",
-        "welcome_header present"
+        "welcome_button_text present"
       ]
     },
     {
