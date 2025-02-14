@@ -514,6 +514,22 @@
       ]
     },
     {
+      "variable": "welcome_image_brightness",
+      "label": "Welcome image overlay effect",
+      "type": "select",
+      "options": [
+        ["Brightest", "1.75"],
+        ["Brighter", "1.50"],
+        ["Brighten", "1.25"],
+        ["None", "1.0"],
+        ["Darken", "0.75"],
+        ["Darker", "0.50"],
+        ["Darkest", "0.25"]
+      ],
+      "default": "1.0",
+      "description": "Adjust the home page welcome image overlay to enhance the legibility of welcome header text"
+    },
+    {
       "variable": "lookbook_page_name",
       "label": "Lookbook Page Name",
       "type": "text",
