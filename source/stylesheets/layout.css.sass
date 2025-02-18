@@ -764,8 +764,15 @@ footer
       width: 100% !important
 
 .footer-custom-content
-  display: flex
-  margin: 30px
+  display: grid
+  grid-template-columns: 1fr
+  justify-content: center
+  text-align: center
+  padding: 20px
+  gap: 20px
+
+  > *
+    justify-self: center
 
 .social_icons
   +flexbox
