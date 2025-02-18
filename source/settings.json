@@ -631,7 +631,7 @@
       "description": "The number of categories featured on the Home page"
     },
     {
-      "variable": "featured_category_header",
+      "variable": "featured_categories_header",
       "label": "Featured categories header",
       "type": "text",
       "default": "Featured Categories",
