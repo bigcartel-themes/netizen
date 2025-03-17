@@ -181,8 +181,8 @@ $(document).ready(function() {
   $.fn.drawGradient = function() {
     this.filter( ".gradient" ).each(function() {
       var element = $(this);
-      var leftGradient = themeOptions.leftGradientColor;
-      var rightGradient = themeOptions.rightGradientColor;
+      var leftGradient = themeColors.leftGradientColor;
+      var rightGradient = themeColors.rightGradientColor;
       var gradientStyle = "linear-gradient(140deg,"+leftGradient+" 20%, "+rightGradient+" 70%)";
       element.css("background",gradientStyle);
     });
@@ -440,6 +440,7 @@ var updateCart = function(cart) {
       }
     }
   });
+  showBnplMessaging(cart.total, { alignment: 'center', displayMode: 'flex', pageType: 'cart' });
 }
 
 $('.main-carousel').flickity({
@@ -560,6 +561,7 @@ function enableAddButton(updated_price) {
   }
   addButton.html(addButtonTitle + priceTitle);
   updateInventoryMessage($('#option').val());
+  showBnplMessaging(updated_price, { alignment: 'left', displayMode: 'grid', pageType: 'product' });
 }
 
 function disableAddButton(type) {
@@ -645,5 +647,24 @@ document.addEventListener("DOMContentLoaded", function () {
     requestAnimationFrame(animation);
   }
 
-  updateInventoryMessage();
+  const pageType = document.body.getAttribute('data-bc-page-type');
+  
+  // Handle cart page
+  if (pageType === 'cart') {
+    Cart.refresh((cart) => {
+      if (cart?.total) {
+        showBnplMessaging(cart.total, { alignment: 'center', displayMode: 'flex', pageType: 'cart' });
+      }
+    });
+  }
+
+  // Handle product page
+  if (pageType === 'product') {
+    updateInventoryMessage();
+    
+    const price = window.bigcartel?.product?.default_price || null;    
+    showBnplMessaging(price, { alignment: 'left', displayMode: 'grid', pageType: 'product' });
+  }
 });
+
+

@@ -107,11 +107,14 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ 'api' | theme_js_url }}"></script>
     <script>
-      var themeOptions = {
+      const themeOptions = {
         pageCategory: '{{ page.category }}',
         pagePermalink: '{{ page.permalink }}',
+      };
+      const themeColors = {
         leftGradientColor: '{{ theme.left_gradient_color }}',
-        rightGradientColor: '{{ theme.right_gradient_color }}'
+        rightGradientColor: '{{ theme.right_gradient_color }}',
+        primaryTextColor: '{{ theme.primary_text_color }}',
       };
     </script>
     <script src="{{ theme | theme_js_url }}"></script>

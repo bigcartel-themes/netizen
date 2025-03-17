@@ -16,14 +16,13 @@
   z-index: 100
 
   @media screen and (max-width: $break-medium)
-    margin-bottom: 50px
+    margin-bottom: 0
     position: relative
     order: 2
     top: auto
 
   @media screen and (max-width: $break-extra-small)
     +flex-direction(column)
-    margin-bottom: 0
 
 .product-titles
   +align-self(flex-start)
@@ -31,7 +30,7 @@
 
   @media screen and (max-width: $break-medium)
     padding-bottom: 0
-    margin-bottom: 50px
+    margin-bottom: 0
 
   h1
     margin-bottom: 10px
@@ -73,8 +72,7 @@
     margin-top: 0
 
   @media screen and (max-width: $break-extra-small)
-    margin: 0
-    margin-bottom: 50px
+    margin: 0 0 10px
     max-width: 100%
 
   .select
@@ -116,8 +114,8 @@ button.reset-selection-button
   width: 100%
 
   @media screen and (max-width: $break-medium)
-    order: 3
-    margin-top: 0
+    order: 4
+    margin: 0
     max-width: 100%
 
 .product-images
@@ -171,6 +169,7 @@ button.reset-selection-button
 
   @media screen and (max-width: $break-medium)
     padding: 25px
+    margin-top: 50px
 
 .similar-products-header
   position: absolute
@@ -209,3 +208,46 @@ button.reset-selection-button
   padding: 8px 0
   font-weight: 400
   font-size: 0.75rem
+
+#payment-processor-messaging
+  margin: 20px 0 0
+  width: 100%
+  display: block
+  
+  body[data-bc-page-type="product"] &
+    margin: 30px 0 0 0
+
+    @media screen and (max-width: $break-medium)
+      margin: 0 0 40px 0
+      order: 3
+
+  body[data-bc-page-type="cart"] &
+    margin: 60px 0 20px 0
+
+    @media screen and (max-width: $break-small)
+      margin: 30px 0 100px 0
+
+  &.display-flex
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    &.dual-messaging
+      gap: 15px
+
+  &.display-grid
+    display: grid
+  
+  &.hidden
+    position: absolute
+    left: -9999px
+    top: -9999px
+
+  > div
+    margin-bottom: 0
+  
+  // Only apply the margin for non-flex layouts when dual messaging is present
+  &:not(.display-flex)
+    &.dual-messaging > div.visible:first-of-type
+      margin-bottom: 10px
