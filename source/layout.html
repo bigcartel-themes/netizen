@@ -390,15 +390,29 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{{ 'api' | theme_js_url }}"></script>
     <script>
-      var themeOptions = {
+      {% comment %}
+        Manual array construction needed for Liquid 3.0.6 since standard JSON filters 
+        (json, jsonify) don't work properly. This ensures proper JavaScript array 
+        formatting with quoted elements and commas.
+      {% endcomment %}
+      const themeFeatures = {
+        optIns: [{% if theme.features.opt_ins %}{% for opt in theme.features.opt_ins %}"{{ opt }}"{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}],
+        optOuts: [{% if theme.features.opt_outs %}{% for opt in theme.features.opt_outs %}"{{ opt }}"{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}],
+      };
+      const themeOptions = {
         pageCategory: '{{ page.category }}',
         pagePermalink: '{{ page.permalink }}',
-        leftGradientColor: '{{ theme.left_gradient_color }}',
-        rightGradientColor: '{{ theme.right_gradient_color }}',
         welcomeButtonBehavior: "{{ theme.welcome_button_behavior }}",
         showLowInventoryMessages: {{ theme.show_low_inventory_messages }},
         lowInventoryMessage: "{{ theme.low_inventory_message | replace: '"', '\"' | replace: "'", "\\'" }}",
         almostSoldOutMessage: "{{ theme.almost_sold_out_message | replace: '"', '\"' | replace: "'", "\\'" }}",
+        showBnplMessaging: {{ theme.show_bnpl_messaging }} && !themeFeatures.optOuts.includes("theme_bnpl_messaging"),
+      };
+      const themeColors = {
+        backgroundColor: '{{ theme.background_color }}',
+        primaryTextColor: '{{ theme.text_color }}',
+        leftGradientColor: '{{ theme.left_gradient_color }}',
+        rightGradientColor: '{{ theme.right_gradient_color }}',
       };
     </script>
     <script src="{{ theme | theme_js_url }}"></script>

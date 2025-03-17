@@ -1,4 +1,4 @@
-{% if theme.featured_categories > 0 %}
+{% if theme.featured_categories > 0 and categories.active.size > 0 %}
   {% capture featured_categories %}
     <h1 class="featured-title">{{ theme.featured_categories_header }}</h1>
     <div class="featured-categories">
