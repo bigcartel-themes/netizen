@@ -57,8 +57,8 @@
           {
             "style_name": "Playful #2",
             "fonts": {
-              "header_font": "Overlock",
-              "text_font": "Nunito Sans"
+              "header_font": "Playwrite HR Lijeva",
+              "text_font": "Work Sans"
             },
             "colors": {
               "background_color": "#4CC9F0",
@@ -132,7 +132,7 @@
               "text_font": "Work Sans"
             },
             "colors": {
-              "background_color": "#F8F9FA",
+              "background_color": "#CCCCCC",
               "text_color": "#2C3E50",
               "welcome_text_color": "#2C3E50",
               "button_text_color": "#2C3E50",
@@ -150,7 +150,7 @@
           {
             "style_name": "Classic #3",
             "fonts": {
-              "header_font": "Playfair Display",
+              "header_font": "Radio Canada",
               "text_font": "Source Sans Pro"
             },
             "colors": {
@@ -199,8 +199,8 @@
           {
             "style_name": "Bold #2",
             "fonts": {
-              "header_font": "Inknut Antiqua",
-              "text_font": "Raleway"
+              "header_font": "Doto",
+              "text_font": "Source Code Pro"
             },
             "colors": {
               "background_color": "#FF0066",
@@ -221,23 +221,23 @@
           {
             "style_name": "Bold #3",
             "fonts": {
-              "header_font": "Titillium Web",
-              "text_font": "Ubuntu"
+              "header_font": "Permanent Marker",
+              "text_font": "Work Sans"
             },
             "colors": {
-              "background_color": "#6B4CF5",
+              "background_color": "#0D1759",
               "text_color": "#FFFFFF",
               "welcome_text_color": "#FFFFFF",
               "button_text_color": "#FFFFFF",
-              "button_background_color": "#DC2626",
-              "button_hover_background_color": "#FF6B00",
-              "secondary_background_color": "#B91C1C",
-              "accent_background_color": "#DC2626",
-              "pattern_color": "#FFFFFF",
-              "left_gradient_color": "#DC2626",
-              "right_gradient_color": "#9333EA",
+              "button_background_color": "#1F6FD0",
+              "button_hover_background_color": "#00A7FF",
+              "secondary_background_color": "#1F6FD0",
+              "accent_background_color": "#4E8BF8",
+              "pattern_color": "#909090",
+              "left_gradient_color": "#1F6FD0",
+              "right_gradient_color": "#1F6FD0",
               "border_color": "#FFFFFF",
-              "error_background_color": "#FF3366"
+              "error_background_color": "#FCCC13"
             }
           }
         ]
@@ -426,7 +426,7 @@
     },
     {
       "variable": "button_hover_background_color",
-      "label": "Button background",
+      "label": "Button hover background",
       "default": "#FFEE00"
     },
     {
