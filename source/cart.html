@@ -3,6 +3,9 @@
   <button class="cart-close" type="button"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.20710678.79289322L10 8.585 17.7928932.79289322c.360484-.36048396.927715-.3882135 1.3200062-.0831886l.0942074.0831886c.3905243.39052429.3905243 1.02368927 0 1.41421356L11.415 10l7.7921068 7.7928932c.3905243.3905243.3905243 1.0236893 0 1.4142136-.3905243.3905243-1.0236893.3905243-1.4142136 0L10 11.415l-7.79289322 7.7921068c-.36048396.3604839-.92771502.3882135-1.32000622.0831886l-.09420734-.0831886c-.3905243-.3905243-.3905243-1.0236893 0-1.4142136L8.585 10 .79289322 2.20710678c-.3905243-.39052429-.3905243-1.02368927 0-1.41421356.39052429-.3905243 1.02368927-.3905243 1.41421356 0z" fill-rule="nonzero"/></svg></button>
   {% if cart.items != blank %}
     <form method="post" action="/cart" id="cart-form" class="cart-form">
+      {% if theme.cart_text %}
+        <div class="message-banner message-banner--cart">{{ theme.cart_text }}</div>
+      {% endif %}
       <ul class="cart-items">
         {% for item in cart.items %}
           <li class="cart-item" data-item-id="{{ item.id }}">
