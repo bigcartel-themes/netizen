@@ -8,7 +8,6 @@
     {{ head_content }}
   </head>
   <body id="{{ page.permalink }}" class="{% if errors != blank %}has-header-message{% endif %} {{ page.category }} {% if page.permalink == 'home' and theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank %}has-welcome{% endif %}" data-bc-page-type="{% if page.category == 'custom' %}custom{% else %}{{ page.permalink }}{% endif %}">
-    <a class="skip-link" href="#main">Skip to main content</a>
     <div class="wrap">
       {% if errors != blank %}
         <div class="header-message">
