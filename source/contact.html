@@ -3,7 +3,7 @@
   <a href="/products" class="button">Continue Shopping</a>
 {% else %}
   <h1 class="page-title">{{ page.name }}</h1>
-  {% if theme.contact_text %}
+  {% if theme.contact_text != blank %}
     <div class="message-banner message-banner--contact">{{ theme.contact_text }}</div>
   {% endif %}
   <form method="post" action="/contact" class="contact-form">
