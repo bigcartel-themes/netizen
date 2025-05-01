@@ -158,7 +158,7 @@ $('.open-menu').click(function() {
 })
 
 var processUpdate = function(input, item_id, new_val, cart) {
-  var sub_total = Format.money(cart.total, true, true);
+  var sub_total = formatMoney(cart.total, true, true);
   var item_count = cart.item_count;
   $('.header-cart-total').html(sub_total);
   $('.cart-subtotal-amount-value').html(sub_total);
@@ -286,7 +286,7 @@ $('body')
   })
 
 var updateCart = function(cart) {
-  var sub_total = Format.money(cart.total, true, true);
+  var sub_total = formatMoney(cart.total, true, true);
   var item_count = cart.item_count;
   $('.header-cart-total').html(sub_total);
   $('.cart-subtotal-amount-value').html(sub_total);
@@ -415,7 +415,7 @@ function enableAddButton(updated_price) {
   var addButtonTitle = addButton.attr('data-add-title');
   addButton.attr("disabled",false);
   if (updated_price) {
-    priceTitle = ' - ' + Format.money(updated_price, true, true);
+    priceTitle = ' - ' + formatMoney(updated_price, true, true);
   }
   else {
     priceTitle = '';
