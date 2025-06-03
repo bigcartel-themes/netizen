@@ -398,11 +398,11 @@
             </ul>
           </nav>
         {% endif %}
-        <div data-bc-hook="credit">
-          {% unless theme.hide_big_cartel_credit %}
+        {% unless theme.hide_big_cartel_credit %}
+          <div data-bc-hook="credit">
             {{ big_cartel_credit_logo }}
-          {% endunless %}
-        </div>
+          </div>
+        {% endunless %}
       </div>
       </footer>
     </div>
