@@ -227,26 +227,28 @@
         </div>
         <main class="content" id="main">
           <header data-bc-hook="header"></header>
-          {% if page.category == 'custom' %}
-            <div class="custom-page">
-              <h1 class="page-title">{{ page.name }}</h1>
-              <div class="custom-page-content">
-                {{ page_content | paragraphs }}
+          <div data-bc-hook="content">
+            {% if page.category == 'custom' %}
+              <div class="custom-page">
+                <h1 class="page-title">{{ page.name }}</h1>
+                <div class="custom-page-content">
+                  {{ page_content | paragraphs }}
 
-                {% if page.name == theme.lookbook_page_name %}
-                  {% if theme.image_sets.lookbook_images.size > 0 %}
-                    <div class="lookbook-gallery">
-                      {% for image in theme.image_sets.lookbook_images %}
-                        <img class="lookbook-gallery-image" src="{{ image.url | constrain: '1400', '' }}">
-                      {% endfor %}
-                    </div>
+                  {% if page.name == theme.lookbook_page_name %}
+                    {% if theme.image_sets.lookbook_images.size > 0 %}
+                      <div class="lookbook-gallery">
+                        {% for image in theme.image_sets.lookbook_images %}
+                          <img class="lookbook-gallery-image" src="{{ image.url | constrain: '1400', '' }}">
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   {% endif %}
-                {% endif %}
+                </div>
               </div>
-            </div>
-          {% else %}
-            {{ page_content }}
-          {% endif %}
+            {% else %}
+              {{ page_content }}
+            {% endif %}
+          </div>
         </main>
       </div>
       {% comment %}

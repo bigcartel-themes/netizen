@@ -17,66 +17,67 @@
 {% if product.status == 'coming-soon' and theme.show_coming_soon_product_prices == false %}
   {% assign hide_price = true %}
 {% endif %}
-<div class="product-heading">
-  <div class="product-titles">
-    <h1 class="page-title product-title">{{ product.name }}</h1>
-    <div class="product-subtitle">
-      {% if product_status != blank %}<span class="product-status">{{ product_status }}</span>{% endif %}
-      {% unless hide_price %}
-        {% if product.variable_pricing %}
-          {{ product.min_price | money: theme.money_format }} - {{ product.max_price | money: theme.money_format }}
-        {% else %}
-          {{ product.default_price | money: theme.money_format }}
-        {% endif %}
-      {% endunless %}
+<div data-bc-hook="product-container">
+  <div class="product-heading">
+    <div class="product-titles">
+      <h1 class="page-title product-title">{{ product.name }}</h1>
+      <div class="product-subtitle">
+        {% if product_status != blank %}<span class="product-status">{{ product_status }}</span>{% endif %}
+        {% unless hide_price %}
+          {% if product.variable_pricing %}
+            {{ product.min_price | money: theme.money_format }} - {{ product.max_price | money: theme.money_format }}
+          {% else %}
+            {{ product.default_price | money: theme.money_format }}
+          {% endif %}
+        {% endunless %}
+      </div>
     </div>
-  </div>
-  {% if product.status == 'active' %}
-    <form method="post" class="product-form {% if theme.show_sold_out_product_options %}show-sold-out{% else %}hide-sold-out{% endif %}" action="/cart" accept-charset="utf8">
-      <input type="hidden" name="utf8" value='✓'>
-      {% if product.has_default_option %}
-        {{ product.option | hidden_option_input }}
-      {% else %}
-        {% if product.has_option_groups %}
-          <div class="product_option_groups">
-            <input id="option" name="cart[add][id]" type="hidden" value="0">
-            {% for option_group in product.option_groups %}
-              <div class="select form-group">
-                <label class="form-label product-option-label" for="option_group_{{ option_group.id }}">{{ option_group.name }}</label>
-                <select data-unavailable-text="(Unavailable)" data-sold-text="({{ t['products.sold_out'] }})" id="option_group_{{ option_group.id }}" data-group-id="{{ option_group.id }}" data-group-name="{{ option_group.name | escape }}" class="product_option_group shrink-label" name="option_group[{{ option_group.id }}]" aria-label="Select {{ option_group.name | escape }}">
-                  <option value="0" disabled="disabled" selected>{{ option_group.name }}</option>
-                  {% for value in option_group.values %}
-                    <option value="{{ value.id }}" data-name="{{ value.name | escape }}">{{ value.name }}</option>
-                  {% endfor %}
-                </select>
-                <svg aria-hidden="true" focusable="false" class="down-arrow" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M441.9 250.1l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L250 385.4V44c0-6.6-5.4-12-12-12h-28c-6.6 0-12 5.4-12 12v341.4L42.9 230.3c-4.7-4.7-12.3-4.7-17 0L6.1 250.1c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z"></path></svg>
-              </div>
-            {% endfor %}
-          </div>
+    {% if product.status == 'active' %}
+      <form method="post" class="product-form {% if theme.show_sold_out_product_options %}show-sold-out{% else %}hide-sold-out{% endif %}" action="/cart" accept-charset="utf8">
+        <input type="hidden" name="utf8" value='✓'>
+        {% if product.has_default_option %}
+          {{ product.option | hidden_option_input }}
         {% else %}
-          <div class="select form-group">
-            <label class="form-label product-option-label" for="option">{{ t['products.select_variant'] }}</label>
-            <select class="product_option_select shrink-label" id="option" name="cart[add][id]" aria-label="{{ t['products.select_variant'] }}">
-              <option value="0" disabled="disabled" selected>{{ t['products.select_variant'] }}</option>
-              {% for option in product.options %}
-                <option value="{{ option.id }}" data-price="{{ option.price }}"{% if option.sold_out %} disabled="disabled" disabled-type="sold-out"{% endif %}>{{ option.name }} {% if option.sold_out %} ({{ t['products.sold_out'] }}){% endif %}</option>
+          {% if product.has_option_groups %}
+            <div class="product_option_groups">
+              <input id="option" name="cart[add][id]" type="hidden" value="0">
+              {% for option_group in product.option_groups %}
+                <div class="select form-group">
+                  <label class="form-label product-option-label" for="option_group_{{ option_group.id }}">{{ option_group.name }}</label>
+                  <select data-unavailable-text="(Unavailable)" data-sold-text="({{ t['products.sold_out'] }})" id="option_group_{{ option_group.id }}" data-group-id="{{ option_group.id }}" data-group-name="{{ option_group.name | escape }}" class="product_option_group shrink-label" name="option_group[{{ option_group.id }}]" aria-label="Select {{ option_group.name | escape }}">
+                    <option value="0" disabled="disabled" selected>{{ option_group.name }}</option>
+                    {% for value in option_group.values %}
+                      <option value="{{ value.id }}" data-name="{{ value.name | escape }}">{{ value.name }}</option>
+                    {% endfor %}
+                  </select>
+                  <svg aria-hidden="true" focusable="false" class="down-arrow" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M441.9 250.1l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L250 385.4V44c0-6.6-5.4-12-12-12h-28c-6.6 0-12 5.4-12 12v341.4L42.9 230.3c-4.7-4.7-12.3-4.7-17 0L6.1 250.1c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z"></path></svg>
+                </div>
               {% endfor %}
-            </select>
-            <svg aria-hidden="true" focusable="false" class="down-arrow" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M441.9 250.1l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L250 385.4V44c0-6.6-5.4-12-12-12h-28c-6.6 0-12 5.4-12 12v341.4L42.9 230.3c-4.7-4.7-12.3-4.7-17 0L6.1 250.1c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z"></path></svg>
+            </div>
+          {% else %}
+            <div class="select form-group">
+              <label class="form-label product-option-label" for="option">{{ t['products.select_variant'] }}</label>
+              <select class="product_option_select shrink-label" id="option" name="cart[add][id]" aria-label="{{ t['products.select_variant'] }}">
+                <option value="0" disabled="disabled" selected>{{ t['products.select_variant'] }}</option>
+                {% for option in product.options %}
+                  <option value="{{ option.id }}" data-price="{{ option.price }}"{% if option.sold_out %} disabled="disabled" disabled-type="sold-out"{% endif %}>{{ option.name }} {% if option.sold_out %} ({{ t['products.sold_out'] }}){% endif %}</option>
+                {% endfor %}
+              </select>
+              <svg aria-hidden="true" focusable="false" class="down-arrow" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M441.9 250.1l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L250 385.4V44c0-6.6-5.4-12-12-12h-28c-6.6 0-12 5.4-12 12v341.4L42.9 230.3c-4.7-4.7-12.3-4.7-17 0L6.1 250.1c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z"></path></svg>
+            </div>
+          {% endif %}
+        {% endif %}
+        <button class="button add-to-cart-button" name="submit" type="submit" title="{{ t['products.add_to_cart'] }}" data-adding-text="{{ t['products.adding'] }}" data-added-text="{{ t['products.adding'] }}" data-add-title="{{ t['products.add_to_cart'] }}" data-sold-title="{{ t['products.sold_out'] }}"{% if product.has_default_option %}{% else %}disabled="disabled"{% endif %}>{{ t['products.add_to_cart'] }}</button>
+        {{ store | instant_checkout_button: 'dark', '44px' }}
+        <div class="inventory-status-message" data-inventory-message></div>
+        {% if product.has_option_groups %}
+          <div class="reset-selection-button-container">
+            <button class="button minimal-button reset-selection-button" title="{{ t['products.reset'] }}" type="reset">{{ t['products.reset'] }}</button>
           </div>
         {% endif %}
-      {% endif %}
-      <button class="button add-to-cart-button" name="submit" type="submit" title="{{ t['products.add_to_cart'] }}" data-adding-text="{{ t['products.adding'] }}" data-added-text="{{ t['products.adding'] }}" data-add-title="{{ t['products.add_to_cart'] }}" data-sold-title="{{ t['products.sold_out'] }}"{% if product.has_default_option %}{% else %}disabled="disabled"{% endif %}>{{ t['products.add_to_cart'] }}</button>
-      {{ store | instant_checkout_button: 'dark', '44px' }}
-      <div class="inventory-status-message" data-inventory-message></div>
-      {% if product.has_option_groups %}
-        <div class="reset-selection-button-container">
-          <button class="button minimal-button reset-selection-button" title="{{ t['products.reset'] }}" type="reset">{{ t['products.reset'] }}</button>
-        </div>
-      {% endif %}
-    </form>
-  {% endif %}
-
+      </form>
+    {% endif %}
+  </div>
 </div>
 {% if product.status == "active" and theme.show_bnpl_messaging %}
   <div id="payment-processor-messaging">
