@@ -79,7 +79,10 @@
         {% endfor %}
       </div>
       {% if paginate.pages > 1 %}
-        {% if theme.all_products_button_text != blank %}<a class="button all-products-button" href="/products">{{ t['home.all_products'] }}</a>{% endif %}
+        {% assign all_products_button_text = t['home.all_products'] %}
+        {% if all_products_button_text != blank %}
+          <a class="button all-products-button" href="/products">{{ all_products_button_text }}</a>
+        {% endif %}
       {% endif %}
       {% if theme.featured_categories_position == 'bottom' %}
         {{ featured_categories }}
