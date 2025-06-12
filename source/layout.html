@@ -1,14 +1,30 @@
+{% comment %} Define a consistent title suffix {% endcomment %}
+{% capture title_suffix %} | {{ store.name }}{% endcapture %}
+
+{% comment %} Set default page title {% endcomment %}
+{% assign page_title = page.name | append: title_suffix %}
+
+{% comment %} Handle special page cases {% endcomment %}
+{% if page.name == 'Home' %}
+  {% assign page_title = store.name %}
+{% elsif page.full_url contains '/products' %}
+  {% if page.full_url contains 'search=' %}
+    {% assign page_title = t['products.search_results'] | append: title_suffix %}
+  {% elsif theme.collections %}
+    {% assign page_title = t['navigation.categories'] | append: title_suffix %}
+  {% endif %}
+{% endif %}
+
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ page.name }} | {{ store.name }}</title>
+    <title>{{ page_title }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ theme | theme_css_url }}" media="screen" rel="stylesheet" type="text/css">
     {{ head_content }}
   </head>
   <body id="{{ page.permalink }}" class="{% if errors != blank %}has-header-message{% endif %} {{ page.category }} {% if page.permalink == 'home' and theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank %}has-welcome{% endif %}" data-bc-page-type="{% if page.category == 'custom' %}custom{% else %}{{ page.permalink }}{% endif %}">
-    <a class="skip-link" href="#main">Skip to main content</a>
     <div class="wrap">
       {% if errors != blank %}
         <div class="header-message">
@@ -50,7 +66,7 @@
             <div class="gradient"></div>
           {% endif %}
         </div>
-        <button class="button header-cart-count open-mini-cart" title="View cart" aria-expanded="false" aria-controls="mini-cart">{{ cart.item_count }}</button>
+        <button class="button header-cart-count open-mini-cart" title="{{ t['cart.view_cart'] }}" aria-expanded="false" aria-controls="mini-cart">{{ cart.item_count }}</button>
       </div>
 
       <div class="desktop-header-store-name">
@@ -68,13 +84,13 @@
       </div>
 
       <div class="desktop-cart header-cart">
-        <button class="header-cart-info open-mini-cart" title="View cart" aria-expanded="false" aria-controls="mini-cart">
+        <button class="header-cart-info open-mini-cart" title="{{ t['cart.view_cart'] }}" aria-expanded="false" aria-controls="mini-cart">
           <span class="header-cart-count">{{ cart.item_count }}</span>
           <span class="header-cart-total">{{ cart.total | money: theme.money_format }}</span>
         </button>
         {% if page.permalink != 'cart' %}
           <div id="mini-cart" class="mini-cart-container cart-container gradient{% if cart.item_count == 0 %} empty-cart{% endif %}" aria-hidden="true">
-            <div class="page-title cart-title">Cart</div>
+            <div class="page-title cart-title">{{ t['navigation.cart'] }}</div>
             <button class="cart-close" type="button" title="Close cart"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.20710678.79289322L10 8.585 17.7928932.79289322c.360484-.36048396.927715-.3882135 1.3200062-.0831886l.0942074.0831886c.3905243.39052429.3905243 1.02368927 0 1.41421356L11.415 10l7.7921068 7.7928932c.3905243.3905243.3905243 1.0236893 0 1.4142136-.3905243.3905243-1.0236893.3905243-1.4142136 0L10 11.415l-7.79289322 7.7921068c-.36048396.3604839-.92771502.3882135-1.32000622.0831886l-.09420734-.0831886c-.3905243-.3905243-.3905243-1.0236893 0-1.4142136L8.585 10 .79289322 2.20710678c-.3905243-.39052429-.3905243-1.02368927 0-1.41421356.39052429-.3905243 1.02368927-.3905243 1.41421356 0z" fill-rule="nonzero"/></svg></button>
             {% if cart.items != blank %}
               <form method="post" action="/cart" id="cart-form" class="cart-form">
@@ -82,7 +98,7 @@
                   {% for item in cart.items %}
                     <li class="cart-item" data-item-id="{{ item.id }}">
                       <div class="cart-item-image-holder">
-                        <a class="cart-item-image" href="{{ item.product.url }}" title="View {{ item.product.name | escape }}" style="background-image:url('{{ item.product.image | product_image_url | constrain: 576, 576 }}');"></a>
+                        <a class="cart-item-image" href="{{ item.product.url }}" title="{{ item.product.name | escape }}" style="background-image:url('{{ item.product.image | product_image_url | constrain: 576, 576 }}');"></a>
                       </div>
                       <div class="cart-item-details">
                         <div class="cart-item-details-name">{{ item.product.name }}</div>
@@ -101,12 +117,12 @@
                 </ul>
                 <div class="cart-footer">
                   <div class="cart-subtotal">
-                    <span class="cart-subtotal-label">Subtotal:</span>
+                    <span class="cart-subtotal-label">{{ t['cart.subtotal'] }}:</span>
                     <span class="cart-subtotal-amount"><span class="cart-subtotal-amount-value">{{ cart.total | money: theme.money_format }}</span></span>
                   </div>
                   <div class="cart-buttons">
                     <a class="continue-shopping" href="/products"><svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M229.9 473.899l19.799-19.799c4.686-4.686 4.686-12.284 0-16.971L94.569 282H436c6.627 0 12-5.373 12-12v-28c0-6.627-5.373-12-12-12H94.569l155.13-155.13c4.686-4.686 4.686-12.284 0-16.971L229.9 38.101c-4.686-4.686-12.284-4.686-16.971 0L3.515 247.515c-4.686 4.686-4.686 12.284 0 16.971L212.929 473.9c4.686 4.686 12.284 4.686 16.971-.001z"></path></svg> Continue Shopping</a>
-                    <button type="submit" name="checkout" title="Checkout" class="button checkout-btn">Checkout</button>
+                    <button type="submit" name="checkout" title="Checkout" class="button checkout-btn">{{ t['cart.checkout'] }}</button>
                   </div>
                 </div>
               </form>
@@ -116,7 +132,7 @@
                 <img class="ghost-emoji" src="{{ 'ghost-emoji.png' | theme_image_url }}" alt="Ghost Emoji" aria-hidden="true">
               </div>
               <strong>Your cart is empty!</strong>
-              <a class="button" href="/">Start shopping</a>
+              <a class="button" href="/">{{ t['cart.continue_shopping'] }}</a>
             </div>
           </div>
         {% endif %}
@@ -173,9 +189,9 @@
         <div class="sidebar">
           <div class="side-nav">
             <nav class="side-nav-section category-nav">
-              <button aria-expanded="false" aria-controls="category-nav-items" aria-label="Expand category navigation" class="category-nav-title">Products <svg aria-hidden="true" focusable="false" class="down-arrow" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M441.9 250.1l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L250 385.4V44c0-6.6-5.4-12-12-12h-28c-6.6 0-12 5.4-12 12v341.4L42.9 230.3c-4.7-4.7-12.3-4.7-17 0L6.1 250.1c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z"></path></svg></button>
+              <button aria-expanded="false" aria-controls="category-nav-items" aria-label="Expand category navigation" class="category-nav-title">{{ t['navigation.products'] }} <svg aria-hidden="true" focusable="false" class="down-arrow" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M441.9 250.1l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L250 385.4V44c0-6.6-5.4-12-12-12h-28c-6.6 0-12 5.4-12 12v341.4L42.9 230.3c-4.7-4.7-12.3-4.7-17 0L6.1 250.1c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z"></path></svg></button>
               <ul aria-hidden="true" id="category-nav-items" class="unstyled category-nav-items">
-                <li class="{% if page.full_url contains '/products' %}selected{% endif %}"><a href="/products">All</a></li>
+                <li class="{% if page.full_url contains '/products' %}selected{% endif %}"><a href="/products">{{ t['navigation.all'] }}</a></li>
                 {% for category in categories.active %}
                   <li class="{% if page.full_url contains category.url %}selected{% endif %}">{{ category | link_to }}</li>
                 {% endfor %}
@@ -189,8 +205,8 @@
               <div class="side-nav-section side-search">
                 <form class="search-form" name="search" action="/products" method="get" accept-charset="utf8" role="search">
                   <input type="hidden" name="utf8" value='✓'>
-                  <input aria-label="Search products" class="search-input" id="search" name="search" type="text" placeholder="Search" autocomplete="off" />
-                  <button type="submit" class="button search-button" title="Search">
+                  <input aria-label="Search products" class="search-input" id="search" name="search" type="text" placeholder="{{ t['navigation.search'] }}" autocomplete="off" />
+                  <button type="submit" class="button search-button" title="{{ t['navigation.search'] }}">
                     <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z"></path></svg></button>
                 </form>
               </div>
@@ -198,39 +214,41 @@
 
             <nav class="side-nav-section pages-nav">
               <ul class="unstyled page-nav-items">
-              <li><a href="/">{{ pages.home.name }}</a></li>
-              <li><a href="/products">{{ pages.products.name }}</a></li>
-              <li><a href="/cart">{{ pages.cart.name }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
+              <li><a href="/">{{ t['navigation.home'] }}</a></li>
+              <li><a href="/products">{{ t['navigation.products'] }}</a></li>
+              <li><a href="/cart">{{ t['navigation.cart'] }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
               {% for page in pages.all %}
                 <li>{{ page | link_to }}</li>
               {% endfor %}
-              <li><a href="/contact">{{ pages.contact.name }}</a></li>
+              <li><a href="/contact">{{ t['navigation.contact'] }}</a></li>
               </ul>
             </nav>
           </div>
         </div>
         <main class="content" id="main">
           <header data-bc-hook="header"></header>
-          {% if page.category == 'custom' %}
-            <div class="custom-page">
-              <h1 class="page-title">{{ page.name }}</h1>
-              <div class="custom-page-content">
-                {{ page_content | paragraphs }}
+          <div data-bc-hook="content">
+            {% if page.category == 'custom' %}
+              <div class="custom-page">
+                <h1 class="page-title">{{ page.name }}</h1>
+                <div class="custom-page-content">
+                  {{ page_content | paragraphs }}
 
-                {% if page.name == theme.lookbook_page_name %}
-                  {% if theme.image_sets.lookbook_images.size > 0 %}
-                    <div class="lookbook-gallery">
-                      {% for image in theme.image_sets.lookbook_images %}
-                        <img class="lookbook-gallery-image" src="{{ image.url | constrain: '1400', '' }}">
-                      {% endfor %}
-                    </div>
+                  {% if page.name == theme.lookbook_page_name %}
+                    {% if theme.image_sets.lookbook_images.size > 0 %}
+                      <div class="lookbook-gallery">
+                        {% for image in theme.image_sets.lookbook_images %}
+                          <img class="lookbook-gallery-image" src="{{ image.url | constrain: '1400', '' }}">
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   {% endif %}
-                {% endif %}
+                </div>
               </div>
-            </div>
-          {% else %}
-            {{ page_content }}
-          {% endif %}
+            {% else %}
+              {{ page_content }}
+            {% endif %}
+          </div>
         </main>
       </div>
       {% comment %}
@@ -249,13 +267,15 @@
               {% assign product_status = '' %}
               {% case related_product.status %}
                 {% when 'active' %}
-                  {% if related_product.on_sale %}{% assign product_status = 'On sale' %}{% endif %}
+                  {% if related_product.on_sale %}
+                    {% assign product_status = t['products.on_sale'] %}
+                  {% endif %}
                 {% when 'sold-out' %}
-                  {% assign product_status = 'Sold out' %}
+                  {% assign product_status = t['products.sold_out'] %}
                 {% when 'coming-soon' %}
-                  {% assign product_status = 'Coming soon' %}
+                  {% assign product_status = t['products.coming_soon'] %}
               {% endcase %}
-              <a class="product-list-item {{ theme.show_overlay }}" href="{{ related_product.url }}" title="View {{ related_product.name | escape }}">
+              <a class="product-list-item {{ theme.show_overlay }}" href="{{ related_product.url }}" title="{{ related_product.name | escape }}">
                 <div class="product-list-item-container">
                   <figure class="product-list-image-container">
                     <img alt="Image of {{ related_product.name | escape }}" class="product-list-image" src="{{ related_product.image | product_image_url | constrain: 1000, 1000 }}">
@@ -277,7 +297,7 @@
         <div class="all-similar-products">{{ product_divs }}</div>
         <div class="similar-products gradient{% if theme.footer_text == blank %} no-bottom-border{% endif %}">
           <div class="similar-products-header">
-            <div class="similar-products-title">{{ theme.related_products_header | default: 'You might also like' }}</div>
+            <div class="similar-products-title">{{ t['products.related_products'] }}</div>
           </div>
           <div class="product-list similar-product-list"></div>
         </div>
@@ -296,10 +316,10 @@
       </div>
       <div class="footer-section footer-nav">
         <ul class="unstyled footer-links">
-          <li><a href="/">{{ pages.home.name }}</a></li>
-          <li><a href="/products">{{ pages.products.name }}</a></li>
-          <li><a href="/cart">{{ pages.cart.name }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
-          <li><a href="/contact">{{ pages.contact.name }}</a></li>
+          <li><a href="/">{{ t['navigation.home'] }}</a></li>
+          <li><a href="/products">{{ t['navigation.products'] }}</a></li>
+          <li><a href="/cart">{{ t['navigation.cart'] }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
+          <li><a href="/contact">{{ t['navigation.contact'] }}</a></li>
           {% for page in pages.all %}
             <li>{{ page | link_to }}</li>
           {% endfor %}
@@ -380,9 +400,11 @@
             </ul>
           </nav>
         {% endif %}
-        <div data-bc-hook="credit">
-          {{ powered_by_big_cartel }}
-        </div>
+        {% unless theme.hide_big_cartel_credit %}
+          <div data-bc-hook="credit">
+            {{ big_cartel_credit_logo }}
+          </div>
+        {% endunless %}
       </div>
       </footer>
     </div>
@@ -406,8 +428,8 @@
         pagePermalink: '{{ page.permalink }}',
         welcomeButtonBehavior: "{{ theme.welcome_button_behavior }}",
         showLowInventoryMessages: {{ theme.show_low_inventory_messages }},
-        lowInventoryMessage: "{{ theme.low_inventory_message | replace: '"', '\"' | replace: "'", "\\'" }}",
-        almostSoldOutMessage: "{{ theme.almost_sold_out_message | replace: '"', '\"' | replace: "'", "\\'" }}",
+        lowInventoryMessage: "{{ t['products.low_inventory'] | replace: '"', '\"' | replace: "'", "\\'" }}",
+        almostSoldOutMessage: "{{ t['products.almost_sold_out'] | replace: '"', '\"' | replace: "'", "\\'" }}",
         showBnplMessaging: {{ theme.show_bnpl_messaging }} && !themeFeatures.optOuts.includes("theme_bnpl_messaging"),
       };
       const themeColors = {
@@ -416,20 +438,18 @@
         leftGradientColor: '{{ theme.left_gradient_color }}',
         rightGradientColor: '{{ theme.right_gradient_color }}',
       };
+      const themeTranslations = {
+        cart: {
+          shareThisCartLinkCopySuccess: "{{ t['cart.share_this_cart_link_copy_success'] | replace: '"', '\"' | replace: "'", "\\'" }}"
+        }
+      };
     </script>
     <script src="{{ theme | theme_js_url }}"></script>
     <script type="text/javascript">
-      var formatMoney = Format.money;
-      Format.money = function(number) {
-        {% case theme.money_format %}
-        {% when 'sign' %}
-          return formatMoney(number, true, true, false);
-        {% when 'code' %}
-          return formatMoney(number, true, false, true);
-        {% when 'sign_and_code' %}
-          return formatMoney(number, true, true, true);
-        {% endcase %}
-      };
+      window.bigcartel = window.bigcartel || {};
+      window.bigcartel.account = window.bigcartel.account || {};
+      window.bigcartel.account.currency = window.bigcartel.account.currency || "{{ store.currency.code }}";
+      window.bigcartel.account.moneyFormat = "{{ theme.money_format }}";
     </script>
     {% if page.full_url contains '/product/' %}
       <script>

@@ -1,6 +1,6 @@
 <h1 class="page-title">
   {% if page.full_url contains '/products' and page.category != 'category' %}
-    {{ pages.products.name }}
+    {{ t['navigation.products'] }}
   {% else %}
     {{ page.name }}
   {% endif %}
@@ -12,13 +12,15 @@
         {% assign product_status = '' %}
         {% case product.status %}
           {% when 'active' %}
-            {% if product.on_sale %}{% assign product_status = 'On sale' %}{% endif %}
+            {% if product.on_sale %}
+              {% assign product_status = t['products.on_sale'] %}
+            {% endif %}
           {% when 'sold-out' %}
-            {% assign product_status = 'Sold out' %}
+            {% assign product_status = t['products.sold_out'] %}
           {% when 'coming-soon' %}
-            {% assign product_status = 'Coming soon' %}
+            {% assign product_status = t['products.coming_soon'] %}
         {% endcase %}
-        <a class="product-list-item {{ theme.show_overlay }}" href="{{ product.url }}" title="View {{ product.name | escape }}">
+        <a class="product-list-item {{ theme.show_overlay }}" href="{{ product.url }}" title="{{ product.name | escape }}">
           <div class="product-list-item-container">
             <figure class="product-list-image-container">
               <img alt="Image of {{ product.name | escape }}" class="product-list-image" src="{{ product.image | product_image_url | constrain: 1000, 1000 }}" >
@@ -50,6 +52,6 @@
       {{ paginate | default_pagination, 'pagination', 'pagination', '<svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M229.9 473.899l19.799-19.799c4.686-4.686 4.686-12.284 0-16.971L94.569 282H436c6.627 0 12-5.373 12-12v-28c0-6.627-5.373-12-12-12H94.569l155.13-155.13c4.686-4.686 4.686-12.284 0-16.971L229.9 38.101c-4.686-4.686-12.284-4.686-16.971 0L3.515 247.515c-4.686 4.686-4.686 12.284 0 16.971L212.929 473.9c4.686 4.686 12.284 4.686 16.971-.001z"></path></svg>', '<svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M218.101 38.101L198.302 57.9c-4.686 4.686-4.686 12.284 0 16.971L353.432 230H12c-6.627 0-12 5.373-12 12v28c0 6.627 5.373 12 12 12h341.432l-155.13 155.13c-4.686 4.686-4.686 12.284 0 16.971l19.799 19.799c4.686 4.686 12.284 4.686 16.971 0l209.414-209.414c4.686-4.686 4.686-12.284 0-16.971L235.071 38.101c-4.686-4.687-12.284-4.687-16.97 0z"></path></svg>' }}
     {% endif %}
   {% else %}
-    <p>No products found.</p>
+    <p>{{ t['products.no_products'] }}</p>
   {% endif %}
 {% endpaginate %}

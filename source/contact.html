@@ -1,30 +1,30 @@
 {% if contact.sent %}
-  <h1 class="page-title">Your message has been sent and we'll get back to you soon.</h1>
-  <a href="/products" class="button">Continue Shopping</a>
+  <h1 class="page-title">{{ t['contact.form_success'] }}</h1>
+  <a href="/products" class="button">{{ t['cart.continue_shopping'] }}</a>
 {% else %}
   <h1 class="page-title">{{ page.name }}</h1>
-  {% if theme.contact_text %}
+  {% if theme.contact_text != blank %}
     <div class="message-banner message-banner--contact">{{ theme.contact_text }}</div>
   {% endif %}
   <form method="post" action="/contact" class="contact-form">
     <div class="form-group contact-form-group">
-      <label class="form-label contact-form-label contact-name" for="name">Name</label>
+      <label class="form-label contact-form-label contact-name" for="name">{{ t['contact.name'] }}</label>
       {{ contact | contact_input: 'name' }}
     </div>
     <div class="form-group contact-form-group">
-      <label class="form-label contact-form-label contact-email" for="email">Email</label>
+      <label class="form-label contact-form-label contact-email" for="email">{{ t['contact.email'] }}</label>
       {{ contact | contact_input: 'email' }}
     </div>
     <div class="form-group contact-form-group">
-      <label class="form-label contact-form-label contact-subject" for="subject">Subject</label>
+      <label class="form-label contact-form-label contact-subject" for="subject">{{ t['contact.subject'] }}</label>
       {{ contact | contact_input: 'subject' }}
     </div>
     <div class="form-group contact-form-group">
-      <label class="form-label contact-form-label contact-message" for="message">Message</label>
+      <label class="form-label contact-form-label contact-message" for="message">{{ t['contact.message'] }}</label>
       {{ contact | contact_input: 'message' }}
     </div>
     <div class="contact-form-group contact-send">
-      <button class="button send-message-button" type="submit" name="submit">Send Message</button>
+      <button class="button send-message-button" type="submit" name="submit">{{ t['contact.send_button'] }}</button>
     </div>
     <div class="form-group contact-form-group">
       <div class="recaptcha-note">{{ contact.recaptcha }}</div>

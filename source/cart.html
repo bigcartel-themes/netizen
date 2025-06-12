@@ -1,13 +1,24 @@
+{% comment %}
+  Use page name from Custo if it's been customized, otherwise use the localized default.
+{% endcomment %}
+{% assign page_title = t['navigation.cart'] %}
+{% if page.name != 'Cart' %}
+  {% assign page_title = page.name %}
+{% endif %}
+
 <div class="cart-container gradient{% if cart.item_count == 0 %} empty-cart{% endif %}">
-  <h1 class="page-title cart-title">{{ page.name }}</h1>
+  <h1 class="page-title cart-title">{{ page_title }}</h1>
   <button class="cart-close" type="button"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.20710678.79289322L10 8.585 17.7928932.79289322c.360484-.36048396.927715-.3882135 1.3200062-.0831886l.0942074.0831886c.3905243.39052429.3905243 1.02368927 0 1.41421356L11.415 10l7.7921068 7.7928932c.3905243.3905243.3905243 1.0236893 0 1.4142136-.3905243.3905243-1.0236893.3905243-1.4142136 0L10 11.415l-7.79289322 7.7921068c-.36048396.3604839-.92771502.3882135-1.32000622.0831886l-.09420734-.0831886c-.3905243-.3905243-.3905243-1.0236893 0-1.4142136L8.585 10 .79289322 2.20710678c-.3905243-.39052429-.3905243-1.02368927 0-1.41421356.39052429-.3905243 1.02368927-.3905243 1.41421356 0z" fill-rule="nonzero"/></svg></button>
   {% if cart.items != blank %}
     <form method="post" action="/cart" id="cart-form" class="cart-form">
+      {% if theme.cart_text != blank %}
+        <div class="message-banner message-banner--cart">{{ theme.cart_text }}</div>
+      {% endif %}
       <ul class="cart-items">
         {% for item in cart.items %}
           <li class="cart-item" data-item-id="{{ item.id }}">
             <div class="cart-item-image-holder">
-              <a class="cart-item-image" href="{{ item.product.url }}" title="View {{ item.product.name | escape }}" style="background-image:url('{{ item.product.image | product_image_url | constrain: 576, 576 }}');"></a>
+              <a class="cart-item-image" href="{{ item.product.url }}" title="{{ item.product.name | escape }}" style="background-image:url('{{ item.product.image | product_image_url | constrain: 576, 576 }}');"></a>
             </div>
             <div class="cart-item-details">
               <div class="cart-item-details-name">{{ item.product.name }}</div>
@@ -16,9 +27,9 @@
               {% endunless %}
             </div>
             <div class="cart-item-quantity-holder" data-item-id="{{ item.id }}">
-              <button title="Decrease quantity of {{ item.product.name | escape }}" class="decrease-qty-button qty-button" data-func="minus" type="button"><svg fill="currentColor" width="30" height="30" xmlns="http://www.w3.org/2000/svg"><path d="M7.984 16.089a.728.728 0 0 1-.726-.726v-.726c0-.4.327-.726.726-.726h14.032c.4 0 .726.327.726.726v.726c0 .4-.327.726-.726.726H7.984zM30 15c0 8.286-6.714 15-15 15S0 23.286 0 15 6.714 0 15 0s15 6.714 15 15zm-1.935 0c0-7.252-5.886-13.065-13.065-13.065C7.748 1.935 1.935 7.821 1.935 15c0 7.252 5.886 13.065 13.065 13.065 7.252 0 13.065-5.886 13.065-13.065z"/></svg></button>
+              <button title="-1  {{ item.product.name | escape }}" class="decrease-qty-button qty-button" data-func="minus" type="button"><svg fill="currentColor" width="30" height="30" xmlns="http://www.w3.org/2000/svg"><path d="M7.984 16.089a.728.728 0 0 1-.726-.726v-.726c0-.4.327-.726.726-.726h14.032c.4 0 .726.327.726.726v.726c0 .4-.327.726-.726.726H7.984zM30 15c0 8.286-6.714 15-15 15S0 23.286 0 15 6.714 0 15 0s15 6.714 15 15zm-1.935 0c0-7.252-5.886-13.065-13.065-13.065C7.748 1.935 1.935 7.821 1.935 15c0 7.252 5.886 13.065 13.065 13.065 7.252 0 13.065-5.886 13.065-13.065z"/></svg></button>
               {{ item | item_quantity_input, 'option-quantity', 'option-quantity' }}
-              <button title="Increase quantity of {{ item.product.name | escape }}" class="increase-qty-button qty-button" data-func="plus" type="button"><svg fill="currentColor" width="30" height="30" xmlns="http://www.w3.org/2000/svg"><path d="M22.742 14.637v.726c0 .4-.327.726-.726.726H16.09v5.927c0 .4-.327.726-.726.726h-.726a.728.728 0 0 1-.726-.726V16.09H7.984a.728.728 0 0 1-.726-.726v-.726c0-.4.327-.726.726-.726h5.927V7.984c0-.4.327-.726.726-.726h.726c.4 0 .726.327.726.726v5.927h5.927c.4 0 .726.327.726.726zM30 15c0 8.286-6.714 15-15 15S0 23.286 0 15 6.714 0 15 0s15 6.714 15 15zm-1.935 0c0-7.252-5.886-13.065-13.065-13.065C7.748 1.935 1.935 7.821 1.935 15c0 7.252 5.886 13.065 13.065 13.065 7.252 0 13.065-5.886 13.065-13.065z"/></svg></button>
+              <button title="+1 {{ item.product.name | escape }}" class="increase-qty-button qty-button" data-func="plus" type="button"><svg fill="currentColor" width="30" height="30" xmlns="http://www.w3.org/2000/svg"><path d="M22.742 14.637v.726c0 .4-.327.726-.726.726H16.09v5.927c0 .4-.327.726-.726.726h-.726a.728.728 0 0 1-.726-.726V16.09H7.984a.728.728 0 0 1-.726-.726v-.726c0-.4.327-.726.726-.726h5.927V7.984c0-.4.327-.726.726-.726h.726c.4 0 .726.327.726.726v5.927h5.927c.4 0 .726.327.726.726zM30 15c0 8.286-6.714 15-15 15S0 23.286 0 15 6.714 0 15 0s15 6.714 15 15zm-1.935 0c0-7.252-5.886-13.065-13.065-13.065C7.748 1.935 1.935 7.821 1.935 15c0 7.252 5.886 13.065 13.065 13.065 7.252 0 13.065-5.886 13.065-13.065z"/></svg></button>
             </div>
             <div class="cart-item-details-price subheader">{{ item.unit_price | money: theme.money_format }}</div>
           </li>
@@ -26,12 +37,12 @@
       </ul>
       <div class="cart-footer">
         <div class="cart-subtotal">
-          <span class="cart-subtotal-label">Subtotal:</span>
+          <span class="cart-subtotal-label">{{ t['cart.subtotal'] }}:</span>
           <span class="cart-subtotal-amount"><span class="cart-subtotal-amount-value">{{ cart.total | money: theme.money_format }}</span></span>
         </div>
         <div class="cart-buttons">
-          <a class="continue-shopping" href="/products" title="Continue shopping"><svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M229.9 473.899l19.799-19.799c4.686-4.686 4.686-12.284 0-16.971L94.569 282H436c6.627 0 12-5.373 12-12v-28c0-6.627-5.373-12-12-12H94.569l155.13-155.13c4.686-4.686 4.686-12.284 0-16.971L229.9 38.101c-4.686-4.686-12.284-4.686-16.971 0L3.515 247.515c-4.686 4.686-4.686 12.284 0 16.971L212.929 473.9c4.686 4.686 12.284 4.686 16.971-.001z"></path></svg> Continue Shopping</a>
-          <button type="submit" name="checkout" title="Checkout" class="button checkout-btn">Checkout</button>
+          <a class="continue-shopping" href="/products" title="Continue shopping"><svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M229.9 473.899l19.799-19.799c4.686-4.686 4.686-12.284 0-16.971L94.569 282H436c6.627 0 12-5.373 12-12v-28c0-6.627-5.373-12-12-12H94.569l155.13-155.13c4.686-4.686 4.686-12.284 0-16.971L229.9 38.101c-4.686-4.686-12.284-4.686-16.971 0L3.515 247.515c-4.686 4.686-4.686 12.284 0 16.971L212.929 473.9c4.686 4.686 12.284 4.686 16.971-.001z"></path></svg> {{ t['cart.continue_shopping'] }}</a>
+          <button type="submit" name="checkout" title="Checkout" class="button checkout-btn">{{ t['cart.checkout'] }}</button>
         </div>
       </div>
     </form>
@@ -40,8 +51,8 @@
     <div class="emoji-container">
       <img class="ghost-emoji" src="{{ 'ghost-emoji.png' | theme_image_url }}" alt="Ghost Emoji" aria-hidden="true">
     </div>
-    <strong>Your cart is empty!</strong>
-    <a class="button" href="/">Start shopping</a>
+    <strong>{{ t['cart.empty_cart'] }}</strong>
+    <a class="button" href="/">{{ t['cart.continue_shopping'] }}</a>
   </div>
 </div>
 

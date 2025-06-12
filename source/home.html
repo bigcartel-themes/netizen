@@ -1,13 +1,13 @@
 {% if theme.featured_categories > 0 and categories.active.size > 0 %}
   {% capture featured_categories %}
-    <h1 class="featured-title">{{ theme.featured_categories_header }}</h1>
+    <h1 class="featured-title">{{ t['home.featured_categories'] }}</h1>
     <div class="featured-categories">
     {% for category in categories.active limit:theme.featured_categories %}
       <div class="featured gradient featured-item-{{ forloop.index }}">
         <div class="featured-details">
           <div class="feature-text">
             <h2 class="subheader">{{ category.name }}</h2>
-            <a href="{{ category.url }}" title="View {{ category.name | escape }}" class="button">{{ theme.featured_category_button_text }}</a>
+            <a href="{{ category.url }}" title="{{ category.name | escape }}" class="button">{{ t['navigation.shop'] }}</a>
           </div>
         </div>
         <div class="featured-image-container">
@@ -34,7 +34,7 @@
 {% endif %}
 
 {% if theme.featured_products > 0 %}
-  <h1 class="featured-title">{{ theme.featured_header }}</h1>
+  <h1 class="featured-title">{{ t['home.featured_products'] }}</h1>
   {% paginate products from products.all by theme.featured_products order:theme.featured_order %}
     {% if products != blank %}
       <div class="product-list {{ theme.product_list_layout }}" data-per-row="{{ theme.max_products_per_row }}" data-per-row-mobile="{{ theme.max_products_per_row_mobile }}">
@@ -42,13 +42,15 @@
           {% assign product_status = '' %}
           {% case product.status %}
             {% when 'active' %}
-              {% if product.on_sale %}{% assign product_status = 'On sale' %}{% endif %}
+              {% if product.on_sale %}
+                {% assign product_status = t['products.on_sale'] %}
+              {% endif %}
             {% when 'sold-out' %}
-              {% assign product_status = 'Sold out' %}
+              {% assign product_status = t['products.sold_out'] %}
             {% when 'coming-soon' %}
-              {% assign product_status = 'Coming soon' %}
+              {% assign product_status = t['products.coming_soon'] %}
           {% endcase %}
-          <a class="product-list-item product-list-item-{{ forloop.index }} {{ theme.show_overlay }}" href="{{ product.url }}" title="View {{ product.name | escape }}">
+          <a class="product-list-item product-list-item-{{ forloop.index }} {{ theme.show_overlay }}" href="{{ product.url }}" title="{{ product.name | escape }}">
             <div class="product-list-item-container">
               <figure class="product-list-image-container">
                 <img alt="Image of {{ product.name | escape }}" class="product-list-image" src="{{ product.image | product_image_url | constrain: 1000, 1000 }}">
@@ -77,13 +79,16 @@
         {% endfor %}
       </div>
       {% if paginate.pages > 1 %}
-        {% if theme.all_products_button_text != blank %}<a class="button all-products-button" href="/products">{{ theme.all_products_button_text }}</a>{% endif %}
+        {% assign all_products_button_text = t['home.all_products'] %}
+        {% if all_products_button_text != blank %}
+          <a class="button all-products-button" href="/products">{{ all_products_button_text }}</a>
+        {% endif %}
       {% endif %}
       {% if theme.featured_categories_position == 'bottom' %}
         {{ featured_categories }}
       {% endif %}
     {% else %}
-      <div class="empty-products">No products found</div>
+      <div class="empty-products">{{ t['products.no_products'] }}</div>
     {% endif %}
   {% endpaginate %}
 {% endif %}
