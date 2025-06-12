@@ -301,7 +301,11 @@ var updateCart = function(cart) {
       }
     }
   });
-  showBnplMessaging(cart.total, { alignment: 'center', displayMode: 'flex', pageType: 'cart' });
+  if (pageType === 'cart') {
+    showBnplMessaging(cart.total, { alignment: 'center', displayMode: 'flex', pageType: 'cart' });
+  } else if (pageType === 'product') {
+    showBnplMessaging(price, { alignment: 'left', displayMode: 'grid', pageType: 'product' });
+  }
 }
 
 $('.main-carousel').flickity({
