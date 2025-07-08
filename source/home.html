@@ -1,6 +1,21 @@
 {% if theme.featured_categories > 0 and categories.active.size > 0 %}
   {% capture featured_categories %}
-    <h1 class="featured-title">{{ t['home.featured_categories'] }}</h1>
+    <div class="featured-container">
+      {% assign featured_categories_header = t['home.featured_categories'] %}
+      {% assign featured_text = theme.homepage_featured_text %}
+      {% assign featured_text_position = theme.homepage_featured_text_position %}
+      {% assign featured_categories_position = theme.featured_categories_position %}
+
+      {% if featured_text != blank and featured_text_position == "above" and featured_categories_position == "top" %}
+        <div class="featured-message">{{ featured_text }}</div>
+      {% endif %}
+
+      <h1 class="featured-title">{{ featured_categories_header }}</h1>
+
+      {% if featured_text != blank and featured_text_position != "above" and featured_categories_position == "top" %}
+        <div class="featured-message">{{ featured_text }}</div>
+      {% endif %}
+    </div>
     <div class="featured-categories">
     {% for category in categories.active limit:theme.featured_categories %}
       <div class="featured gradient featured-item-{{ forloop.index }}">
@@ -34,7 +49,22 @@
 {% endif %}
 
 {% if theme.featured_products > 0 %}
-  <h1 class="featured-title">{{ t['home.featured_products'] }}</h1>
+  <div class="featured-container">
+    {% assign featured_products_header = t['home.featured_products'] %}
+    {% assign featured_text = theme.homepage_featured_text %}
+    {% assign featured_text_position = theme.homepage_featured_text_position %}
+    {% assign featured_categories_position = theme.featured_categories_position %}
+
+    {% if featured_text != blank and featured_text_position == "above" and featured_categories_position == "bottom" %}
+      <div class="featured-message">{{ featured_text }}</div>
+    {% endif %}
+
+    <h1 class="featured-title">{{ featured_products_header }}</h1>
+
+    {% if featured_text != blank and featured_text_position != "above" and featured_categories_position == "bottom" %}
+      <div class="featured-message">{{ featured_text }}</div>
+    {% endif %}
+  </div>
   {% paginate products from products.all by theme.featured_products order:theme.featured_order %}
     {% if products != blank %}
       <div class="product-list {{ theme.product_list_layout }}" data-per-row="{{ theme.max_products_per_row }}" data-per-row-mobile="{{ theme.max_products_per_row_mobile }}">

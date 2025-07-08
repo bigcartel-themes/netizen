@@ -42,6 +42,7 @@ a
 
   &:hover
     text-decoration: underline
+    text-underline-offset: 3px
 
 h1, h2, h3, h4
   font-family: $header-font
@@ -193,6 +194,11 @@ textarea
     text-align: center
     width: calc(100% - 100px)
 
+    a, a:visited
+      color: $text-color
+      text-decoration: underline
+      text-underline-offset: 3px
+
     @media screen and (max-width: $break-small)
       width: calc(100% - 50px)
 
@@ -239,6 +245,7 @@ button, .button
       background: none
       color: $text-color
       text-decoration: underline
+      text-underline-offset: 3px
 
   &:disabled, &.disabled
     cursor: not-allowed
@@ -810,6 +817,7 @@ footer
 
   a
     text-decoration: underline
+    text-underline-offset: 3px
 
   ol, ul
     padding-left: 1.5em
