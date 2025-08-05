@@ -397,6 +397,9 @@ _:-ms-fullscreen, :root .main
 .side-nav
   width: 100%
 
+  *
+    text-transform: #{"{{ theme.nav_text_transform_header }}"}
+
   @media screen and (max-width: $break-medium)
     margin: 0 auto
     max-width: 320px
@@ -694,6 +697,9 @@ footer
 
     &.footer-nav
 
+      *
+        text-transform: #{"{{ theme.nav_text_transform_footer }}"}
+
       ul.footer-links
         column-count: 3
         -webkit-column-count: 3
@@ -782,6 +788,9 @@ footer
   text-align: center
   padding: 20px
   gap: 20px
+
+  *
+    text-transform: #{"{{ theme.nav_text_transform_footer }}"}
 
   > *
     justify-self: center
