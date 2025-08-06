@@ -470,6 +470,33 @@
   ],
   "options": [
     {
+      "variable": "nav_page_display",
+      "label": "Pages to show in your navigation",
+      "section": "global_navigation",
+      "type": "select",
+      "options": [
+        ["All pages", "all"],
+        ["Custom pages only", "pages_only"],
+        ["Contact page only", "contact_only"],
+        ["None", "none"]
+      ],
+      "default": "all",
+      "description": "Select which types of pages appear in your main navigation"
+    },
+    {
+      "variable": "nav_items",
+      "label": "Navigation items",
+      "section": "global_navigation",
+      "type": "select",
+      "options": "0..100",
+      "default": 2,
+      "description": "The number of custom page links show in your header",
+      "requires": [
+        "nav_page_display neq contact_only",
+        "nav_page_display neq none"
+      ]
+    },
+    {
       "variable": "nav_text_transform_header",
       "label": "Transform text in shop header",
       "section": "global_navigation",
@@ -480,7 +507,7 @@
         ["Lowercase", "lowercase"]
       ],
       "default": "initial",
-      "description": "Controls the text case styling in your header"
+      "description": "Controls the text case styling in your main navigation"
     },
     {
       "variable": "nav_text_transform_footer",
@@ -565,6 +592,33 @@
         "unless": "feature:theme_hide_big_cartel_credit_eligible",
         "analytics_product_sub_area": "Hide Watermark"
       }
+    },
+    {
+      "variable": "nav_page_display_footer",
+      "label": "Pages to show in your footer",
+      "section": "global_navigation",
+      "type": "select",
+      "options": [
+        ["All pages", "all"],
+        ["Custom pages only", "pages_only"],
+        ["Contact page only", "contact_only"],
+        ["None", "none"]
+      ],
+      "default": "all",
+      "description": "Select which types of pages appear in your footer"
+    },
+    {
+      "variable": "nav_items_footer",
+      "label": "Custom page limit in your footer",
+      "section": "global_navigation",
+      "type": "select",
+      "options": "0..100",
+      "default": 100,
+      "description": "Maximum number of custom pages shown in your footer",
+      "requires": [
+        "nav_page_display_footer neq contact_only",
+        "nav_page_display_footer neq none"
+      ]
     },
     {
       "variable": "footer_text",
