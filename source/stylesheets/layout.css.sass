@@ -782,18 +782,20 @@ footer
       width: 100% !important
 
 .footer-custom-content
-  display: grid
-  grid-template-columns: 1fr
-  justify-content: center
+  display: block
   text-align: center
   padding: 20px
-  gap: 20px
 
   *
     text-transform: #{"{{ theme.nav_text_transform_footer }}"}
 
-  > *
-    justify-self: center
+  img
+    display: block
+    margin: 20px auto
+
+  a
+    text-decoration: underline
+    text-underline-offset: 3px
 
 .social_icons
   +flexbox
