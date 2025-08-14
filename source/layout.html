@@ -291,7 +291,13 @@
                   <div class="product-list-item-info">
                     <div class="product-list-item-info-headers">
                       <div class="product-list-item-name">{{ related_product.name }}</div>
-                      <div class="product-list-item-price">{{ related_product.default_price | money: theme.money_format }}</div>
+                      <div class="product-list-item-price">
+                        {{ related_product.default_price | money: theme.money_format }}
+
+                        {% if related_product.price_suffix != blank %}
+                          <span class="price-suffix">{{ related_product.price_suffix }}</span>
+                        {% endif %}
+                      </div>
                     </div>
                   </div>
                 </div>

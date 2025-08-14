@@ -100,6 +100,10 @@
 
                     {% unless hide_price %}
                       {{ product.default_price | money: theme.money_format }}
+
+                      {% if product.price_suffix != blank %}
+                        <span class="price-suffix">{{ product.price_suffix }}</span>
+                      {% endif %}
                     {% endunless %}
                   </div>
                 </div>

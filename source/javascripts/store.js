@@ -180,7 +180,16 @@ var processUpdate = function(input, item_id, new_val, cart) {
     input.val(new_val);
   }
   if (new_val > 0) {
-
+    for (var itemIndex = 0; itemIndex < cart.items.length; itemIndex++) {
+      if (cart.items[itemIndex].id == item_id) {
+        var item_price = cart.items[itemIndex].price;
+        var formatted_item_price = formatMoney(item_price, true, true);
+        var priceElement = document.querySelector('.cart-item-details-price__update[data-item-id="'+item_id+'"]');
+        if (priceElement) {
+          priceElement.innerHTML = formatted_item_price;
+        }
+      }
+    }
   }
   else {
     $('.cart-item[data-item-id="'+item_id+'"]').slideUp('fast');
