@@ -629,6 +629,42 @@
       "description": "Show a custom message in your shop's footer. Supports HTML for advanced customization."
     },
     {
+      "variable": "welcome_image_brightness",
+      "label": "Welcome image overlay effect",
+      "section": "homepage",
+      "type": "select",
+      "options": [
+        ["Brightest", "1.75"],
+        ["Brighter", "1.50"],
+        ["Brighten", "1.25"],
+        ["None", "1.0"],
+        ["Darken", "0.75"],
+        ["Darker", "0.50"],
+        ["Darkest", "0.25"]
+      ],
+      "default": "1.0",
+      "description": "Adjust the home page welcome image overlay to enhance the legibility of welcome header text",
+      "requires": [
+        "welcome_image present"
+      ]
+    },
+    {
+      "variable": "welcome_overlay",
+      "label": "Welcome image overlay",
+      "section": "homepage",
+      "type": "select",
+      "options": [
+        ["None", ""],
+        ["Diagonal lines", "diagonal-lines"],
+        ["Bank note", "bank-note"],
+        ["Hideout", "hideout"],
+        ["Polka dots", "polka-dots"],
+        ["Texture", "texture"]
+      ],
+      "default": "diagonal-lines",
+      "description": "Style of the overlay that sits on top of your welcome image"
+    },
+    {
       "variable": "welcome_header",
       "label": "Welcome header",
       "section": "homepage",
@@ -651,12 +687,12 @@
     },
     {
       "variable": "welcome_button_behavior",
-      "label": "Welcome Button Behavior",
+      "label": "Welcome button behavior",
       "section": "homepage",
       "type": "select",
       "options": [
         ["Scroll down page", "scroll"],
-        ["Go to Products Page", "navigate"]
+        ["Navigate", "navigate"]
       ],
       "default": "scroll",
       "description": "Controls the behavior of the welcome button on the Home page",
@@ -665,37 +701,28 @@
       ]
     },
     {
-      "variable": "welcome_image_brightness",
-      "label": "Welcome image overlay effect",
+      "variable": "welcome_button_link",
+      "label": "Welcome button link",
       "section": "homepage",
-      "type": "select",
-      "options": [
-        ["Brightest", "1.75"],
-        ["Brighter", "1.50"],
-        ["Brighten", "1.25"],
-        ["None", "1.0"],
-        ["Darken", "0.75"],
-        ["Darker", "0.50"],
-        ["Darkest", "0.25"]
-      ],
-      "default": "1.0",
-      "description": "Adjust the home page welcome image overlay to enhance the legibility of welcome header text"
+      "type": "text",
+      "default": "/products",
+      "description": "Link destination for the welcome button. Accepts relative paths (e.g. /products) or full URLs.",
+      "requires": [
+        "welcome_button_text present",
+        "welcome_button_behavior eq navigate"
+      ]
     },
     {
-      "variable": "welcome_overlay",
-      "label": "Welcome image overlay",
+      "variable": "welcome_image_link",
+      "label": "Welcome image link", 
       "section": "homepage",
-      "type": "select",
-      "options": [
-        ["None", ""],
-        ["Diagonal lines", "diagonal-lines"],
-        ["Bank note", "bank-note"],
-        ["Hideout", "hideout"],
-        ["Polka dots", "polka-dots"],
-        ["Texture", "texture"]
-      ],
-      "default": "diagonal-lines",
-      "description": "Style of the overlay that sits on top of your welcome image"
+      "type": "text",
+      "default": "",
+      "description": "Optionally makes the welcome image clickable. Leave blank to disable. Accepts relative paths (e.g. /products) or full URLs.",
+      "requires": [
+        "welcome_image present",
+        "welcome_button_text neq present"
+      ]
     },
     {
       "variable": "featured_products",

@@ -156,7 +156,7 @@
         </div>
       {% endif %}
       {% if page.permalink == 'home' %}
-        {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank %}
+        {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
           <section class="home-welcome welcome gradient">
             <div class="welcome-messaging">
               <div class="welcome-header-group">
@@ -170,13 +170,13 @@
               </div>
               
               {% if theme.welcome_button_text != blank %}
-                <a href="/products" class="button">{{ theme.welcome_button_text }}</a>
+                <a href="{% if theme.welcome_button_link != blank and theme.welcome_button_behavior == 'navigate' %}{{ theme.welcome_button_link }}{% else %}/products{% endif %}" class="button">{{ theme.welcome_button_text }}</a>
               {% endif %}
             </div>
             <div class="pattern {{ theme.welcome_overlay }}"></div>
             {% if theme.welcome_image != blank %}
               <div class="welcome-image">
-                <img alt="Welcome image" src="{{ theme.welcome_image.url | constrain: 1800 }}">
+                <img alt="Welcome image" src="{{ theme.welcome_image.url | constrain: 1800 }}"{% if theme.welcome_image_link != blank %} title="{{ theme.welcome_image_link }}"{% endif %}>
               </div>
             {% endif %}
           </section>
@@ -455,12 +455,12 @@
     </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ 'api' | theme_js_url }}"></script>
+    {% comment %}
+      Manual array construction needed for themeFeatures for Liquid 3.0.6 since standard JSON filters 
+      (json, jsonify) don't work properly. This ensures proper JavaScript array 
+      formatting with quoted elements and commas.
+    {% endcomment %}
     <script>
-      {% comment %}
-        Manual array construction needed for Liquid 3.0.6 since standard JSON filters 
-        (json, jsonify) don't work properly. This ensures proper JavaScript array 
-        formatting with quoted elements and commas.
-      {% endcomment %}
       const themeFeatures = {
         optIns: [{% if theme.features.opt_ins %}{% for opt in theme.features.opt_ins %}"{{ opt }}"{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}],
         optOuts: [{% if theme.features.opt_outs %}{% for opt in theme.features.opt_outs %}"{{ opt }}"{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}],
@@ -469,6 +469,8 @@
         pageCategory: '{{ page.category }}',
         pagePermalink: '{{ page.permalink }}',
         welcomeButtonBehavior: "{{ theme.welcome_button_behavior }}",
+        welcomeButtonLink: "{{ theme.welcome_button_link }}",
+        welcomeImageLink: "{{ theme.welcome_image_link }}",
         showLowInventoryMessages: {{ theme.show_low_inventory_messages }},
         lowInventoryMessage: "{{ t['products.low_inventory'] | replace: '"', '\"' | replace: "'", "\\'" }}",
         almostSoldOutMessage: "{{ t['products.almost_sold_out'] | replace: '"', '\"' | replace: "'", "\\'" }}",

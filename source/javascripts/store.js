@@ -491,8 +491,37 @@ document.addEventListener("DOMContentLoaded", function () {
         if (targetElement) {
           smoothScroll(targetElement, 1000, 50);
         }
+      } else if (themeOptions.welcomeButtonBehavior === "navigate") {
+        if (isExternalLink(welcomeButton.href)) {
+          event.preventDefault();
+          window.open(welcomeButton.href, '_blank', 'noopener,noreferrer');
+        }
+        // Let internal links use template's href naturally
       }
     });
+  }
+
+  // Handle separate button and image link functionality
+  const isHomePage = document.body.getAttribute('data-bc-page-type') === 'home';
+  const welcomeImageLink = themeOptions.welcomeImageLink && themeOptions.welcomeImageLink.trim() !== '' ? themeOptions.welcomeImageLink : null;
+
+  // Make welcome image clickable if welcomeImageLink is configured and no button is shown
+  if (isHomePage && !welcomeButton && welcomeImageLink) {
+    const welcomeImage = document.querySelector(".welcome-image img");
+    if (welcomeImage) {
+      welcomeImage.classList.add("welcome-clickable");
+      welcomeImage.setAttribute("role", "button");
+      welcomeImage.setAttribute("aria-label", "Navigate to " + welcomeImageLink);
+      welcomeImage.addEventListener("click", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (isExternalLink(welcomeImageLink)) {
+          window.open(welcomeImageLink, '_blank', 'noopener,noreferrer');
+        } else {
+          window.location.href = welcomeImageLink;
+        }
+      });
+    }
   }
 
   const pageType = document.body.getAttribute('data-bc-page-type');
