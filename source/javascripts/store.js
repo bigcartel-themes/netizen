@@ -429,6 +429,8 @@ function enableAddButton(updated_price) {
   var addButton = $('.add-to-cart-button');
   var addButtonTitle = addButton.attr('data-add-title');
   addButton.attr("disabled",false);
+  // on teh addButton, i want you to add a style to make the top border 1px
+  addButton.css("border-top-width","0");
   if (updated_price) {
     priceTitle = ' - ' + formatMoney(updated_price, true, true);
   }
