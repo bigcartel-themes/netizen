@@ -511,6 +511,33 @@ _:-ms-fullscreen, :root .main
     a
       padding: 4px 0
 
+  &--social_icons
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr))
+    gap: 10px
+    max-width: 100%
+    justify-items: center
+    align-items: center
+
+    li
+      margin-bottom: 0
+      display: flex
+      
+      a
+        display: flex
+        
+        svg
+          width: 28px
+          height: 28px
+
+          &.tumblr-icon
+            width: 16px
+
+          &.reddit-icon,
+          &.discord-icon
+            width: 30px
+            height: 30px 
+
 .has-header-message .header-cart
   top: 0
   margin-top: -2px
@@ -799,7 +826,7 @@ footer
 
 .social_icons
   +flexbox
-  gap: 8px
+  gap: 12px
   list-style: none
   margin: 0
   padding: 0
@@ -817,11 +844,16 @@ footer
 
     svg
       fill: currentColor
-      height: 22px
-      width: 22px
+      height: 26px
+      width: 26px
 
       &.tumblr-icon
         width: 14px
+
+      &.reddit-icon,
+      &.discord-icon
+        width: 28px
+        height: 28px
 
 .custom-page-content, .product-description
   word-break: break-word
