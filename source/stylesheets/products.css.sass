@@ -156,6 +156,16 @@
 .price-suffix
   white-space: nowrap
 
+.product-list-thumb-options-description
+  font-style: italic
+  font-size: #{"{% if theme.max_products_per_row == 3 %} 14px {% else %} 20px {% endif %}"}
+  line-height: #{"{% if theme.max_products_per_row == 3 %} 18px {% else %} 24px {% endif %}"}
+  margin-top: 2px
+
+  @media screen and (max-width: $break-small)
+    font-size: 14px
+    line-height: 18px
+
 .product-list-item-status
   background: $text-color
   color: $background-color
