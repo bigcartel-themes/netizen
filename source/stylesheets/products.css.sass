@@ -128,10 +128,14 @@
   padding-right: 20px
   position: relative
   overflow-wrap: anywhere
+  line-height: 20px
 
   @media screen and (max-width: $break-medium)
     max-width: 100%
     padding-right: 0
+  
+  @media screen and (max-width: $break-small)
+    font-size: 0.9em
 
 .product-list-item-price
   text-align: left
@@ -147,6 +151,7 @@
   @media screen and (max-width: $break-small)
     display: flex
     flex-direction: column
+    font-size: 0.8em
 
 .price-suffix
   white-space: nowrap
@@ -156,8 +161,10 @@
   font-size: #{"{% if theme.max_products_per_row == 3 %} 14px {% else %} 20px {% endif %}"}
   line-height: #{"{% if theme.max_products_per_row == 3 %} 18px {% else %} 24px {% endif %}"}
 
+  @media screen and (max-width: $break-medium)
+    font-size: 0.8em
+
   @media screen and (max-width: $break-small)
-    font-size: 14px
     line-height: 18px
 
 .product-list-item-status
