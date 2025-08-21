@@ -26,7 +26,7 @@ if ($('.announcement-message-text').length) {
   }
 }
 
-$('.announcement-message-close').click(function(e) {
+$('.announcement-message-close').on('click', function(e) {
   $('.announcement-message').slideUp('fast', function() {
     $('body').removeClass('has-announcement-message');
     if ($('body').hasClass('has-header-message')) {
@@ -73,11 +73,11 @@ $('.gradient').drawGradient();
 
 $('.contact-form input, .contact-form textarea').addClass('shrink-label');
 
-$('.shrink-label').focus(function(){
+$('.shrink-label').on('focus', function(){
   $(this).parents('.form-group').addClass('focused');
 });
 
-$('.shrink-label').blur(function(){
+$('.shrink-label').on('blur', function(){
   var inputValue = $(this).val();
   if (inputValue.length == 0) {
     $(this).removeClass('filled');
@@ -141,7 +141,7 @@ $(document).ready(function(){
 
 });
 
-$('.category-nav-title').click(function() {
+$('.category-nav-title').on('click', function() {
   $('.category-nav-items').slideToggle('fast');
   $(this).attr('aria-expanded', function (i, attr) {
     return attr == 'true' ? 'false' : 'true'
@@ -151,7 +151,7 @@ $('.category-nav-title').click(function() {
   });
 })
 
-$('.open-menu').click(function() {
+$('.open-menu').on('click', function() {
   $(this).toggleClass('is-active');
   $('.sidebar').toggleClass('opened');
   $('body').toggleClass('no-scroll');
@@ -180,7 +180,16 @@ var processUpdate = function(input, item_id, new_val, cart) {
     input.val(new_val);
   }
   if (new_val > 0) {
-
+    for (var itemIndex = 0; itemIndex < cart.items.length; itemIndex++) {
+      if (cart.items[itemIndex].id == item_id) {
+        var item_price = cart.items[itemIndex].price;
+        var formatted_item_price = formatMoney(item_price, true, true);
+        var priceElement = document.querySelector('.cart-item-details-price__update[data-item-id="'+item_id+'"]');
+        if (priceElement) {
+          priceElement.innerHTML = formatted_item_price;
+        }
+      }
+    }
   }
   else {
     $('.cart-item[data-item-id="'+item_id+'"]').slideUp('fast');
@@ -320,7 +329,7 @@ $('.main-carousel').flickity({
   adaptiveHeight: true,
 });
 
-$('.product-form').submit(function(e) {
+$('.product-form').on('submit', function(e) {
   e.preventDefault();
   var quantity = 1
   , itemID = $("#option").val()
@@ -420,6 +429,8 @@ function enableAddButton(updated_price) {
   var addButton = $('.add-to-cart-button');
   var addButtonTitle = addButton.attr('data-add-title');
   addButton.attr("disabled",false);
+  // on teh addButton, i want you to add a style to make the top border 1px
+  addButton.css("border-top-width","0");
   if (updated_price) {
     priceTitle = ' - ' + formatMoney(updated_price, true, true);
   }
@@ -491,8 +502,37 @@ document.addEventListener("DOMContentLoaded", function () {
         if (targetElement) {
           smoothScroll(targetElement, 1000, 50);
         }
+      } else if (themeOptions.welcomeButtonBehavior === "navigate") {
+        if (isExternalLink(welcomeButton.href)) {
+          event.preventDefault();
+          window.open(welcomeButton.href, '_blank', 'noopener,noreferrer');
+        }
+        // Let internal links use template's href naturally
       }
     });
+  }
+
+  // Handle separate button and image link functionality
+  const isHomePage = document.body.getAttribute('data-bc-page-type') === 'home';
+  const welcomeImageLink = themeOptions.welcomeImageLink && themeOptions.welcomeImageLink.trim() !== '' ? themeOptions.welcomeImageLink : null;
+
+  // Make welcome image clickable if welcomeImageLink is configured and no button is shown
+  if (isHomePage && !welcomeButton && welcomeImageLink) {
+    const welcomeImage = document.querySelector(".welcome-image img");
+    if (welcomeImage) {
+      welcomeImage.classList.add("welcome-clickable");
+      welcomeImage.setAttribute("role", "button");
+      welcomeImage.setAttribute("aria-label", "Navigate to " + welcomeImageLink);
+      welcomeImage.addEventListener("click", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (isExternalLink(welcomeImageLink)) {
+          window.open(welcomeImageLink, '_blank', 'noopener,noreferrer');
+        } else {
+          window.location.href = welcomeImageLink;
+        }
+      });
+    }
   }
 
   const pageType = document.body.getAttribute('data-bc-page-type');

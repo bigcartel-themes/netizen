@@ -397,6 +397,9 @@ _:-ms-fullscreen, :root .main
 .side-nav
   width: 100%
 
+  *
+    text-transform: #{"{{ theme.nav_text_transform_header }}"}
+
   @media screen and (max-width: $break-medium)
     margin: 0 auto
     max-width: 320px
@@ -410,8 +413,12 @@ _:-ms-fullscreen, :root .main
 .side-nav-section
   margin-bottom: 10px
 
-  &.pages-nav
+  &.pages-nav,
+  &.social-nav
     margin-top: 40px
+
+  &.social-nav
+    margin-left: -10px
 
 .category-nav-title
   background: $button-background-color
@@ -508,6 +515,33 @@ _:-ms-fullscreen, :root .main
     a
       padding: 4px 0
 
+  &--social_icons
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr))
+    gap: 10px
+    max-width: 100%
+    justify-items: center
+    align-items: center
+
+    li
+      margin-bottom: 0
+      display: flex
+      
+      a
+        display: flex
+        
+        svg
+          width: 28px
+          height: 28px
+
+          &.tumblr-icon
+            width: 16px
+
+          &.reddit-icon,
+          &.discord-icon
+            width: 30px
+            height: 30px 
+
 .has-header-message .header-cart
   top: 0
   margin-top: -2px
@@ -589,7 +623,7 @@ _:-ms-fullscreen, :root .main
 
 .content
   +flex(1)
-  padding: 70px $marginSize
+  padding: 70px $marginSize 70px 70px
   margin-right: $marginSize * 2
 
   @media screen and (max-width: $break-medium)
@@ -694,6 +728,9 @@ footer
 
     &.footer-nav
 
+      *:not(.footer-custom-content)
+        text-transform: #{"{{ theme.nav_text_transform_footer }}"}
+
       ul.footer-links
         column-count: 3
         -webkit-column-count: 3
@@ -776,19 +813,24 @@ footer
       width: 100% !important
 
 .footer-custom-content
-  display: grid
-  grid-template-columns: 1fr
-  justify-content: center
+  display: block
   text-align: center
   padding: 20px
-  gap: 20px
 
-  > *
-    justify-self: center
+  *:not(.footer-custom-content)
+    text-transform: #{"{{ theme.nav_text_transform_footer }}"}
+
+  img
+    display: block
+    margin: 20px auto
+
+  a
+    text-decoration: underline
+    text-underline-offset: 3px
 
 .social_icons
   +flexbox
-  gap: 8px
+  gap: 12px
   list-style: none
   margin: 0
   padding: 0
@@ -806,11 +848,16 @@ footer
 
     svg
       fill: currentColor
-      height: 22px
-      width: 22px
+      height: 26px
+      width: 26px
 
       &.tumblr-icon
         width: 14px
+
+      &.reddit-icon,
+      &.discord-icon
+        width: 28px
+        height: 28px
 
 .custom-page-content, .product-description
   word-break: break-word

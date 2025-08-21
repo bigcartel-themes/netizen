@@ -6,7 +6,8 @@
   {% if theme.contact_text != blank %}
     <div class="message-banner message-banner--contact">{{ theme.contact_text }}</div>
   {% endif %}
-  <form method="post" action="/contact" class="contact-form">
+  {% if theme.show_contact_form != false %}
+    <form method="post" action="/contact" class="contact-form">
     <div class="form-group contact-form-group">
       <label class="form-label contact-form-label contact-name" for="name">{{ t['contact.name'] }}</label>
       {{ contact | contact_input: 'name' }}
@@ -29,5 +30,6 @@
     <div class="form-group contact-form-group">
       <div class="recaptcha-note">{{ contact.recaptcha }}</div>
     </div>
-  </form>
+    </form>
+  {% endif %}
 {% endif %}

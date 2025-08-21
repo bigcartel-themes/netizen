@@ -108,7 +108,7 @@
 
         @media screen and (max-width: $break-extra-small)
           +flex-direction(column)
-          height: 225px
+          min-height: 250px
           padding-top: 25px
 
           &:last-child
@@ -158,6 +158,12 @@
           position: absolute
           right: -2px
           width: auto
+
+          .price-suffix
+            font-size: 14px
+
+          @media screen and (max-width: $break-medium)
+            +flex-direction(row)
 
     .cart-footer
       bottom: -2px
@@ -264,12 +270,16 @@
         +flexbox
         +justify-content(center)
         +align-items(center)
+        +flex-direction(column)
         background: $text-color
         color: $background-color
         font-size: 22px
         height: 100%
         padding: 0
         width: 187px
+
+        .price-suffix
+          font-size: 18px
 
       button.qty-button
         background: none
@@ -332,7 +342,7 @@
     .cart-item
       +flex-direction(column)
       +flex-wrap(wrap)
-      height: 225px
+      min-height: 250px
       padding-top: 25px
       margin-bottom: 50px
 
