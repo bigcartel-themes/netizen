@@ -771,7 +771,7 @@
       "section": "homepage",
       "type": "select",
       "options": "0..20",
-      "default": 3,
+      "default": 0,
       "description": "The number of categories featured on the Home page"
     },
     {
