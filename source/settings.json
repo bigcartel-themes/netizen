@@ -6,7 +6,7 @@
       "variable": "logo",
       "label": "Header logo",
       "section": "global_navigation",
-      "description": "200x200px image recommended"
+      "description": "Square image recommended, at least 200 x 200px"
     },
     {
       "variable": "welcome_image",
