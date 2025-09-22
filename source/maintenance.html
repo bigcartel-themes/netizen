@@ -9,6 +9,7 @@
   </head>
   <body id="{{ page.permalink }}" class="{{ page.category }}">
     <div class="wrap">
+      {% if theme.show_shop_name_on_maintenance_page %}
       <header class="header">
         <div class="header-store{% if theme.logo != blank %} has-logo{% else %} has-text{% endif %}">
           <a href="/" title="{{ store.name | escape }}" class="header-store-link">
@@ -22,9 +23,15 @@
           <div class="gradient"></div>
         </div>
       </header>
+      {% endif %}
       <section class="main">
         <div class="maintenance-message">
-          <div class="message-content">
+          <div class="message-content {% if theme.show_shop_name_on_maintenance_page == false %}message-content--no-header{% endif %}">
+            {% if theme.maintenance_image.url != blank %}
+            <div class="maintenance-image-container">
+              <img class="maintenance-image" src="{{ theme.maintenance_image.url }}" loading="lazy">
+            </div>
+            {% endif %}
             {% if theme.maintenance_message != blank %}<div class="maintenance-message-text">{{ theme.maintenance_message }}</div>{% endif %}
             {% if theme.instagram_url != blank
               or theme.tiktok_url != blank
