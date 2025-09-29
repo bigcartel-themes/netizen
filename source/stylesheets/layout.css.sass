@@ -1,5 +1,18 @@
 @import 'config'
 
+
+\:root
+  --font-scale: #{'{{ theme.global_text_scale | default: 1 }}'}
+  --shop-name-scale: #{'{{ theme.shop_name_text_scale | default: 1 }}'}
+  --product-grid-scale: #{'{{ theme.product_grid_scale | default: 1 }}'}
+  --product-title-scale: #{'{{ theme.product_page_heading_scale | default: 1 }}'}
+  --product-description-scale: #{'{{ theme.product_page_description_scale | default: 1 }}'}
+  --header-text-scale: #{'{{ theme.header_text_scale | default: 1 }}'}
+  --footer-text-scale: #{'{{ theme.footer_text_scale | default: 1 }}'}
+
+html
+  font-size: calc(16px * var(--font-scale, 1))
+
 *
   box-sizing: border-box
 
@@ -12,7 +25,7 @@ body
   background: $background-color
   color: $text-color
   font-family: $text-font
-  font-size: 16px
+  font-size: 1rem
   font-weight: normal
   line-height: 1.5em
   position: relative
@@ -61,8 +74,8 @@ h1, h2, h3, h4
   padding: 0
 
 h1
-  font-size: 28px
-  line-height: 36px
+  font-size: 1.75rem
+  line-height: 2.25rem
   margin-bottom: 40px
   font-weight: 400
 
@@ -76,7 +89,7 @@ input, textarea
   border: $border
   color: $text-color
   font-family: $text-font
-  font-size: 16px
+  font-size: 1rem
   height: 55px
   padding: 10px
   width: 100%
@@ -114,7 +127,7 @@ textarea
     border-radius: 0
     color: $text-color
     font-family: $text-font
-    font-size: 16px
+    font-size: 1rem
     height: 100%
     line-height: normal
     padding: 0 66px 0 15px
@@ -148,8 +161,8 @@ textarea
     z-index: 1
 
 .header-message
-  font-size: 15px
-  line-height: 22px
+  font-size: 0.9375rem
+  line-height: 1.375rem
   margin: 0 auto
   max-width: 1500px
   padding: 0 $marginSize
@@ -238,7 +251,7 @@ button, .button
   color: $button-text-color
   cursor: pointer
   display: block
-  font-size: 16px
+  font-size: 1rem
   font-family: $text-font
   height: 55px
   line-height: $marginSize
@@ -249,7 +262,7 @@ button, .button
     background: none
     color: $text-color
     border: none
-    font-size: 13px
+    font-size: 0.8125rem
     padding: 0
 
     &:not(:disabled):hover, &:not(:disabled):active, &:not(:disabled):focus
@@ -336,8 +349,8 @@ _:-ms-fullscreen, :root .main
   z-index: 202
 
   &.desktop-header
-    font-size: 22px
-    line-height: 30px
+    font-size: calc(1.375rem * var(--shop-name-scale, 1) * var(--header-text-scale, 1))
+    line-height: calc(1.875rem * var(--shop-name-scale, 1) * var(--header-text-scale, 1))
 
     @media screen and (max-width: $break-medium)
       display: none
@@ -350,6 +363,7 @@ _:-ms-fullscreen, :root .main
     color: $button-text-color
     border: $border
     font-family: $header-font
+    font-size: calc(1.375rem * var(--shop-name-scale, 1) * var(--header-text-scale, 1))
     height: 196px
     padding: 10px
     position: absolute
@@ -383,6 +397,7 @@ _:-ms-fullscreen, :root .main
     max-width: 100%
 
   .header-store-name
+    font-size: calc(1.375rem * var(--shop-name-scale, 1) * var(--header-text-scale, 1))
     letter-spacing: 1px
     font-weight: 400
 
@@ -407,6 +422,7 @@ _:-ms-fullscreen, :root .main
 
 .side-nav
   width: 100%
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   *
     text-transform: #{"{{ theme.nav_text_transform_header }}"}
@@ -441,6 +457,7 @@ _:-ms-fullscreen, :root .main
   padding: 0 15px
   position: relative
   width: 100%
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   .down-arrow
     +transform(translateY(-50%))
@@ -463,6 +480,7 @@ _:-ms-fullscreen, :root .main
       background: $accent-background-color
       display: block
       padding: 12px
+      font-size: calc(1rem * var(--header-text-scale, 1))
 
       &:hover, &:focus
         background: $button-background-color
@@ -519,12 +537,14 @@ _:-ms-fullscreen, :root .main
 
 .page-nav-items
   margin-bottom: $marginSize/2
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   li
     margin-bottom: $marginSize/2
 
     a
       padding: 4px 0
+      font-size: calc(1em * var(--header-text-scale, 1))
 
   &--social_icons
     display: grid
@@ -562,7 +582,7 @@ _:-ms-fullscreen, :root .main
 
 .header-cart
   color: $text-color
-  font-size: 22px
+  font-size: calc(1.375rem * var(--header-text-scale, 1))
   text-decoration: none
   z-index: 101
 
@@ -571,7 +591,7 @@ _:-ms-fullscreen, :root .main
     border: none
     color: $button-text-color
     display: block
-    font-size: 22px
+    font-size: calc(1.375rem * var(--header-text-scale, 1))
     height: 150px
     line-height: normal
     padding: 0
@@ -616,7 +636,7 @@ _:-ms-fullscreen, :root .main
     text-align: center
     margin-left: -120px
     margin-top: 150px
-    font-size: .950em
+    font-size: calc(.950em * var(--header-text-scale, 1))
     width: 300px
     color: $text-color
 
@@ -654,6 +674,7 @@ _:-ms-fullscreen, :root .main
   position: absolute
   width: 100% !important
   z-index: 202
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   .header-store
     +transform(none)
@@ -703,6 +724,7 @@ _:-ms-fullscreen, :root .main
   position: relative
   margin: 0
   margin-top: 4px
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   &:hover, &:active, &:focus
     background: none !important
@@ -720,6 +742,7 @@ footer
   margin: 0 auto
   z-index: 199
   width: 100%
+  font-size: calc(1rem * var(--footer-text-scale, 1))
 
   @media screen and (max-width: $break-medium)
     +flex-direction(column)
@@ -734,7 +757,7 @@ footer
 
     &.footer-store-name
       +flex(1)
-      font-size: 22px
+      font-size: calc(1.375rem * var(--shop-name-scale, 1) * var(--footer-text-scale, 1))
       text-align: center
 
     &.footer-nav
@@ -749,7 +772,7 @@ footer
         -webkit-column-width: 150px
         -moz-column-width: 150px
         column-width: 150px
-        font-size: 14px
+        font-size: calc(0.875rem * var(--footer-text-scale, 1))
         max-width: 500px
         width: 100%
         margin: 0 auto
@@ -772,7 +795,7 @@ footer
           width: 100%
 
           @media screen and (max-width: $break-medium)
-            font-size: 15px
+            font-size: 0.9375rem
             text-align: center
             margin-bottom: 8px
 
@@ -797,7 +820,7 @@ footer
       .bigcartel-credit
         color: $background-color
         line-height: 1em
-        font-size: 14px
+        font-size: 0.875rem
         display: flex
         align-items: center
         gap: 8px
@@ -827,6 +850,7 @@ footer
   display: block
   text-align: center
   padding: 20px
+  font-size: calc(1rem * var(--footer-text-scale, 1))
 
   *:not(.footer-custom-content)
     text-transform: #{"{{ theme.nav_text_transform_footer }}"}
@@ -854,22 +878,20 @@ footer
     align-items: center
     justify-content: center
     flex-shrink: 0
-    width: 36px
-    height: 36px
+    width: 30px
+    height: 30px
 
     svg
       fill: currentColor
-      height: 26px
-      width: 26px
+      height: 22px
+      width: 22px
 
       &.tumblr-icon
-        width: 14px
-
+        width: 13px
       &.reddit-icon,
       &.discord-icon
-        width: 28px
-        height: 28px
-
+        width: 24px
+        height: 24px
 .custom-page-content, .product-description
   word-break: break-word
 
