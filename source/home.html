@@ -6,13 +6,15 @@
       {% assign featured_text_position = theme.homepage_featured_text_position %}
       {% assign featured_categories_position = theme.featured_categories_position %}
 
-      {% if featured_text != blank and featured_text_position == "above" and featured_categories_position == "top" %}
+      {% comment %} Show featured text above categories when position is "above" OR when no featured products {% endcomment %}
+      {% if featured_text != blank and (featured_text_position == "above" or theme.featured_products == 0) and featured_categories_position == "top" %}
         <div class="featured-message">{{ featured_text }}</div>
       {% endif %}
 
       <h1 class="featured-title">{{ featured_categories_header }}</h1>
 
-      {% if featured_text != blank and featured_text_position != "above" and featured_categories_position == "top" %}
+      {% comment %} Only show within categories if we have products AND position is within {% endcomment %}
+      {% if featured_text != blank and featured_text_position == "within" and theme.featured_products > 0 and featured_categories_position == "top" %}
         <div class="featured-message">{{ featured_text }}</div>
       {% endif %}
     </div>
@@ -48,20 +50,28 @@
   {{ featured_categories }}
 {% endif %}
 
+{% comment %} Show featured text above when position is "above" OR when no featured products {% endcomment %}
+{% assign featured_text = theme.homepage_featured_text %}
+{% assign featured_text_position = theme.homepage_featured_text_position %}
+{% assign featured_categories_position = theme.featured_categories_position %}
+
+{% if featured_text != blank %}
+  {% if featured_text_position == "above" or theme.featured_products == 0 %}
+    {% comment %} Only show if categories are at bottom or if no featured products AND no categories {% endcomment %}
+    {% if featured_categories_position == "bottom" or (theme.featured_products == 0 and theme.featured_categories == 0) %}
+      <div class="featured-message">{{ featured_text }}</div>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
 {% if theme.featured_products > 0 %}
   <div class="featured-container">
     {% assign featured_products_header = t['home.featured_products'] %}
-    {% assign featured_text = theme.homepage_featured_text %}
-    {% assign featured_text_position = theme.homepage_featured_text_position %}
-    {% assign featured_categories_position = theme.featured_categories_position %}
-
-    {% if featured_text != blank and featured_text_position == "above" and featured_categories_position == "bottom" %}
-      <div class="featured-message">{{ featured_text }}</div>
-    {% endif %}
 
     <h1 class="featured-title">{{ featured_products_header }}</h1>
 
-    {% if featured_text != blank and featured_text_position != "above" and featured_categories_position == "bottom" %}
+    {% comment %} Only show within if we have products AND position is within {% endcomment %}
+    {% if featured_text != blank and featured_text_position == "within" and theme.featured_products > 0 and featured_categories_position == "bottom" %}
       <div class="featured-message">{{ featured_text }}</div>
     {% endif %}
   </div>
