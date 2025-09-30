@@ -9,6 +9,7 @@
   --product-description-scale: #{'{{ theme.product_page_description_scale | default: 1 }}'}
   --header-text-scale: #{'{{ theme.header_text_scale | default: 1 }}'}
   --footer-text-scale: #{'{{ theme.footer_text_scale | default: 1 }}'}
+  --announcement-scroll-duration: #{'{{ theme.announcement_scroll_speed | default: "15s" }}'}
 
 html
   font-size: calc(16px * var(--font-scale, 1))
@@ -169,9 +170,11 @@ textarea
   position: relative
   width: 100%
 
+  @media screen and (max-width: $break-extra-large)
+    padding: 0
+
   @media screen and (max-width: $break-medium)
     display: none
-    padding: 0
 
   &.mobile-header-message
     display: none
@@ -242,6 +245,38 @@ textarea
       fill: $text-color
       height: 14px
       width: 14px
+
+.announcement-message--scrolling
+  min-height: 46px
+  overflow: hidden
+  padding: 0 !important
+
+  @media screen and (max-width: $break-small)
+    min-height: 50px
+
+  .announcement-message__scroll-wrapper
+    padding: 14px 0
+    width: 100%
+    overflow: hidden
+    white-space: nowrap
+
+  .announcement-message__scroll-content
+    display: inline-flex
+    white-space: nowrap
+    animation: scroll-announcement var(--announcement-scroll-duration, 15s) linear infinite
+
+    &:hover
+      animation-play-state: paused
+
+.announcement-message--scrolling .announcement-message-text
+  display: inline-block
+  padding: 0 5em
+
+@keyframes scroll-announcement
+  0%
+    transform: translateX(0)
+  100%
+    transform: translateX(-20%)
 
 button, .button
   +all-transitions

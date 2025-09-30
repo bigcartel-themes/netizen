@@ -7,21 +7,32 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 if ($('.announcement-message-text').length) {
-  var announcementMessage = $('.announcement-message-text').html();
+  var announcementMessage = $('.announcement-message-text').first().html();
   var hashedMessage = announcementMessage.hashCode();
   var cookieValue = getCookie('hide-announcement-message');
-  if (cookieValue) {
-    if (cookieValue != hashedMessage) {
+  var isScrolling = $('.announcement-message').hasClass('announcement-message--scrolling');
+
+  // For scrolling announcements, always show them (bypass cookie check)
+  // For non-scrolling announcements, check the cookie
+  if (isScrolling) {
+    $('body').addClass('has-announcement-message');
+    if (!$('body').hasClass('has-header-message')) {
+      $('body').addClass('has-header-message')
+    }
+  } else {
+    if (cookieValue) {
+      if (cookieValue != hashedMessage) {
+        $('body').addClass('has-announcement-message');
+        if (!$('body').hasClass('has-header-message')) {
+          $('body').addClass('has-header-message')
+        }
+      }
+    }
+    else {
       $('body').addClass('has-announcement-message');
       if (!$('body').hasClass('has-header-message')) {
         $('body').addClass('has-header-message')
       }
-    }
-  }
-  else {
-    $('body').addClass('has-announcement-message');
-    if (!$('body').hasClass('has-header-message')) {
-      $('body').addClass('has-header-message')
     }
   }
 }
