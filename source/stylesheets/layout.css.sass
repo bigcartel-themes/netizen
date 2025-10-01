@@ -217,9 +217,17 @@ textarea
   width: 100%
   z-index: 9
 
+  @media screen and (max-width: $break-medium)
+    border: 0
+
+    &--with-welcome-image
+      border-left: $border
+      border-right: $border
+
   .announcement-message-text
     text-align: center
-    width: calc(100% - 100px)
+    width: 100%
+    max-width: calc(100% - 100px)
 
     a, a:visited
       color: $text-color
@@ -227,7 +235,7 @@ textarea
       text-underline-offset: 3px
 
     @media screen and (max-width: $break-small)
-      width: calc(100% - 50px)
+      max-width: calc(100% - 50px)
 
   .announcement-message-close
     +transform(translateY(-50%))
@@ -247,18 +255,14 @@ textarea
       width: 14px
 
 .announcement-message--scrolling
-  min-height: 46px
   overflow: hidden
   padding: 0 !important
-
-  @media screen and (max-width: $break-small)
-    min-height: 50px
+  min-height: fit-content
 
   .announcement-message__scroll-wrapper
-    padding: 14px 0
+    padding: 14px
     width: 100%
     overflow: hidden
-    white-space: nowrap
 
   .announcement-message__scroll-content
     display: inline-flex
