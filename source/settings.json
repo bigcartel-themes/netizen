@@ -3,7 +3,7 @@
   "version": "1.14.0",
   "images": [
     {
-      "variable": "logo",
+      "variable": "logo_image",
       "label": "Header logo",
       "section": "global_navigation",
       "description": "Square image recommended, at least 200 x 200px"
@@ -1918,7 +1918,7 @@
     "header_image_max_width": "200px",
     "header_image_max_height": "200px",
     "antialias_text": "antialiased",
-    "header_image": "{{ logo }}",
+    "header_image": "{{ logo_image }}",
     "background_color": "{{ background_color }}",
     "gutter_width": "28px",
     "body_font": "{{ text_font }}",

@@ -11,10 +11,10 @@
     <div class="wrap">
       {% if theme.show_shop_name_on_maintenance_page %}
       <header class="header">
-        <div class="header-store{% if theme.logo != blank %} has-logo{% else %} has-text{% endif %}">
+        <div class="header-store{% if theme.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
           <a href="/" title="{{ store.name | escape }}" class="header-store-link">
-            {% if theme.logo != blank %}
-            <img class="header-store-logo" src="{{ theme.logo.url }}" alt="{{ store.name }}">
+            {% if theme.logo_image != blank %}
+            <img class="header-store-logo" src="{{ theme.logo_image.url }}" alt="{{ store.name }}">
             {% else %}
             <span class="header-store-name">{{ store.name }}</span>
             {% endif %}

@@ -67,15 +67,15 @@
             <span class="hamburger-inner"></span>
           </span>
         </button>
-        <div class="header-store{% if theme.logo != blank %} has-logo{% else %} has-text{% endif %}">
+        <div class="header-store{% if theme.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
           <a href="/" title="{{ store.name | escape }}" class="header-store-link">
-            {% if theme.logo != blank %}
-            <img class="header-store-logo" alt="{{ store.name }}" src="{{ theme.images.logo.url | constrain: 400, 400 }}">
+            {% if theme.logo_image != blank %}
+            <img class="header-store-logo" alt="{{ store.name }}" src="{{ theme.images.logo_image.url | constrain: 400, 400 }}">
             {% else %}
             <span class="header-store-name">{{ store.name }}</span>
             {% endif %}
           </a>
-          {% if theme.logo != blank %}
+          {% if theme.logo_image != blank %}
             <div class="gradient"></div>
             <div class="gradient"></div>
           {% endif %}
@@ -84,10 +84,10 @@
       </div>
 
       <div class="desktop-header-store-name">
-        <div class="desktop-header header-store{% if theme.logo != blank %} has-logo{% else %} has-text{% endif %}">
+        <div class="desktop-header header-store{% if theme.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
           <a href="/" title="{{ store.name | escape }}" class="header-store-link">
-            {% if theme.logo != blank %}
-            <img class="header-store-logo" src="{{ theme.images.logo.url | constrain: 400, 400 }}" alt="{{ store.name }}">
+            {% if theme.logo_image != blank %}
+            <img class="header-store-logo" src="{{ theme.images.logo_image.url | constrain: 400, 400 }}" alt="{{ store.name }}">
             {% else %}
             <span class="header-store-name">{{ store.name }}</span>
             {% endif %}
