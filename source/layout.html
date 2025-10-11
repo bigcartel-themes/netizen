@@ -24,7 +24,13 @@
     <link href="{{ theme | theme_css_url }}" media="screen" rel="stylesheet" type="text/css">
     {{ head_content }}
   </head>
-  <body id="{{ page.permalink }}" class="{% if errors != blank %}has-header-message{% endif %} {{ page.category }} {% if page.permalink == 'home' and theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank %}has-welcome{% endif %}" data-bc-page-type="{% if page.category == 'custom' %}custom{% else %}{{ page.permalink }}{% endif %}">
+  {% assign show_welcome = false %}
+  {% if page.permalink == 'home' %}
+    {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
+      {% assign show_welcome = true %}
+    {% endif %}
+  {% endif %}
+  <body id="{{ page.permalink }}" class="{% if errors != blank %}has-header-message{% endif %} {{ page.category }} {% if show_welcome %}has-welcome{% endif %}" data-bc-page-type="{% if page.category == 'custom' %}custom{% else %}{{ page.permalink }}{% endif %}">
     <div class="wrap">
       {% if errors != blank %}
         <div class="header-message">
@@ -162,7 +168,17 @@
       {% if theme.announcement_message_text != blank %}
         <div class="header-message mobile-header-message">
           {% if theme.announcement_message_scroll %}
-            <div role="region" aria-label="Scrolling announcement. Focus or hover to pause." class="announcement-message announcement-message--scrolling {% if theme.welcome_image != blank %}announcement-message--with-welcome-image{% endif %}" tabindex="0">
+            {% assign has_welcome_image = false %}
+            {% if theme.welcome_image != blank %}
+              {% assign has_welcome_image = true %}
+            {% endif %}
+
+            {% assign has_welcome_text = false %}
+            {% if theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
+              {% assign has_welcome_text = true %}
+            {% endif %}
+
+            <div role="region" aria-label="Scrolling announcement. Focus or hover to pause." class="announcement-message announcement-message--scrolling {% if has_welcome_image %}announcement-message--with-welcome-image{% endif %} {% if has_welcome_text %}announcement-message--with-welcome-text{% endif %}" tabindex="0">
               <div class="announcement-message__scroll-wrapper">
                 <div class="announcement-message__scroll-content">
                   <span class="announcement-message-text">{{ theme.announcement_message_text }}</span>

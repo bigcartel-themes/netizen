@@ -187,28 +187,34 @@ textarea
   line-height: 1.375rem
   margin: 0 auto
   max-width: 1500px
-  padding: 0 $marginSize
+  padding: 0 $marginSize 10px $marginSize
   position: relative
   width: 100%
 
   @media screen and (max-width: $break-extra-large)
-    padding: 0
+    padding: 0 0 10px 0
 
   @media screen and (max-width: $break-medium)
     display: none
+    padding: 0
 
   &.mobile-header-message
     display: none
 
     @media screen and (max-width: $break-medium)
       display: block
-      margin-top: -2px
 
 .header-message + .header-message > div
   border-top: none
 
   @media screen and (max-width: $break-medium)
     border-top: $border
+
+.has-welcome .header-message
+  padding-bottom: 0
+
+  @media screen and (max-width: $break-extra-large)
+    padding-bottom: 0
 
 .gradient
   background: $left-gradient-color
@@ -242,7 +248,7 @@ textarea
   @media screen and (max-width: $break-medium)
     border: 0
 
-    &--with-welcome-image
+    &--with-welcome-image, &--with-welcome-text
       border-left: $border
       border-right: $border
 
