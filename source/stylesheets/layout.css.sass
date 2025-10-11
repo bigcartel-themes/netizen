@@ -237,7 +237,7 @@ textarea
   position: relative
   top: 0
   width: 100%
-  z-index: 9
+  z-index: 500
 
   @media screen and (max-width: $break-medium)
     border: 0
@@ -277,6 +277,7 @@ textarea
       width: 14px
 
 .announcement-message--scrolling
+  cursor: pointer
   overflow: hidden
   padding: 0 !important
   min-height: fit-content
@@ -291,8 +292,17 @@ textarea
     white-space: nowrap
     animation: scroll-announcement var(--announcement-scroll-duration, 15s) linear infinite
 
-    &:hover
+  // Pause scrolling on hover (desktop) and focus (keyboard) for accessibility
+  @media (hover: hover)
+    &:hover .announcement-message__scroll-content
       animation-play-state: paused
+
+  &:focus-visible .announcement-message__scroll-content
+    animation-play-state: paused
+
+  // Pause when user taps on mobile (via JS class toggle)
+  &.is-paused .announcement-message__scroll-content
+    animation-play-state: paused
 
 .announcement-message--scrolling .announcement-message-text
   display: inline-block
