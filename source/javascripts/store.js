@@ -7,21 +7,32 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 if ($('.announcement-message-text').length) {
-  var announcementMessage = $('.announcement-message-text').html();
+  var announcementMessage = $('.announcement-message-text').first().html();
   var hashedMessage = announcementMessage.hashCode();
   var cookieValue = getCookie('hide-announcement-message');
-  if (cookieValue) {
-    if (cookieValue != hashedMessage) {
+  var isScrolling = $('.announcement-message').hasClass('announcement-message--scrolling');
+
+  // For scrolling announcements, always show them (bypass cookie check)
+  // For non-scrolling announcements, check the cookie
+  if (isScrolling) {
+    $('body').addClass('has-announcement-message');
+    if (!$('body').hasClass('has-header-message')) {
+      $('body').addClass('has-header-message')
+    }
+  } else {
+    if (cookieValue) {
+      if (cookieValue != hashedMessage) {
+        $('body').addClass('has-announcement-message');
+        if (!$('body').hasClass('has-header-message')) {
+          $('body').addClass('has-header-message')
+        }
+      }
+    }
+    else {
       $('body').addClass('has-announcement-message');
       if (!$('body').hasClass('has-header-message')) {
         $('body').addClass('has-header-message')
       }
-    }
-  }
-  else {
-    $('body').addClass('has-announcement-message');
-    if (!$('body').hasClass('has-header-message')) {
-      $('body').addClass('has-header-message')
     }
   }
 }
@@ -555,4 +566,47 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Hybrid announcement pause: hover on desktop, tap-to-toggle on mobile, focus for keyboard
+document.addEventListener('DOMContentLoaded', () => {
+  const announcement = document.querySelector('.announcement-message--scrolling');
 
+  if (!announcement) return;
+
+  const scrollContent = announcement.querySelector('.announcement-message__scroll-content');
+  const firstText = announcement.querySelector('.announcement-message-text');
+
+  // Calculate exact scroll distance for seamless looping
+  function updateScrollDistance() {
+    if (scrollContent && firstText) {
+      // Get the width of one text block including its spacing
+      const textWidth = firstText.offsetWidth;
+
+      // Set CSS variable with exact pixel distance to scroll
+      // This ensures perfectly seamless looping regardless of content length
+      scrollContent.style.setProperty('--scroll-distance', `-${textWidth}px`);
+    }
+  }
+
+  // Initial calculation
+  updateScrollDistance();
+
+  // Recalculate on resize (debounced to avoid performance issues)
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(updateScrollDistance, 150);
+  });
+
+  // Add tap-to-toggle for all devices (primarily for touch devices)
+  // Desktop users can still use hover (handled by CSS), but click also works as backup
+  let isPaused = false;
+
+  announcement.addEventListener('click', (e) => {
+    // Don't toggle if user clicked a link - let the link work normally
+    if (e.target.closest('a')) return;
+
+    // Toggle pause state
+    isPaused = !isPaused;
+    announcement.classList.toggle('is-paused', isPaused);
+  });
+});

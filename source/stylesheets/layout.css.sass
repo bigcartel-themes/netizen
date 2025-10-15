@@ -1,5 +1,26 @@
 @import 'config'
 
+
+\:root
+  --font-scale: #{'{{ theme.global_text_scale | default: 1 }}'}
+  --shop-name-scale: #{'{{ theme.shop_name_text_scale | default: 1 }}'}
+  --product-grid-scale: #{'{{ theme.product_grid_scale | default: 1 }}'}
+  --product-title-scale: #{'{{ theme.product_page_heading_scale | default: 1 }}'}
+  --product-description-scale: #{'{{ theme.product_page_description_scale | default: 1 }}'}
+  --header-text-scale: #{'{{ theme.header_text_scale | default: 1 }}'}
+  --footer-text-scale: #{'{{ theme.footer_text_scale | default: 1 }}'}
+  --shop-sprinkles-size: #{"{{ theme.shop_sprinkles_size | default: '2em' }}"}
+  --shop-sprinkles-animation: #{"{% case theme.shop_sprinkles_animation %}{% when 'orbit' %}orbit{% when 'tumble' %}tumble{% else %}shake{% endcase %}"}
+  --shop-sprinkles-style-duration: #{"{% case theme.shop_sprinkles_animation %}{% when 'orbit' %}5.2s{% else %}4.6s{% endcase %}"}
+  --shop-sprinkles-style-timing: #{"{% case theme.shop_sprinkles_animation %}{% when 'orbit' %}linear{% else %}cubic-bezier(0.33,0.65,0.45,1){% endcase %}"}
+  --shop-sprinkles-fall-duration: #{"{% case theme.shop_sprinkles_animation %}{% when 'orbit' %}12.5s{% else %}10.8s{% endcase %}"}
+  --shop-sprinkles-spin-animation: #{"{% if theme.shop_sprinkles_animation == 'tumble' %}tumble-spin{% else %}none{% endif %}"}
+  --shop-sprinkles-density: #{"{{ theme.shop_sprinkles_density | default: 12 }}"}
+  --announcement-scroll-duration: #{'{{ theme.announcement_scroll_speed | default: "15s" }}'}
+
+html
+  font-size: calc(16px * var(--font-scale, 1))
+
 *
   box-sizing: border-box
 
@@ -12,7 +33,7 @@ body
   background: $background-color
   color: $text-color
   font-family: $text-font
-  font-size: 16px
+  font-size: 1rem
   font-weight: normal
   line-height: 1.5em
   position: relative
@@ -20,6 +41,20 @@ body
   &.no-scroll
     overflow: hidden
     -webkit-overflow-scrolling: touch
+
+
+// shop sprinkles overrides
+.emoji
+  font-size: var(--shop-sprinkles-size) !important
+  animation-name: var(--shop-sprinkles-animation) !important
+  animation-duration: var(--shop-sprinkles-style-duration) !important
+  animation-timing-function: var(--shop-sprinkles-style-timing) !important
+
+.emoji .inner
+  animation-duration: var(--shop-sprinkles-fall-duration) !important
+
+.emoji .inner span
+  animation-name: var(--shop-sprinkles-spin-animation) !important
 
 a.skip-link
   transition: top .2s ease
@@ -36,6 +71,17 @@ a.skip-link
   &:focus
     top: 20px
 
+.visually-hidden
+  position: absolute !important
+  width: 1px !important
+  height: 1px !important
+  padding: 0 !important
+  margin: -1px !important
+  overflow: hidden !important
+  clip: rect(0, 0, 0, 0) !important
+  white-space: nowrap !important
+  border: 0 !important
+
 a
   text-decoration: none
   color: $text-color
@@ -50,8 +96,8 @@ h1, h2, h3, h4
   padding: 0
 
 h1
-  font-size: 28px
-  line-height: 36px
+  font-size: 1.75rem
+  line-height: 2.25rem
   margin-bottom: 40px
   font-weight: 400
 
@@ -65,7 +111,7 @@ input, textarea
   border: $border
   color: $text-color
   font-family: $text-font
-  font-size: 16px
+  font-size: 1rem
   height: 55px
   padding: 10px
   width: 100%
@@ -103,7 +149,7 @@ textarea
     border-radius: 0
     color: $text-color
     font-family: $text-font
-    font-size: 16px
+    font-size: 1rem
     height: 100%
     line-height: normal
     padding: 0 66px 0 15px
@@ -137,13 +183,16 @@ textarea
     z-index: 1
 
 .header-message
-  font-size: 15px
-  line-height: 22px
+  font-size: 0.9375rem
+  line-height: 1.375rem
   margin: 0 auto
   max-width: 1500px
-  padding: 0 $marginSize
+  padding: 0 $marginSize 10px $marginSize
   position: relative
   width: 100%
+
+  @media screen and (max-width: $break-extra-large)
+    padding: 0 0 10px 0
 
   @media screen and (max-width: $break-medium)
     display: none
@@ -154,13 +203,18 @@ textarea
 
     @media screen and (max-width: $break-medium)
       display: block
-      margin-top: -2px
 
 .header-message + .header-message > div
   border-top: none
 
   @media screen and (max-width: $break-medium)
     border-top: $border
+
+.has-welcome .header-message
+  padding-bottom: 0
+
+  @media screen and (max-width: $break-extra-large)
+    padding-bottom: 0
 
 .gradient
   background: $left-gradient-color
@@ -183,16 +237,25 @@ textarea
   background-color: $accent-background-color
   border: $border
   color: $text-color
+  font-size: calc(1rem * var(--header-text-scale, 1))
   left: 0
   padding: 14px
   position: relative
   top: 0
   width: 100%
-  z-index: 9
+  z-index: 500
+
+  @media screen and (max-width: $break-medium)
+    border: 0
+
+    &--with-welcome-image, &--with-welcome-text
+      border-left: $border
+      border-right: $border
 
   .announcement-message-text
     text-align: center
-    width: calc(100% - 100px)
+    width: 100%
+    max-width: calc(100% - 100px)
 
     a, a:visited
       color: $text-color
@@ -200,7 +263,7 @@ textarea
       text-underline-offset: 3px
 
     @media screen and (max-width: $break-small)
-      width: calc(100% - 50px)
+      max-width: calc(100% - 50px)
 
   .announcement-message-close
     +transform(translateY(-50%))
@@ -219,6 +282,50 @@ textarea
       height: 14px
       width: 14px
 
+.announcement-message--scrolling
+  cursor: pointer
+  overflow: hidden
+  padding: 0 !important
+  min-height: fit-content
+
+  .announcement-message__scroll-wrapper
+    padding: 14px
+    width: 100%
+    overflow: hidden
+    // Isolate this container to prevent layout thrashing
+    isolation: isolate
+
+  .announcement-message__scroll-content
+    display: inline-flex
+    white-space: nowrap
+    animation: scroll-announcement var(--announcement-scroll-duration, 15s) linear infinite
+    // Contain the rendering to this element only
+    contain: layout style
+
+  // Pause scrolling on hover (desktop) and focus (keyboard) for accessibility
+  @media (hover: hover)
+    &:hover .announcement-message__scroll-content
+      animation-play-state: paused
+
+  &:focus-visible .announcement-message__scroll-content
+    animation-play-state: paused
+
+  // Pause when user taps on mobile (via JS class toggle)
+  &.is-paused .announcement-message__scroll-content
+    animation-play-state: paused
+
+.announcement-message--scrolling .announcement-message-text
+  display: inline-block
+  padding: 0 5em
+
+// Keyframe animation for smooth scrolling
+// Uses exact pixel distance calculated by JavaScript for seamless looping
+@keyframes scroll-announcement
+  0%
+    transform: translate3d(0, 0, 0)
+  100%
+    transform: translate3d(var(--scroll-distance, -20%), 0, 0)
+
 button, .button
   +all-transitions
   background-color: $button-background-color
@@ -227,7 +334,7 @@ button, .button
   color: $button-text-color
   cursor: pointer
   display: block
-  font-size: 16px
+  font-size: 1rem
   font-family: $text-font
   height: 55px
   line-height: $marginSize
@@ -238,7 +345,7 @@ button, .button
     background: none
     color: $text-color
     border: none
-    font-size: 13px
+    font-size: 0.8125rem
     padding: 0
 
     &:not(:disabled):hover, &:not(:disabled):active, &:not(:disabled):focus
@@ -325,8 +432,8 @@ _:-ms-fullscreen, :root .main
   z-index: 202
 
   &.desktop-header
-    font-size: 22px
-    line-height: 30px
+    font-size: calc(1.375rem * var(--shop-name-scale, 1) * var(--header-text-scale, 1))
+    line-height: calc(1.875rem * var(--shop-name-scale, 1) * var(--header-text-scale, 1))
 
     @media screen and (max-width: $break-medium)
       display: none
@@ -339,6 +446,7 @@ _:-ms-fullscreen, :root .main
     color: $button-text-color
     border: $border
     font-family: $header-font
+    font-size: calc(1.375rem * var(--shop-name-scale, 1) * var(--header-text-scale, 1))
     height: 196px
     padding: 10px
     position: absolute
@@ -372,6 +480,7 @@ _:-ms-fullscreen, :root .main
     max-width: 100%
 
   .header-store-name
+    font-size: calc(1.375rem * var(--shop-name-scale, 1) * var(--header-text-scale, 1))
     letter-spacing: 1px
     font-weight: 400
 
@@ -396,6 +505,7 @@ _:-ms-fullscreen, :root .main
 
 .side-nav
   width: 100%
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   *
     text-transform: #{"{{ theme.nav_text_transform_header }}"}
@@ -430,6 +540,7 @@ _:-ms-fullscreen, :root .main
   padding: 0 15px
   position: relative
   width: 100%
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   .down-arrow
     +transform(translateY(-50%))
@@ -452,6 +563,7 @@ _:-ms-fullscreen, :root .main
       background: $accent-background-color
       display: block
       padding: 12px
+      font-size: calc(1rem * var(--header-text-scale, 1))
 
       &:hover, &:focus
         background: $button-background-color
@@ -508,12 +620,14 @@ _:-ms-fullscreen, :root .main
 
 .page-nav-items
   margin-bottom: $marginSize/2
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   li
     margin-bottom: $marginSize/2
 
     a
       padding: 4px 0
+      font-size: calc(1em * var(--header-text-scale, 1))
 
   &--social_icons
     display: grid
@@ -551,7 +665,7 @@ _:-ms-fullscreen, :root .main
 
 .header-cart
   color: $text-color
-  font-size: 22px
+  font-size: calc(1.375rem * var(--header-text-scale, 1))
   text-decoration: none
   z-index: 101
 
@@ -560,7 +674,7 @@ _:-ms-fullscreen, :root .main
     border: none
     color: $button-text-color
     display: block
-    font-size: 22px
+    font-size: calc(1.375rem * var(--header-text-scale, 1))
     height: 150px
     line-height: normal
     padding: 0
@@ -605,7 +719,7 @@ _:-ms-fullscreen, :root .main
     text-align: center
     margin-left: -120px
     margin-top: 150px
-    font-size: .950em
+    font-size: calc(.950em * var(--header-text-scale, 1))
     width: 300px
     color: $text-color
 
@@ -643,6 +757,7 @@ _:-ms-fullscreen, :root .main
   position: absolute
   width: 100% !important
   z-index: 202
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   .header-store
     +transform(none)
@@ -692,6 +807,7 @@ _:-ms-fullscreen, :root .main
   position: relative
   margin: 0
   margin-top: 4px
+  font-size: calc(1rem * var(--header-text-scale, 1))
 
   &:hover, &:active, &:focus
     background: none !important
@@ -709,6 +825,7 @@ footer
   margin: 0 auto
   z-index: 199
   width: 100%
+  font-size: calc(1rem * var(--footer-text-scale, 1))
 
   @media screen and (max-width: $break-medium)
     +flex-direction(column)
@@ -723,7 +840,7 @@ footer
 
     &.footer-store-name
       +flex(1)
-      font-size: 22px
+      font-size: calc(1.375rem * var(--shop-name-scale, 1) * var(--footer-text-scale, 1))
       text-align: center
 
     &.footer-nav
@@ -738,7 +855,7 @@ footer
         -webkit-column-width: 150px
         -moz-column-width: 150px
         column-width: 150px
-        font-size: 14px
+        font-size: calc(0.875rem * var(--footer-text-scale, 1))
         max-width: 500px
         width: 100%
         margin: 0 auto
@@ -761,7 +878,7 @@ footer
           width: 100%
 
           @media screen and (max-width: $break-medium)
-            font-size: 15px
+            font-size: 0.9375rem
             text-align: center
             margin-bottom: 8px
 
@@ -786,7 +903,7 @@ footer
       .bigcartel-credit
         color: $background-color
         line-height: 1em
-        font-size: 14px
+        font-size: 0.875rem
         display: flex
         align-items: center
         gap: 8px
@@ -816,6 +933,7 @@ footer
   display: block
   text-align: center
   padding: 20px
+  font-size: calc(1rem * var(--footer-text-scale, 1))
 
   *:not(.footer-custom-content)
     text-transform: #{"{{ theme.nav_text_transform_footer }}"}
@@ -843,22 +961,20 @@ footer
     align-items: center
     justify-content: center
     flex-shrink: 0
-    width: 36px
-    height: 36px
+    width: 30px
+    height: 30px
 
     svg
       fill: currentColor
-      height: 26px
-      width: 26px
+      height: 22px
+      width: 22px
 
       &.tumblr-icon
-        width: 14px
-
+        width: 13px
       &.reddit-icon,
       &.discord-icon
-        width: 28px
-        height: 28px
-
+        width: 24px
+        height: 24px
 .custom-page-content, .product-description
   word-break: break-word
 

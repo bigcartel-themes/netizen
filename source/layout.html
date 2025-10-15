@@ -24,7 +24,13 @@
     <link href="{{ theme | theme_css_url }}" media="screen" rel="stylesheet" type="text/css">
     {{ head_content }}
   </head>
-  <body id="{{ page.permalink }}" class="{% if errors != blank %}has-header-message{% endif %} {{ page.category }} {% if page.permalink == 'home' and theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank %}has-welcome{% endif %}" data-bc-page-type="{% if page.category == 'custom' %}custom{% else %}{{ page.permalink }}{% endif %}">
+  {% assign show_welcome = false %}
+  {% if page.permalink == 'home' %}
+    {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
+      {% assign show_welcome = true %}
+    {% endif %}
+  {% endif %}
+  <body id="{{ page.permalink }}" class="{% if errors != blank %}has-header-message{% endif %} {{ page.category }} {% if show_welcome %}has-welcome{% endif %}" data-bc-page-type="{% if page.category == 'custom' %}custom{% else %}{{ page.permalink }}{% endif %}">
     <div class="wrap">
       {% if errors != blank %}
         <div class="header-message">
@@ -39,12 +45,26 @@
       {% endif %}
       {% if theme.announcement_message_text != blank %}
         <div class="header-message">
-          <div class="announcement-message">
-            <div class="announcement-message-text">{{ theme.announcement_message_text }}</div>
-            <button class="announcement-message-close" title="Close announcement message">
-              <svg width="14" height="14" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.20710678.79289322L10 8.585 17.7928932.79289322c.360484-.36048396.927715-.3882135 1.3200062-.0831886l.0942074.0831886c.3905243.39052429.3905243 1.02368927 0 1.41421356L11.415 10l7.7921068 7.7928932c.3905243.3905243.3905243 1.0236893 0 1.4142136-.3905243.3905243-1.0236893.3905243-1.4142136 0L10 11.415l-7.79289322 7.7921068c-.36048396.3604839-.92771502.3882135-1.32000622.0831886l-.09420734-.0831886c-.3905243-.3905243-.3905243-1.0236893 0-1.4142136L8.585 10 .79289322 2.20710678c-.3905243-.39052429-.3905243-1.02368927 0-1.41421356.39052429-.3905243 1.02368927-.3905243 1.41421356 0z" fill-rule="nonzero"/></svg>
-            </button>
-          </div>
+          {% if theme.announcement_message_scroll %}
+            <div role="region" aria-label="Scrolling announcement. Focus or hover to pause." class="announcement-message announcement-message--scrolling" tabindex="0">
+              <div class="announcement-message__scroll-wrapper">
+                <div class="announcement-message__scroll-content">
+                  <span class="announcement-message-text">{{ theme.announcement_message_text }}</span>
+                  <span class="announcement-message-text" aria-hidden="true">{{ theme.announcement_message_text }}</span>
+                  <span class="announcement-message-text" aria-hidden="true">{{ theme.announcement_message_text }}</span>
+                  <span class="announcement-message-text" aria-hidden="true">{{ theme.announcement_message_text }}</span>
+                  <span class="announcement-message-text" aria-hidden="true">{{ theme.announcement_message_text }}</span>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div role="complementary" aria-label="Announcement message" class="announcement-message">
+              <div class="announcement-message-text">{{ theme.announcement_message_text }}</div>
+              <button class="announcement-message-close" title="Close announcement message">
+                <svg width="14" height="14" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.20710678.79289322L10 8.585 17.7928932.79289322c.360484-.36048396.927715-.3882135 1.3200062-.0831886l.0942074.0831886c.3905243.39052429.3905243 1.02368927 0 1.41421356L11.415 10l7.7921068 7.7928932c.3905243.3905243.3905243 1.0236893 0 1.4142136-.3905243.3905243-1.0236893.3905243-1.4142136 0L10 11.415l-7.79289322 7.7921068c-.36048396.3604839-.92771502.3882135-1.32000622.0831886l-.09420734-.0831886c-.3905243-.3905243-.3905243-1.0236893 0-1.4142136L8.585 10 .79289322 2.20710678c-.3905243-.39052429-.3905243-1.02368927 0-1.41421356.39052429-.3905243 1.02368927-.3905243 1.41421356 0z" fill-rule="nonzero"/></svg>
+              </button>
+            </div>
+          {% endif %}
         </div>
       {% endif %}
       <div class="mobile-header">
@@ -53,15 +73,15 @@
             <span class="hamburger-inner"></span>
           </span>
         </button>
-        <div class="header-store{% if theme.logo != blank %} has-logo{% else %} has-text{% endif %}">
+        <div class="header-store{% if theme.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
           <a href="/" title="{{ store.name | escape }}" class="header-store-link">
-            {% if theme.logo != blank %}
-            <img class="header-store-logo" alt="{{ store.name }}" src="{{ theme.images.logo.url | constrain: 400, 400 }}">
+            {% if theme.logo_image != blank %}
+            <img class="header-store-logo" alt="{{ store.name }}" src="{{ theme.images.logo_image.url | constrain: 400, 400 }}">
             {% else %}
             <span class="header-store-name">{{ store.name }}</span>
             {% endif %}
           </a>
-          {% if theme.logo != blank %}
+          {% if theme.logo_image != blank %}
             <div class="gradient"></div>
             <div class="gradient"></div>
           {% endif %}
@@ -70,10 +90,10 @@
       </div>
 
       <div class="desktop-header-store-name">
-        <div class="desktop-header header-store{% if theme.logo != blank %} has-logo{% else %} has-text{% endif %}">
+        <div class="desktop-header header-store{% if theme.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
           <a href="/" title="{{ store.name | escape }}" class="header-store-link">
-            {% if theme.logo != blank %}
-            <img class="header-store-logo" src="{{ theme.images.logo.url | constrain: 400, 400 }}" alt="{{ store.name }}">
+            {% if theme.logo_image != blank %}
+            <img class="header-store-logo" src="{{ theme.images.logo_image.url | constrain: 400, 400 }}" alt="{{ store.name }}">
             {% else %}
             <span class="header-store-name">{{ store.name }}</span>
             {% endif %}
@@ -147,12 +167,36 @@
       {% endif %}
       {% if theme.announcement_message_text != blank %}
         <div class="header-message mobile-header-message">
-          <div class="announcement-message">
-            <div class="announcement-message-text">{{ theme.announcement_message_text }}</div>
-            <button class="announcement-message-close" title="Close announcement message">
-              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
-            </button>
-          </div>
+          {% if theme.announcement_message_scroll %}
+            {% assign has_welcome_image = false %}
+            {% if theme.welcome_image != blank %}
+              {% assign has_welcome_image = true %}
+            {% endif %}
+
+            {% assign has_welcome_text = false %}
+            {% if theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
+              {% assign has_welcome_text = true %}
+            {% endif %}
+
+            <div role="region" aria-label="Scrolling announcement. Focus or hover to pause." class="announcement-message announcement-message--scrolling {% if has_welcome_image %}announcement-message--with-welcome-image{% endif %} {% if has_welcome_text %}announcement-message--with-welcome-text{% endif %}" tabindex="0">
+              <div class="announcement-message__scroll-wrapper">
+                <div class="announcement-message__scroll-content">
+                  <span class="announcement-message-text">{{ theme.announcement_message_text }}</span>
+                  <span class="announcement-message-text" aria-hidden="true">{{ theme.announcement_message_text }}</span>
+                  <span class="announcement-message-text" aria-hidden="true">{{ theme.announcement_message_text }}</span>
+                  <span class="announcement-message-text" aria-hidden="true">{{ theme.announcement_message_text }}</span>
+                  <span class="announcement-message-text" aria-hidden="true">{{ theme.announcement_message_text }}</span>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div role="complementary" aria-label="Announcement message" class="announcement-message {% if theme.welcome_image != blank %}announcement-message--with-welcome-image{% endif %}">
+              <div class="announcement-message-text">{{ theme.announcement_message_text }}</div>
+              <button class="announcement-message-close" title="Close announcement message">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+              </button>
+            </div>
+          {% endif %}
         </div>
       {% endif %}
       {% if page.permalink == 'home' %}
@@ -392,6 +436,9 @@
                           {% assign hide_price = true %}
                         {% endif %}
                         {% if related_product.status == 'coming-soon' and theme.show_coming_soon_product_prices == false %}
+                          {% assign hide_price = true %}
+                        {% endif %}
+                        {% if related_product.has_password_protection and theme.show_password_protected_product_prices == false %}
                           {% assign hide_price = true %}
                         {% endif %}
 

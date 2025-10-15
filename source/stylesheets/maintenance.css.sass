@@ -1,6 +1,12 @@
 @import 'config'
 
 #maintenance
+  --font-scale: 1
+  --shop-name-scale: 1
+  --product-grid-scale: 1
+  --product-title-scale: 1
+  --product-description-scale: 1
+  font-size: 16px
 
   .main
     padding-top: 0
@@ -27,7 +33,22 @@
 
     .header-store-link
       border: $border !important
+      font-size: 22px
+      line-height: 30px
       width: 100%
+
+  .maintenance-image-container
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100%
+
+  .maintenance-image
+    display: block
+    margin: 0 auto
+    max-width: 100%
+    height: auto
+    border-radius: 8px
 
   header
     +flexbox
@@ -38,10 +59,9 @@
     width: 100%
 
     @media screen and (max-width: $break-small)
-      height: 118px
-
-    a
-      margin: 0 auto
+      height: auto
+      min-height: 118px
+      padding: 40px 0
 
   .maintenance-message
     padding-top: 0
@@ -58,15 +78,50 @@
     flex-direction: column
     gap: 50px
 
+    &--no-header
+      padding: 50px
+
     @media screen and (max-width: $break-small)
       padding: 150px 15px 25px
+      gap: 40px
 
   .maintenance-message-text
-    font-size: 1.25em
+    font-size: 20px
     line-height: 1.4
-
-    @media (max-width: $break-small)
-      font-size: 1.2em
-
-  .social_icons a
     color: $text-color
+
+    @media screen and (max-width: $break-small)
+      font-size: 17.6px
+
+  .social_icons
+    margin: 0
+    padding: 0
+
+    li
+      display: inline-block
+      margin: 0 8px
+
+    a
+      color: $text-color
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      width: 32px
+      height: 32px
+      transition: all 0.2s ease
+
+      @media screen and (max-width: $break-small)
+        width: 28px
+        height: 28px
+
+      svg
+        width: 24px
+        height: 24px
+
+        @media screen and (max-width: $break-small)
+          width: 20px
+          height: 20px
+
+      &:hover
+        transform: translateY(-2px)
+        opacity: 0.8
