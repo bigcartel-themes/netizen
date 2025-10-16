@@ -284,14 +284,19 @@ textarea
 
 .announcement-message--scrolling
   cursor: pointer
-  overflow: hidden
+  overflow: visible
   padding: 0 !important
-  min-height: fit-content
+  display: flex
+  align-items: center
+  justify-content: center
+  // Safari fix: overflow visible on parent, hidden on wrapper
 
   .announcement-message__scroll-wrapper
-    padding: 14px
+    padding: 14px 0
     width: 100%
     overflow: hidden
+    display: flex
+    align-items: center
     // Isolate this container to prevent layout thrashing
     isolation: isolate
 
