@@ -11,10 +11,10 @@
     <div class="wrap">
       {% if theme.show_shop_name_on_maintenance_page %}
       <header class="header">
-        <div class="header-store{% if theme.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
+        <div class="header-store{% if theme.images.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
           <a href="/" title="{{ store.name | escape }}" class="header-store-link">
-            {% if theme.logo_image != blank %}
-            <img class="header-store-logo" src="{{ theme.logo_image.url }}" alt="{{ store.name }}">
+            {% if theme.images.logo_image != blank %}
+            <img class="header-store-logo" src="{{ theme.images.logo_image.url }}" alt="{{ store.name }}">
             {% else %}
             <span class="header-store-name">{{ store.name }}</span>
             {% endif %}
@@ -27,9 +27,9 @@
       <section class="main">
         <div class="maintenance-message">
           <div class="message-content {% if theme.show_shop_name_on_maintenance_page == false %}message-content--no-header{% endif %}">
-            {% if theme.maintenance_image.url != blank %}
+            {% if theme.images.maintenance_image != blank %}
             <div class="maintenance-image-container">
-              <img class="maintenance-image" src="{{ theme.maintenance_image.url }}" loading="lazy">
+              <img class="maintenance-image" src="{{ theme.images.maintenance_image.url | constrain: 800 }}" loading="lazy">
             </div>
             {% endif %}
             {% if theme.maintenance_message != blank %}<div class="maintenance-message-text">{{ theme.maintenance_message }}</div>{% endif %}
