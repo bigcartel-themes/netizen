@@ -26,7 +26,7 @@
   </head>
   {% assign show_welcome = false %}
   {% if page.permalink == 'home' %}
-    {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
+    {% if theme.images.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
       {% assign show_welcome = true %}
     {% endif %}
   {% endif %}
@@ -73,15 +73,15 @@
             <span class="hamburger-inner"></span>
           </span>
         </button>
-        <div class="header-store{% if theme.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
+        <div class="header-store{% if theme.images.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
           <a href="/" title="{{ store.name | escape }}" class="header-store-link">
-            {% if theme.logo_image != blank %}
+            {% if theme.images.logo_image != blank %}
             <img class="header-store-logo" alt="{{ store.name }}" src="{{ theme.images.logo_image.url | constrain: 400, 400 }}">
             {% else %}
             <span class="header-store-name">{{ store.name }}</span>
             {% endif %}
           </a>
-          {% if theme.logo_image != blank %}
+          {% if theme.images.logo_image != blank %}
             <div class="gradient"></div>
             <div class="gradient"></div>
           {% endif %}
@@ -90,9 +90,9 @@
       </div>
 
       <div class="desktop-header-store-name">
-        <div class="desktop-header header-store{% if theme.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
+        <div class="desktop-header header-store{% if theme.images.logo_image != blank %} has-logo{% else %} has-text{% endif %}">
           <a href="/" title="{{ store.name | escape }}" class="header-store-link">
-            {% if theme.logo_image != blank %}
+            {% if theme.images.logo_image != blank %}
             <img class="header-store-logo" src="{{ theme.images.logo_image.url | constrain: 400, 400 }}" alt="{{ store.name }}">
             {% else %}
             <span class="header-store-name">{{ store.name }}</span>
@@ -169,7 +169,7 @@
         <div class="header-message mobile-header-message">
           {% if theme.announcement_message_scroll %}
             {% assign has_welcome_image = false %}
-            {% if theme.welcome_image != blank %}
+            {% if theme.images.welcome_image != blank %}
               {% assign has_welcome_image = true %}
             {% endif %}
 
@@ -190,7 +190,7 @@
               </div>
             </div>
           {% else %}
-            <div role="complementary" aria-label="Announcement message" class="announcement-message {% if theme.welcome_image != blank %}announcement-message--with-welcome-image{% endif %}">
+            <div role="complementary" aria-label="Announcement message" class="announcement-message {% if theme.images.welcome_image != blank %}announcement-message--with-welcome-image{% endif %}">
               <div class="announcement-message-text">{{ theme.announcement_message_text }}</div>
               <button class="announcement-message-close" title="Close announcement message">
                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
@@ -200,7 +200,7 @@
         </div>
       {% endif %}
       {% if page.permalink == 'home' %}
-        {% if theme.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
+        {% if theme.images.welcome_image != blank or theme.welcome_header != blank or theme.welcome_subheader != blank or theme.welcome_button_text != blank %}
           <section class="home-welcome welcome gradient">
             <div class="welcome-messaging">
               <div class="welcome-header-group">
@@ -218,9 +218,9 @@
               {% endif %}
             </div>
             <div class="pattern {{ theme.welcome_overlay }}"></div>
-            {% if theme.welcome_image != blank %}
+            {% if theme.images.welcome_image != blank %}
               <div class="welcome-image">
-                <img alt="Welcome image" src="{{ theme.welcome_image.url | constrain: 1800 }}"{% if theme.welcome_image_link != blank %} title="{{ theme.welcome_image_link }}"{% endif %}>
+                <img alt="Welcome image" src="{{ theme.images.welcome_image.url | constrain: 1800 }}"{% if theme.welcome_image_link != blank %} title="{{ theme.welcome_image_link }}"{% endif %}>
               </div>
             {% endif %}
           </section>
