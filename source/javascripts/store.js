@@ -379,13 +379,18 @@ $('.product_option_select').on('change',function() {
 });
 
 function updateInventoryMessage(optionId = null) {
-  const product = window.bigcartel.product;
+  const product = window.bigcartel?.product;
   const messageElement = document.querySelector('[data-inventory-message]');
 
   if (
     !themeOptions?.showLowInventoryMessages ||
     !messageElement
   ) {
+    return;
+  }
+
+  // Guard against race condition - product data may not be loaded yet
+  if (!product) {
     return;
   }
 
