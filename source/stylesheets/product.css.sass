@@ -106,8 +106,14 @@
       border-bottom: $border
       margin-bottom: 10px
 
+  .product_option_groups .select:not(:last-of-type)
+    border-bottom: 0
+
   .add-to-cart-button
     width: 100%
+
+  > .select + .add-to-cart-button
+    border-top: 0
 
 .reset-selection-button-container
   text-align: center
@@ -267,3 +273,7 @@ button.reset-selection-button
   &:not(.display-flex)
     &.dual-messaging > div.visible:first-of-type
       margin-bottom: 10px
+
+#stripe-messaging-container,
+#paypal-messaging-container
+  transition: min-height 0.1s ease-out
