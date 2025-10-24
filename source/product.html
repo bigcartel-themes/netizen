@@ -79,12 +79,12 @@
         {% endif %}
         <button class="button add-to-cart-button" name="submit" type="submit" title="{{ t['products.add_to_cart'] }}" data-adding-text="{{ t['products.adding'] }}" data-added-text="{{ t['products.adding'] }}" data-add-title="{{ t['products.add_to_cart'] }}" data-sold-title="{{ t['products.sold_out'] }}"{% if product.has_default_option %}{% else %}disabled="disabled"{% endif %}>{{ t['products.add_to_cart'] }}</button>
         {{ store | instant_checkout_button: 'dark', '44px' }}
-        <div class="inventory-status-message" data-inventory-message></div>
         {% if product.has_option_groups %}
           <div class="reset-selection-button-container">
             <button class="button minimal-button reset-selection-button" title="{{ t['products.reset'] }}" type="reset">{{ t['products.reset'] }}</button>
           </div>
         {% endif %}
+        <div class="inventory-status-message" data-inventory-message></div>
       </form>
     {% endif %}
   </div>

@@ -1,3 +1,13 @@
+// Helper function for responsive BNPL messaging options on product pages
+function getProductPageMessagingOptions() {
+  const isMobile = window.innerWidth < 1024;
+  return {
+    alignment: isMobile ? 'center' : 'left',
+    displayMode: isMobile ? 'flex' : 'grid',
+    pageType: 'product'
+  };
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   document.body.classList.remove("preloader");
   let contactFields = document.querySelectorAll(".contact-form-group input, .contact-form-group textarea");
@@ -326,7 +336,7 @@ var updateCart = function(cart) {
     showBnplMessaging(cart.total, { alignment: 'center', displayMode: 'flex', pageType: 'cart' });
   } else if (pageType === 'product') {
     const price = window.bigcartel?.product?.default_price || null;
-    showBnplMessaging(price, { alignment: 'left', displayMode: 'grid', pageType: 'product' });
+    showBnplMessaging(price, getProductPageMessagingOptions());
   }
 }
 
@@ -445,8 +455,12 @@ function enableAddButton(updated_price) {
   var addButton = $('.add-to-cart-button');
   var addButtonTitle = addButton.attr('data-add-title');
   addButton.attr("disabled",false);
-  // on teh addButton, i want you to add a style to make the top border 1px
-  addButton.css("border-top-width","0");
+  // Only hide top border for single option case (not when product_option_groups exists)
+  if ($('.product_option_groups').length === 0) {
+    addButton.css("border-top-width","0");
+  } else {
+    addButton.css("border-top-width","");
+  }
   if (updated_price) {
     priceTitle = ' - ' + formatMoney(updated_price, true, true);
   }
@@ -455,7 +469,7 @@ function enableAddButton(updated_price) {
   }
   addButton.html(addButtonTitle + priceTitle);
   updateInventoryMessage($('#option').val());
-  showBnplMessaging(updated_price, { alignment: 'left', displayMode: 'grid', pageType: 'product' });
+  showBnplMessaging(updated_price, getProductPageMessagingOptions());
 }
 
 function disableAddButton(type) {
@@ -565,11 +579,44 @@ document.addEventListener("DOMContentLoaded", function () {
   // Handle product page
   if (pageType === 'product') {
     updateInventoryMessage();
-    
-    const price = window.bigcartel?.product?.default_price || null;    
-    showBnplMessaging(price, { alignment: 'left', displayMode: 'grid', pageType: 'product' });
+
+    const price = window.bigcartel?.product?.default_price || null;
+    showBnplMessaging(price, getProductPageMessagingOptions());
   }
 });
+
+// Viewport resize handler for responsive BNPL messaging on product pages
+(function() {
+  let lastWidth = window.innerWidth;
+  let resizeTimeout;
+  const BREAKPOINT = 1024;
+
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const currentWidth = window.innerWidth;
+      const pageType = document.body.getAttribute('data-bc-page-type');
+
+      // Only re-render on product pages when crossing the 1024px threshold
+      if (pageType === 'product') {
+        const crossedThreshold =
+          (lastWidth < BREAKPOINT && currentWidth >= BREAKPOINT) ||
+          (lastWidth >= BREAKPOINT && currentWidth < BREAKPOINT);
+
+        if (crossedThreshold) {
+          const price = window.bigcartel?.product?.default_price || null;
+          if (price) {
+            // Force re-render even though price hasn't changed (alignment is changing)
+            const options = getProductPageMessagingOptions();
+            options.forceRender = true;
+            showBnplMessaging(price, options);
+          }
+          lastWidth = currentWidth;
+        }
+      }
+    }, 250);
+  });
+})();
 
 // Hybrid announcement pause: hover on desktop, tap-to-toggle on mobile, focus for keyboard
 document.addEventListener('DOMContentLoaded', () => {
