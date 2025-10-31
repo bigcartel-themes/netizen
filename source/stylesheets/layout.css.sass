@@ -246,8 +246,7 @@ textarea
   z-index: 100
 
   @media screen and (max-width: $break-medium)
-    border-top: 0
-    border-bottom: 0
+    border: 0
 
   .announcement-message-text
     text-align: center
@@ -756,6 +755,8 @@ _:-ms-fullscreen, :root .main
   +flex-direction(row)
   background: $background-color
   border: $border
+  border-left: 0
+  border-right: 0
   display: none
   height: 90px
   padding: 0 25px
@@ -839,6 +840,8 @@ footer
   +flex-direction(row)
   flex-shrink: 0
   border: $border
+  border-left: 0
+  border-right: 0
   max-width: 1400px
   margin: 0 auto
   z-index: 199
