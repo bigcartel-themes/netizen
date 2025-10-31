@@ -646,6 +646,7 @@
         welcomeButtonBehavior: "{{ theme.welcome_button_behavior }}",
         welcomeButtonLink: "{{ theme.welcome_button_link }}",
         welcomeImageLink: "{{ theme.welcome_image_link }}",
+        showSoldOutOptions: {{ theme.show_sold_out_product_options }},
         showLowInventoryMessages: {{ theme.show_low_inventory_messages }},
         lowInventoryMessage: "{{ t['products.low_inventory'] | replace: '"', '\"' | replace: "'", "\\'" }}",
         almostSoldOutMessage: "{{ t['products.almost_sold_out'] | replace: '"', '\"' | replace: "'", "\\'" }}",
@@ -672,8 +673,18 @@
     </script>
     {% if page.full_url contains '/product/' %}
       <script>
-        var show_sold_out_product_options = '{{ theme.show_sold_out_product_options }}';
-        Product.find('{{ product.permalink }}', processProduct)
+        // Initialize product data: fetch fresh on back/forward navigation (cache timing fix),
+        // use window.bigcartel.product on normal loads, or fetch as fallback
+        var navEntry = performance.getEntriesByType('navigation')[0];
+        var isBackForward = navEntry && navEntry.type === 'back_forward';
+
+        if (isBackForward) {
+          Product.find('{{ product.permalink }}', processProduct);
+        } else if (window.bigcartel?.product) {
+          processProduct(window.bigcartel.product);
+        } else {
+          Product.find('{{ product.permalink }}', processProduct);
+        }
       </script>
     {% endif %}
   </body>
