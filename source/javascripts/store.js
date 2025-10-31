@@ -185,6 +185,13 @@ var processUpdate = function(input, item_id, new_val, cart) {
   $('.cart-subtotal-amount-value').html(sub_total);
   $('.header-cart-count').html(item_count);
   $('.cart-num-items').html(item_count);
+
+  // Trigger mobile pulse animation
+  $('.header-cart-count').addClass('cart-count-updated');
+  setTimeout(function() {
+    $('.header-cart-count').removeClass('cart-count-updated');
+  }, 400);
+
   if (item_count == 0) {
     $('.cart-form').slideUp('fast',function() {
       toggleMiniCart('hide');
@@ -322,6 +329,14 @@ var updateCart = function(cart) {
   $('.header-cart-total').html(sub_total);
   $('.cart-subtotal-amount-value').html(sub_total);
   $('.header-cart-count').html(item_count);
+  $('.cart-num-items').html(item_count);
+
+  // Trigger mobile pulse animation
+  $('.header-cart-count').addClass('cart-count-updated');
+  setTimeout(function() {
+    $('.header-cart-count').removeClass('cart-count-updated');
+  }, 400);
+
   $('.cart-container').removeClass('empty-cart');
   var $container = $('.mini-cart-container');
   var window_width = $(window).width();
