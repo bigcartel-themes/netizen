@@ -184,6 +184,7 @@ var processUpdate = function(input, item_id, new_val, cart) {
   $('.header-cart-total').html(sub_total);
   $('.cart-subtotal-amount-value').html(sub_total);
   $('.header-cart-count').html(item_count);
+  $('.cart-num-items').html(item_count);
   if (item_count == 0) {
     $('.cart-form').slideUp('fast',function() {
       toggleMiniCart('hide');
