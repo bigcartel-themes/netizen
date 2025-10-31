@@ -355,6 +355,7 @@ $('.product-form').on('submit', function(e) {
   var quantity = 1
   , itemID = $("#option").val()
   , addButton = $('.add-to-cart-button')
+  , cartLinkContainer = $('.product-form-cart-link-container')
   if (addButton.length) {
     var addMethod = addButton;
     var updateElement = addButton;
@@ -371,6 +372,7 @@ $('.product-form').on('submit', function(e) {
           updateElement.html(addingText);
           setTimeout(function() {
             updateElement.html(addedText);
+            cartLinkContainer.css('display', 'block').hide().slideDown('fast');
             updateCart(cart);
             addMethod.removeClass('adding');
             setTimeout(function() {
