@@ -388,7 +388,10 @@ $('.product-form').on('submit', function(e) {
           updateElement.html(addingText);
           setTimeout(function() {
             updateElement.html(addedText);
-            cartLinkContainer.css('display', 'block').hide().slideDown('fast');
+            // Only animate if the cart link is not already visible
+            if (!cartLinkContainer.is(':visible')) {
+              cartLinkContainer.css('display', 'block').hide().slideDown('fast');
+            }
             updateCart(cart);
             addMethod.removeClass('adding');
             setTimeout(function() {
