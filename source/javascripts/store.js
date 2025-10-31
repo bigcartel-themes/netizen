@@ -396,7 +396,7 @@ $('.product-form').on('submit', function(e) {
             addMethod.removeClass('adding');
             setTimeout(function() {
               updateElement.html(addText);
-            }, 900)
+            }, 1500)
           }, 600);
         }, 300);
       });

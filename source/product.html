@@ -77,7 +77,7 @@
             </div>
           {% endif %}
         {% endif %}
-        <button id="add-to-cart-button" class="button add-to-cart-button" type="submit" title="{{ t['products.add_to_cart'] }}" data-adding-text="{{ t['products.adding'] }}" data-added-text="{{ t['products.adding'] }}" data-add-title="{{ t['products.add_to_cart'] }}" data-sold-title="{{ t['products.sold_out'] }}"{% if product.has_default_option %}{% else %}disabled="disabled"{% endif %}>{{ t['products.add_to_cart'] }}</button>
+        <button id="add-to-cart-button" class="button add-to-cart-button" type="submit" title="{{ t['products.add_to_cart'] }}" data-adding-text="{{ t['products.adding'] }}" data-added-text="{{ t['products.added'] }}" data-add-title="{{ t['products.add_to_cart'] }}" data-sold-title="{{ t['products.sold_out'] }}"{% if product.has_default_option %}{% else %}disabled="disabled"{% endif %}>{{ t['products.add_to_cart'] }}</button>
         {{ store | instant_checkout_button: 'dark', '44px' }}
         <div class="product-form-cart-link-container">
           <a class="product-form-cart-link" href="/cart">
