@@ -366,6 +366,9 @@ $('.main-carousel').flickity({
   adaptiveHeight: true,
 });
 
+// Track the reset timer to prevent conflicts when clicking rapidly
+var addToCartResetTimer = null;
+
 $('.product-form').on('submit', function(e) {
   e.preventDefault();
   var quantity = 1
@@ -375,12 +378,18 @@ $('.product-form').on('submit', function(e) {
   if (addButton.length) {
     var addMethod = addButton;
     var updateElement = addButton;
-    var addText = addButton.html();
+    var addText = addButton.attr('data-add-title');
   }
   var addedText = addMethod.data('added-text')
   , addingText = addMethod.data('adding-text')
   if (!addMethod.hasClass('adding')) {
     if (quantity > 0 && itemID > 0) {
+      // Clear any pending reset timer from previous click
+      if (addToCartResetTimer) {
+        clearTimeout(addToCartResetTimer);
+        addToCartResetTimer = null;
+      }
+
       addMethod.addClass('adding');
       addMethod.blur();
       Cart.addItem(itemID, quantity, function(cart) {
@@ -388,14 +397,16 @@ $('.product-form').on('submit', function(e) {
           updateElement.html(addingText);
           setTimeout(function() {
             updateElement.html(addedText);
-            // Only animate if the cart link is not already visible
-            if (!cartLinkContainer.is(':visible')) {
-              cartLinkContainer.css('display', 'block').hide().slideDown('fast');
+            // Only animate if the cart link hasn't been shown yet
+            if (!cartLinkContainer.hasClass('cart-link-shown')) {
+              cartLinkContainer.addClass('cart-link-shown');
+              cartLinkContainer.slideDown('fast');
             }
             updateCart(cart);
             addMethod.removeClass('adding');
-            setTimeout(function() {
+            addToCartResetTimer = setTimeout(function() {
               updateElement.html(addText);
+              addToCartResetTimer = null;
             }, 1500)
           }, 600);
         }, 300);
