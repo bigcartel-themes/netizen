@@ -223,6 +223,46 @@ button.reset-selection-button
 #instant-checkout-button
   margin-top: 10px
 
+.product-form-cart-link-container
+  display: none
+
+  &.cart-link-shown
+    display: block
+
+  @media screen and (min-width: $break-medium + 1)
+    display: none !important
+
+.product-form-cart-link
+  +flexbox
+  +align-items(center)
+  +justify-content(center)
+  +all-transitions
+  background: none
+  border: $border
+  color: $text-color
+  font-family: $text-font
+  font-size: 1rem
+  height: 55px
+  margin-top: 10px
+  text-decoration: none
+  width: 100%
+
+  &:hover, &:focus
+    background-color: $accent-background-color
+    text-decoration: none
+
+    .product-form-cart-link-icon
+      fill: $text-color
+
+.product-form-cart-link-icon
+  fill: $text-color
+  height: 20px
+  width: 20px
+  flex-shrink: 0
+
+.product-form-cart-link-text
+  margin-left: 10px
+
 .inventory-status-message
   color: $inventory-status-text-color
   margin: 10px 0 auto
@@ -232,7 +272,10 @@ button.reset-selection-button
   font-size: 0.75rem
 
   @media screen and (max-width: $break-medium)
-    margin: 8px 0 32px 0
+    margin: 8px 0 0 0
+
+    &:not(:empty)
+      margin-bottom: 20px
 
 #payment-processor-messaging
   margin: 20px 0 0

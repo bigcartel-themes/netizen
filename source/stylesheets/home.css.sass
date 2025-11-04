@@ -13,12 +13,15 @@
   border: $border
   height: 100%
   margin: 0 auto
-  max-width: 1400px
+  max-width: $break-extra-large
   min-height: 850px
   max-height: 850px
   overflow: hidden
   position: relative
   width: 100%
+
+  @media screen and (max-width: $break-medium)
+    margin-left: auto
 
   img
     display: block
@@ -44,8 +47,10 @@
     img
       height: 450px
 
-  @media screen and (max-width: $break-small)
+  @media screen and (max-width: $break-medium)
     border-top: 0
+    border-left: 0
+    border-right: 0
 
   .flickity-page-dots
     bottom: 20px
