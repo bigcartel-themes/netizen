@@ -214,7 +214,7 @@
               </div>
               
               {% if theme.welcome_button_text != blank %}
-                <a href="{% if theme.welcome_button_link != blank and theme.welcome_button_behavior == 'navigate' %}{{ theme.welcome_button_link }}{% else %}/products{% endif %}" class="button">{{ theme.welcome_button_text }}</a>
+                <a href="{% if theme.welcome_button_behavior == 'scroll' %}#{% elsif theme.welcome_button_link != blank %}{{ theme.welcome_button_link }}{% else %}/products{% endif %}" class="button">{{ theme.welcome_button_text }}</a>
               {% endif %}
             </div>
             <div class="pattern {{ theme.welcome_overlay }}"></div>
