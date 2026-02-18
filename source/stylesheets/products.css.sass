@@ -164,6 +164,12 @@
 .price-suffix
   white-space: nowrap
 
+// Strikethrough pricing styles
+.price-compare
+  text-decoration: line-through
+  opacity: 0.6
+  margin-right: 0.53em
+
 .product-list-thumb-options-description
   font-style: italic
   font-size: calc(#{"{% if theme.max_products_per_row == 3 %} 0.875rem {% else %} 1.25rem {% endif %}"} * var(--product-grid-scale, 1))
