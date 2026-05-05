@@ -32,6 +32,7 @@
       margin: 0px 10px 40px
 
 .product-list-item
+  cursor: default
   display: block
   font-size: 0
   padding: #{"{% if theme.max_products_per_row == 3 %} 10px {% else %} 25px {% endif %}"}
@@ -39,6 +40,13 @@
   position: relative
   vertical-align: middle
   width: #{"{% if theme.max_products_per_row == 3 %} 33.33% {% elsif theme.max_products_per_row == 2 %} 50% {% else %} 100% {% endif %}"}
+
+  &:hover, &:focus
+    text-decoration: none
+
+    .product-list-item-name
+      text-decoration: underline
+      text-underline-offset: 3px
 
   @media only screen and (min-width: $break-medium) and (hover: hover), (-moz-touch-enabled: 0)
     &.rollover
@@ -78,7 +86,7 @@
     width: #{"{% if theme.max_products_per_row_mobile == 2 %} 50% {% else %} 100% {% endif %}"}
 
 .product-list-item-container
-  cursor: default
+  cursor: pointer
   position: relative
   width: 100%
 
@@ -155,6 +163,12 @@
 
 .price-suffix
   white-space: nowrap
+
+// Strikethrough pricing styles
+.price-compare
+  text-decoration: line-through
+  opacity: 0.6
+  margin-right: 0.53em
 
 .product-list-thumb-options-description
   font-style: italic
