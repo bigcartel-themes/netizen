@@ -424,7 +424,7 @@
               <a class="product-list-item {{ theme.show_overlay }}" href="{{ related_product.url }}" title="{{ related_product.name | escape }}">
                 <div class="product-list-item-container">
                   <figure class="product-list-image-container">
-                    <img alt="Image of {{ related_product.name | escape }}" class="product-list-image" src="{{ related_product.image | product_image_url | constrain: 1000, 1000 }}">
+                    <img alt="Image of {{ related_product.name | escape }}" class="product-list-image" src="{{ related_product.image | product_image_url | constrain: 1000, 1000 }}" loading="lazy">
                     {% if product_status != blank %}<div class="product-list-item-status">{{ product_status }}</div>{% endif %}
                   </figure>
                   <div class="product-list-item-info">
