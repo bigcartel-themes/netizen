@@ -257,14 +257,14 @@
               <ul class="unstyled page-nav-items">
               <li><a href="/">{{ t['navigation.home'] }}</a></li>
               <li><a href="/products">{{ t['navigation.products'] }}</a></li>
+              {% if pages.subscribe_page %}
+                <li class="artist-support"><a href="{{ pages.subscribe_page.url }}">{{ t['navigation.subscribe'] }}</a></li>
+              {% endif %}
               <li><a href="/cart">{{ t['navigation.cart'] }}{% if cart.item_count > 0 %} (<span class="cart-num-items">{{ cart.item_count }}</span>){% endif %}</a></li>
               {% if theme.nav_page_display == "all" or theme.nav_page_display == "pages_only" %}
                 {% for custom_page in pages.custom_pages limit: theme.nav_items %}
                   <li>{{ custom_page | link_to }}</li>
                 {% endfor %}
-              {% endif %}
-              {% if pages.subscribe_page %}
-                <li class="artist-support"><a href="{{ pages.subscribe_page.url }}">{{ t['navigation.subscribe'] }}</a></li>
               {% endif %}
               {% if theme.nav_page_display == "all" or theme.nav_page_display == "contact_only" %}
                 <li><a href="/contact">{{ t['navigation.contact'] }}</a></li>
